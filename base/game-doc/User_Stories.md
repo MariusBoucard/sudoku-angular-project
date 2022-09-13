@@ -68,18 +68,4 @@
 3. End of game
    1. A la fin de la partie, le classement doit s'afficher automatiquement afin que le joueur puisse être témoin de son accession (ou non) au podium. 
 
-\-> clique gauche -> affiche les valeurs
 
-\-> clique droit -> prend la première valeur suggérée (si une valeur possible c'est niquel)
-
-\-> gris endroit ou on est -> clique sur n'importe quelle cellule pour revenir
-
-\-> violet/rose : choix risqué (pas trivial, plusieurs possibilités donc pas sûr de prendre le bon chemin => utile pour faciliter le retour arriere en cas de blocage plus tard, pour revenir au dernier choix à risque)
-
-\-> attention aux fichiers cachés quand on commit
-
-\-> git checkout + nom du commit, on récupère le code de ce commit -> On peut revenir pour le versionning, on peut mettre des tags sur les versions
-
-\-> on crée les tags en locals, puis il faut faire l'adaptation en remote aussi
-
-ssh -T git@gitlab.insa-rennes.fr -p 16022
