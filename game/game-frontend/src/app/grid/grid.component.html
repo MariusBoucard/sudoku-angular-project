@@ -1,0 +1,10 @@
+<div class="grid-container" >
+    <div class="grid-item" (mouseenter)="hovered(n)"
+    (mouseleave)="unhovered(n)" *ngFor="let n of fakeArray" [ngStyle]="{'background-color': (selectedTabName === n) ? 'grey' : (errorArray[n]) ? 'red' :'white' }">
+      <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
+  
+      {{getValue(n)}}
+      <!-- {{n}} -->
+    </div>
+  </div>
+  
