@@ -1,0 +1,53 @@
+boolean fillRemaining(int i, int j)
+    {
+        //  System.out.println(i+" "+j);
+        //PASSAGE A LA LIGNE SUIVANTE
+        if (j>=N && i<N-1)
+        {
+            i = i + 1;
+            j = 0;
+        }
+        //si sorti de la matrice
+        if (i>=N && j>=N)
+            return true;
+        
+        
+        if (i < SRN)
+        {
+            //Si premier carré
+            if (j < SRN)
+                j = SRN;
+        }
+        
+        else if (i < N-SRN)
+        {
+            //si kré milieu
+            if (j==(int)(i/SRN)*SRN)
+                j =  j + SRN;
+        }
+        else
+        {   //check si pas dernier carré
+            if (j == N-SRN)
+            {
+                i = i + 1;
+                j = 0;
+                if (i>=N)
+                    return true;
+            }
+        }
+ 
+        for (int num = 1; num<=N; num++)
+        {
+            if (CheckIfSafe(i, j, num))
+            {
+                mat[i][j] = num;
+                //Si on peut mettre cette valeur, on la met et appelle recursivement pour faire toute la grille
+                if (fillRemaining(i, j+1))
+                    return true;
+                //si cette valeur la de case etait pas possible alors elle est mise à 0 et on va tester pour les autres valeurs,
+                //car c'était peut etre possible sur le papier mais ensuite ca a abouti à une fausse route.
+                mat[i][j] = 0;
+            }
+        }
+        return false;
+    }
