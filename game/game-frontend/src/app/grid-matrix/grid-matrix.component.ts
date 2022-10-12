@@ -29,7 +29,7 @@ export class GridMatrixComponent implements OnInit {
     }
 
     this.fillDiag();
-    this.fillRest(0,9);
+    // this.fillRest(0,9);
     console.log("error "+this.errorArray);
 
     for(var i =0;i<9;i++){
@@ -268,6 +268,24 @@ unhovered(tab : number) {
   
 }
 
+getClass(n : number){
+  var retour = "grid-item ";
+  if(n==80){
+    return retour;
+  }
+  if(n==0){
+    return retour;
+  }
+  if(((n) %3)==0){
+    retour+=' lignedroite ';
+  }
+  if(((n-1)%27)<9){
+    retour+=' lignebas ';
+  }
+
+
+  return retour+"";
+}
 
 
 
