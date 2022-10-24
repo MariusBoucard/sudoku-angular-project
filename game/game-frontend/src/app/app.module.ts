@@ -15,14 +15,16 @@ import {FormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {RouterModule} from "@angular/router";
 import {InteractoModule, interactoTreeUndoProviders} from "interacto-angular";
-import { GridComponent } from './grid/grid.component';
+import { GridComponent } from './components/grid/grid.component';
 import { GridMatrixComponent } from './grid-matrix/grid-matrix.component';
+import { ClassementComponent } from './components/classement/classement.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
-    GridMatrixComponent
+    GridMatrixComponent,
+    ClassementComponent
   ],
     imports: [
         BrowserModule,
