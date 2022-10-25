@@ -182,4 +182,22 @@ export class GridComponent implements OnInit {
     }
 
   }
+
+  getClass(n : number):String{
+    var retour = "grid-item ";
+    if(n==80){
+      return retour;
+    }
+
+    if(((n+1) %3)==0){
+      retour+=' lignedroite ';
+    }
+    if(((n)%27)<9){
+      retour+=' lignebas ';
+    }
+  
+  
+    return retour+"";
+  
+  }
 }
