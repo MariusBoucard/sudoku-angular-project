@@ -15,11 +15,12 @@ export class GridComponent implements OnInit {
 
   title = 'sudokugrid';
 
-  selectedTabName = 0;
-  fakeArray = new Array(81).fill(0).map((i, idx) => idx + 1);
+  selectedTabName = -1;
+  fakeArray =new Array(81).fill(null).map((_, i) => i );
 
   ngOnInit(): void {
 
+    console.log(this.fakeArray);
     for (var i = 0; i < 81; i++) {
 
       this.TileList.push(new Tile(Math.floor(Math.random() * 9) + 1));
@@ -33,13 +34,13 @@ export class GridComponent implements OnInit {
 
 
   index_to_coordinates(index: number): number[] {
-    var ligne = index / 9;
-    var colonne = index % 9;
+    var ligne = Math.floor(index / 9);
+    var colonne = Math.floor(index % 9);
     return [colonne, ligne];
   }
 
   coordinates_to_index(ligne: number, colonne: number): number {
-    return ligne * 9 + colonne;
+    return Math.floor(ligne * 9 + colonne);
   }
 
   getTile(ligne: number, colonne: number): Tile {
@@ -109,7 +110,11 @@ export class GridComponent implements OnInit {
     //Update les valeurs suggérées pour toute la colonne, pour toute la ligne pour tout le carré
 
   }
-
+  /**
+   * 
+   * @param index index of the tile for whom we want to update suggested values
+   * @returns return the list of values we can play for this tile without making it false
+   */
   getSuggestedValue(index: number): number[] {
     var retour = []
     var coord = this.index_to_coordinates(index);
@@ -118,18 +123,30 @@ export class GridComponent implements OnInit {
       for (var col = 0; col < 9; col++) {
         if (this.TileList[i + coord[1] * 9].value === i && (i + coord[1]) !== index) {
           resultat = false;
+          break;
         }
+      }
+      if(resultat===false){
+        break;
       }
       for (var ligne = 0; ligne < 9; ligne++) {
         if (this.TileList[i * 9 + coord[0]].value === i && (i * 9 + coord[0]) !== index) {
           resultat = false;
+          break;
         }
+      }
+      if(resultat===false){
+        break;
       }
       for (ligne = coord[1] / 3; ligne < 3; ligne++) {
         for (col = coord[0] / 3; col < 3; col++) {
           if (this.TileList[this.coordinates_to_index(ligne, col)].value === i && this.coordinates_to_index(ligne, col) !== index) {
             resultat = false;
+            break;
           }
+        }
+        if(resultat===false){
+          break;
         }
       }
       if (resultat) {
@@ -143,11 +160,14 @@ export class GridComponent implements OnInit {
   hovered(tab: number) {
     this.selectedTabName = tab;
     var coord = this.index_to_coordinates(tab);
+    console.log("Hovered index" + tab);
     console.log("Hovered coords" + coord);
+
   }
   unhovered(tab: number) {
     if (this.selectedTabName === tab) {
-      this.selectedTabName = 0;
+      this.selectedTabName = -1;
+     
     }
 
   }
