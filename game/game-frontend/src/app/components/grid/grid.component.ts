@@ -30,6 +30,10 @@ export class GridComponent implements OnInit {
 
       this.setValue(i,Math.floor(Math.random() * 9) + 1);
     }
+    for(var i =0;i<81;i++){
+      this.TileList[i].constraintRespected = this.checkTile(i);
+    }
+    
   }
 
 
@@ -52,7 +56,7 @@ export class GridComponent implements OnInit {
 
     this.TileList[index].value = value;
     this.TileList[index].constraintRespected = this.checkTile(index);
-    this.updateSuggestedValues(index);
+    // this.updateSuggestedValues(index);
   }
 
   checkTile(index: number): boolean {
@@ -76,7 +80,7 @@ export class GridComponent implements OnInit {
     var resultat = true;
     var coord = this.index_to_coordinates(index);
     for (var i = 0; i < 9; i++) {
-      if (this.TileList[i + coord[1] * 9].value === this.TileList[index].value && (i + coord[1]) !== index) {
+      if (this.TileList[i + coord[1] * 9].value === this.TileList[index].value && (i + coord[1]* 9) !== index) {
         resultat = false;
       }
     }
@@ -87,8 +91,12 @@ export class GridComponent implements OnInit {
   checkSubGrid(index: number): boolean {
     var resultat = true;
     var coord = this.index_to_coordinates(index);
-    for (var ligne = coord[1] / 3; ligne < 3; ligne++) {
-      for (var col = coord[0] / 3; col < 3; col++) {
+    console.log("on va degligue a partir de la ligne : "+ Math.floor(coord[1] / 3));
+    console.log("on va degligue a partir de la colonne : "+ Math.floor(coord[0] / 3));
+    let lignedepart = Math.floor(coord[1] / 3)*3;
+    let colonnedepart=  Math.floor(coord[0] / 3)*3;
+    for (var ligne = lignedepart; ligne< lignedepart+3; ligne++) {
+      for (var col = colonnedepart; col < colonnedepart+3; col++) {
         if (this.TileList[this.coordinates_to_index(ligne, col)].value === this.TileList[index].value && this.coordinates_to_index(ligne, col) !== index) {
           resultat = false;
         }
@@ -160,9 +168,12 @@ export class GridComponent implements OnInit {
   hovered(tab: number) {
     this.selectedTabName = tab;
     var coord = this.index_to_coordinates(tab);
+    
+    
     console.log("Hovered index" + tab);
     console.log("Hovered coords" + coord);
-
+    console.log(this.checkTile(tab));
+    console.log("est ce que contrainte OK : "+this.TileList[tab].constraintRespected);
   }
   unhovered(tab: number) {
     if (this.selectedTabName === tab) {
