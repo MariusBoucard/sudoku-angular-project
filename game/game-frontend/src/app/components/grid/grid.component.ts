@@ -7,6 +7,10 @@ import { ClassementComponent } from '../classement/classement.component';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css']
 })
+
+/**
+ * Component that display the grid
+ */
 export class GridComponent implements OnInit {
   id = 0;
   difficulte: Difficulte = 1;
@@ -36,22 +40,44 @@ export class GridComponent implements OnInit {
     
   }
 
-
+/**
+ * 
+ * @param index is the position of the element in the fake array. Goes from 0 to 80 
+ * @returns An array [Column,line] representing the position of the element in a squared matrix
+ */
   index_to_coordinates(index: number): number[] {
     var ligne = Math.floor(index / 9);
     var colonne = Math.floor(index % 9);
     return [colonne, ligne];
   }
-
+  /**
+   * 
+   * @param ligne current line in the sudoku grid
+   * @param colonne current colonne in the sudoku grid (both parameter represents the coordinates)
+   * @returns an index corresponding to the one needed to access to the data in TIleList.
+   */
   coordinates_to_index(ligne: number, colonne: number): number {
     return Math.floor(ligne * 9 + colonne);
   }
 
+  /**
+   * 
+   * @param ligne line and colonne represents the coordinates of the displayed matrix for whom we wants to get the tile
+   * @param colonne Column coordinate of the element we want to get
+   * @returns return the Tile from TileList of coordinates corresponding to the one in entry
+   */
   getTile(ligne: number, colonne: number): Tile {
     return this.TileList[this.coordinates_to_index(ligne, colonne)];
   }
 
   //Won't be implemented like that but we'll have to see how with history
+  /**
+   * 
+   * @param index index in the TileList of the Tile we want to set the value
+   * This function do everything in this -> set the tile value, check if the constraint is still ok
+   * and updates the suggestedValues
+   * @param value Value we want to set to the tile
+   */
   setValue(index: number, value: number) {
 
     this.TileList[index].value = value;
@@ -59,11 +85,20 @@ export class GridComponent implements OnInit {
     // this.updateSuggestedValues(index);
   }
 
+  /**
+   * Check the validity of a tile, usefull for exemple after setting it's value
+   * @param index index of the tile we want to check the validity
+   * @returns boolean : true if everything's OK and False if something is wront
+   */
   checkTile(index: number): boolean {
     return this.checkColumn(index) && this.checkLine(index) && this.checkSubGrid(index);
   }
 
-
+  /**
+   * 
+   * @param index index of the tile for which we want to check the validity at the column level
+   * @returns boolean : true if it's ok, false either.
+   */
   checkColumn(index: number): boolean {
     var resultat = true;
     var coord = this.index_to_coordinates(index);
@@ -75,7 +110,11 @@ export class GridComponent implements OnInit {
 
     return resultat;
   }
-
+  /**
+   * 
+   * @param index index of the tile for which we want to check the validity at the line level
+   * @returns  boolean : true if it's ok, false either.
+   */
   checkLine(index: number): boolean {
     var resultat = true;
     var coord = this.index_to_coordinates(index);
@@ -87,7 +126,11 @@ export class GridComponent implements OnInit {
 
     return resultat;
   }
-
+  /**
+   * 
+   * @param index index of the tile for which we want to check the validity at the subgrid level
+   * @returns  boolean : true if it's ok, false either.
+   */
   checkSubGrid(index: number): boolean {
     var resultat = true;
     var coord = this.index_to_coordinates(index);
@@ -104,6 +147,11 @@ export class GridComponent implements OnInit {
     }
     return resultat;
   }
+
+  /**
+   * 
+   * @returns boolean saying if the game is finished (true if it is)
+   */
   isFinished(): boolean {
     var resultat = true;
     for (var i = 0; i < 81; i++) {
@@ -114,12 +162,18 @@ export class GridComponent implements OnInit {
     return resultat;
   }
 
+  /**
+   * 
+   * @param index index of the tile we just changed the value
+   * This function aims to change the suggested values of all the Tiles that are influenced by the one 
+   * just played
+   */
   updateSuggestedValues(index: number) {
     //Update les valeurs suggérées pour toute la colonne, pour toute la ligne pour tout le carré
 
   }
   /**
-   * 
+   * This function permit to determine the set of values we can play on a tile without making it false
    * @param index index of the tile for whom we want to update suggested values
    * @returns return the list of values we can play for this tile without making it false
    */
@@ -164,7 +218,10 @@ export class GridComponent implements OnInit {
     }
     return retour;
   }
-
+/**
+ * Display function that permit to interact with user by changing the current hovered tile and to maybe add update later
+ * @param tab index of the tile hovered
+ */
   hovered(tab: number) {
     this.selectedTabName = tab;
     var coord = this.index_to_coordinates(tab);
@@ -175,6 +232,10 @@ export class GridComponent implements OnInit {
     console.log(this.checkTile(tab));
     console.log("est ce que contrainte OK : "+this.TileList[tab].constraintRespected);
   }
+  /**
+   * This function aim to do the opposit thing than the previous on hovered
+   * @param tab index of the tab we just quit with the mouse
+   */
   unhovered(tab: number) {
     if (this.selectedTabName === tab) {
       this.selectedTabName = -1;
@@ -182,7 +243,11 @@ export class GridComponent implements OnInit {
     }
 
   }
-
+/**
+ * 
+ * @param n index in the tab 
+ * @returns return the css class to apply to the tile to make it really beautiful (Just joking bro)
+ */
   getClass(n : number):String{
     var retour = "grid-item ";
     if(n==80){
@@ -195,8 +260,6 @@ export class GridComponent implements OnInit {
     if(((n)%27)<9){
       retour+=' lignebas ';
     }
-  
-  
     return retour+"";
   
   }

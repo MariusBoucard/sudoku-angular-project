@@ -18,13 +18,15 @@ import {InteractoModule, interactoTreeUndoProviders} from "interacto-angular";
 import { GridComponent } from './components/grid/grid.component';
 import { GridMatrixComponent } from './grid-matrix/grid-matrix.component';
 import { ClassementComponent } from './components/classement/classement.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
     GridMatrixComponent,
-    ClassementComponent
+    ClassementComponent,
+    GameComponent
   ],
     imports: [
         BrowserModule,
