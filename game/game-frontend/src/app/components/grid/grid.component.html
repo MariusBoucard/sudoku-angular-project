@@ -1,10 +1,9 @@
 <div class="grid-container" >
     <div class="grid-item" (mouseenter)="hovered(n)"
-    (mouseleave)="unhovered(n)" *ngFor="let n of fakeArray" [ngClass]="getClass(n)" [ngStyle]="{'background-color': (!TileList[n].constraintRespected) ? ((selectedTabName==n) ? 'grey' :'red' ) :((selectedTabName==n) ? 'grey' :'white' )}">
+         (mouseleave)="unhovered(n)" *ngFor="let n of indexArray" [ngStyle]="{'background-color': (!tileList[n].constraintRespected) ? ((selectedTabName==n) ? 'grey' :'red' ) :((selectedTabName==n) ? 'grey' :'white' )}">
       <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
-  
-      {{TileList[n].value}}
+
+      {{tileList[n].value}}
       <!-- {{n}} -->
     </div>
   </div>
-  
