@@ -21,3 +21,9 @@
   .lignebas{
     border-top: 5px solid rgba(0, 0, 0, 1);
   }
+
+  .suggested{
+    margin-top: 0px;
+    font-size: small;
+    color: grey;
+  }

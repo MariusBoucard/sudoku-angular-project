@@ -38,7 +38,9 @@ export class GridComponent implements OnInit {
     for (let i = 0; i < 81; i++) {
       this.tileList[i].constraintRespected = this.checkTile(i);
     }
-
+    for (let i = 0; i < 81; i++) {
+      this.updateSuggestedValues(i);
+    }
   }
 
   /**
@@ -167,12 +169,67 @@ export class GridComponent implements OnInit {
   }
 
   /**
+   * 
+   * @param index index of the Tile we vant to know it's neighbours
+   */
+  indexSubGrid(index : number):number[]{
+    let res = [];
+    let coord=this.index_to_coordinates(index);
+    let lignedepart = Math.floor(coord[1] / 3) * 3;
+    let colonnedepart = Math.floor(coord[0] / 3) * 3;
+    for (let ligne = lignedepart; ligne < lignedepart + 3; ligne++) {
+      for (let col = colonnedepart; col < colonnedepart + 3; col++) {
+        if(this.coordinates_to_index(ligne,col)!==index){
+
+          res.push(this.coordinates_to_index(ligne,col));
+        }
+      }
+    }
+    
+    return res;
+  }
+    /**
+   * 
+   * @param index index of the Tile we vant to know it's neighbours
+   */
+     indexLine(index : number):number[]{
+      let res = [];
+      let coord=this.index_to_coordinates(index);
+      for (let i = 0; i < 9; i++) {
+        if ((i + coord[1] * 9) !== index) {
+          res.push(i + coord[1] * 9);
+        }
+      }
+      return res;
+    }
+      /**
+   * 
+   * @param index index of the Tile we vant to know it's neighbours
+   */
+  indexColumn(index : number):number[]{
+    let res = [];
+    let coord=this.index_to_coordinates(index);
+    for (let i = 0; i < 9; i++) {
+      if ((i * 9 + coord[0]) !== index) {
+        res.push((i * 9 + coord[0]));
+      }
+    }
+    return res;
+  }
+  /**
    *
    * @param index index of the tile we just changed the value
    * This function aims to change the suggested values of all the Tiles that are influenced by the one
    * just played
    */
   updateSuggestedValues(index: number) {
+    this.tileList[index].suggestedValues = this.getSuggestedValue(index);
+    var subgridIndex = this.indexSubGrid(index);
+    var lineIndex = this.indexLine(index);
+    var columnIndex = this.indexColumn(index);
+    subgridIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
+    lineIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
+    columnIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
     //Update les valeurs suggérées pour toute la colonne, pour toute la ligne pour tout le carré
 
   }
