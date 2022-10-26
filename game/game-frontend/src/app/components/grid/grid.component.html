@@ -2,7 +2,7 @@
     <div [ngClass]="getClass(n)" (mouseenter)="hovered(n)"
          (mouseleave)="unhovered(n)" *ngFor="let n of indexArray" [ngStyle]="{'background-color': (!contraintRespected(n)) ? ((getSelected(n)==n) ? 'grey' :'red' ) :((getSelected(n)==n) ? 'grey' :'white' )}">
       <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
-        <p></p>
+      
         <p class="suggested">{{getSuggestedValues(n)}}</p>
       {{getValue(n)}}
       <!-- {{n}} -->

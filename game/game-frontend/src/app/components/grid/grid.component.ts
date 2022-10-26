@@ -45,11 +45,10 @@ export class GridComponent implements OnInit {
 
   }
   getValue(index : number):number{
-    console.log("valeur de l'index : "+index+" est "+this.gameService.getValue(index));
     return this.gameService.getValue(index);
   }
   getSuggestedValues(index : number):number[]{
-
+    console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
     return this.gameService.getSuggestedValue(index);
   }
   getSelected(n : number):number{

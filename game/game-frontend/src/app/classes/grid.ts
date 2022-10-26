@@ -17,27 +17,29 @@ export class Grid {
 
   selectedTabName = -1;
 
-    constructor(){}
+    constructor(){
+      for (let i = 0; i < 81; i++) {
+
+        this.tileList.push(new Tile());
+      }
+  
+      for (let i = 0; i < 81; i++) {
+  
+        this.setValue(i, Math.floor(Math.random() * 9) + 1);
+      }
+      for (let i = 0; i < 81; i++) {
+        this.tileList[i].constraintRespected = this.checkTile(i);
+      }
+      for (let i = 0; i < 81; i++) {
+        this.updateSuggestedValues(i);
+      }
+  
+      console.log("Grid created");
+    }
   
     ngOnInit(): void {
 
-    for (let i = 0; i < 81; i++) {
-
-      this.tileList.push(new Tile());
-    }
-
-    for (let i = 0; i < 81; i++) {
-
-      this.setValue(i, Math.floor(Math.random() * 9) + 1);
-    }
-    for (let i = 0; i < 81; i++) {
-      this.tileList[i].constraintRespected = this.checkTile(i);
-    }
-    for (let i = 0; i < 81; i++) {
-      this.updateSuggestedValues(i);
-    }
-
-    console.log("Grid created");
+   
   }
   getClassement(){
     return this.classement;
@@ -139,8 +141,6 @@ export class Grid {
   checkSubGrid(index: number): boolean {
     let resultat = true;
     const coord = this.index_to_coordinates(index);
-    console.log("on va degligue a partir de la ligne : " + Math.floor(coord[1] / 3));
-    console.log("on va degligue a partir de la colonne : " + Math.floor(coord[0] / 3));
     let lignedepart = Math.floor(coord[1] / 3) * 3;
     let colonnedepart = Math.floor(coord[0] / 3) * 3;
     for (let ligne = lignedepart; ligne < lignedepart + 3; ligne++) {
@@ -244,7 +244,7 @@ export class Grid {
     for (let i = 1; i < 10; i++) {
       let resultat = true;
       for (let col = 0; col < 9; col++) {
-        if (this.tileList[i + coord[1] * 9].value === i && (i + coord[1]) !== index) {
+        if (this.tileList[col + coord[1] * 9].value === i && (col + coord[1]) !== index) {
           resultat = false;
           break;
         }
@@ -253,7 +253,7 @@ export class Grid {
         break;
       }
       for (let ligne = 0; ligne < 9; ligne++) {
-        if (this.tileList[i * 9 + coord[0]].value === i && (i * 9 + coord[0]) !== index) {
+        if (this.tileList[ligne * 9 + coord[0]].value === i && (ligne * 9 + coord[0]) !== index) {
           resultat = false;
           break;
         }
