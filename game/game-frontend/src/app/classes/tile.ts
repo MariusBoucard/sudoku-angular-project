@@ -3,8 +3,8 @@ export class Tile {
     suggestedValues : number[] = [];
     constraintRespected : boolean = false;
 
-    constructor(nombre : number){
-        this.value=nombre;
+    constructor(){
+       
     }
 
     /**
