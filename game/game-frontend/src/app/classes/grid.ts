@@ -249,18 +249,16 @@ export class Grid {
           break;
         }
       }
-      if (!resultat) {
-        break;
-      }
-      for (let ligne = 0; ligne < 9; ligne++) {
-        if (this.tileList[ligne * 9 + coord[0]].value === i && (ligne * 9 + coord[0]) !== index) {
-          resultat = false;
-          break;
+      if(resultat){
+
+        for (let ligne = 0; ligne < 9; ligne++) {
+          if (this.tileList[ligne * 9 + coord[0]].value === i && (ligne * 9 + coord[0]) !== index) {
+            resultat = false;
+            break;
+          }
         }
       }
-      if (!resultat) {
-        break;
-      }
+      if(resultat){
       for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
         for (let col = coord[0] / 3; col < 3; col++) {
           if (this.tileList[this.coordinates_to_index(ligne, col)].value === i && this.coordinates_to_index(ligne, col) !== index) {
@@ -268,10 +266,9 @@ export class Grid {
             break;
           }
         }
-        if (!resultat) {
-          break;
-        }
+        
       }
+    }
       if (resultat) {
         retour.push(i);
       }
