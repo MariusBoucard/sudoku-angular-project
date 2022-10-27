@@ -2,7 +2,8 @@ export class Tile {
     value : number = -1;
     suggestedValues : number[] = [];
     constraintRespected : boolean = false;
-
+    modifiable =true;
+    
     constructor(){
        
     }
