@@ -1,12 +1,12 @@
 
 export class Player {
-    name : String ="";
+    name : String;
     /**
-     * @Param : the score of the player is the number of 
+     * @Param : the score of the player is the number of
      * time he played.
      */
     score : number = 0;
-    constructor(name:String){
+    constructor(name:String = ""){
         this.name = name;
     }
 
