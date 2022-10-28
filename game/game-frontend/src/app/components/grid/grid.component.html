@@ -1,10 +1,10 @@
 <div class="grid-container" >
     <div [ngClass]="getClass(n)" (mouseenter)="hovered(n)"
-         (mouseleave)="unhovered(n)" *ngFor="let n of indexArray" [ngStyle]="{'background-color': (!tileList[n].constraintRespected) ? ((selectedTabName==n) ? 'grey' :'red' ) :((selectedTabName==n) ? 'grey' :'white' )}">
+         (mouseleave)="unhovered(n)" *ngFor="let n of indexArray" [ngStyle]="{'background-color': (!contraintRespected(n)) ? ((getSelected(n)==n) ? 'grey' :'red' ) :((getSelected(n)==n) ? 'grey' :'white' )}">
       <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
-        
-        <p class="suggested">{{tileList[n].suggestedValues}}</p>
-      {{tileList[n].value}}
+      
+        <p class="suggested">{{getSuggestedValues(n)}}</p>
+      {{getValue(n)}}
       <!-- {{n}} -->
     </div>
   </div>

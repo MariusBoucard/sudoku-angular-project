@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from 'src/app/classes/player';
-import { GridComponent } from '../grid/grid.component';
+
 
 @Component({
   selector: 'app-game',
@@ -12,7 +12,7 @@ export class GameComponent implements OnInit {
   //Default value here to prevent error
   player : Player = new Player("Sly Bar");
   history : History | undefined;
-  grid : GridComponent = new GridComponent;
+ 
   constructor() { }
 
   ngOnInit(): void {
