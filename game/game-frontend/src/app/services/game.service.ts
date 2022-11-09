@@ -29,5 +29,9 @@ export class GameService {
    contraintRespected(index : number):boolean{
     return this.grid.tileList[index].constraintRespected;
    }
+
+   setValue(id : number,valeur:number){
+    this.grid.setValue(id,valeur);
+   }
 }
 

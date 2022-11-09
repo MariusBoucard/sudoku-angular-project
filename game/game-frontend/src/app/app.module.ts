@@ -19,6 +19,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { GridMatrixComponent } from './grid-matrix/grid-matrix.component';
 import { ClassementComponent } from './components/classement/classement.component';
 import { GameComponent } from './components/game/game.component';
+import {HotkeyModule} from 'angular2-hotkeys';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { GameComponent } from './components/game/game.component';
         MatListModule,
         FormsModule,
         MatCheckboxModule,
-        RouterModule
+        RouterModule,
+        HotkeyModule.forRoot()
     ],
   providers: [interactoTreeUndoProviders(true)],
   bootstrap: [AppComponent]

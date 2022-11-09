@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -75,4 +75,15 @@ export class GridComponent implements OnInit {
     return retour + "";
 
   }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+      if(this.gameService.getSelected() !== -1){
+        if(Number(event.key)  )
+        this.gameService.setValue(this.gameService.getSelected(),(event.key as unknown as number));
+      }
+
+    
+  }
+  
 }
