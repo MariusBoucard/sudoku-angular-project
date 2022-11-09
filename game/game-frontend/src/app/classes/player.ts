@@ -1,4 +1,6 @@
+import { Inject, Injectable } from "@angular/core";
 
+@Injectable()
 export class Player {
     name : String;
     /**
@@ -6,7 +8,7 @@ export class Player {
      * time he played.
      */
     score : number = 0;
-    constructor(name:String = ""){
+    constructor(@Inject("defaultName") name:String ){
         this.name = name;
     }
 

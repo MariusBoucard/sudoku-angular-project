@@ -1,6 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
+import { Bindings, TreeUndoHistory, UndoableSnapshot } from 'interacto';
+import { PartialMatSelectBinder } from 'interacto-angular';
 // import { TreeHistoryComponent } from 'interacto-angular';
-import { Player } from 'src/app/classes/player';
+import { setValue } from 'src/app/commands/setValue';
+import { GameService } from 'src/app/services/game.service';
 
 
 @Component({
@@ -11,18 +14,24 @@ import { Player } from 'src/app/classes/player';
 export class GameComponent implements OnInit {
 
   //Default value here to prevent error
-  player : Player = new Player("Sly Bar");
+  
 
   // @ViewChild('treeComp')
   // private treeComp: TreeHistoryComponent;
   
-  constructor() { }
+  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>) { }
 
   ngOnInit(): void {
   }
+
   incrScore(){
-    this.player.setScore(this.player.getScore()+1);
+    this.gameService.setScore(this.gameService.getScore()+1);
   }
+
+  public setValue(binder: PartialMatSelectBinder, index: number) {
+    binder.toProduce(() => new setValue(index,5,this.gameService ))
+    .bind();
+    }
 
 /**
  * We have to define some action 
@@ -41,6 +50,10 @@ export class GameComponent implements OnInit {
    * This function aim to change the name of the player during the game
    */
   changeName(newName : String){
-    this.player.setName(newName);
+    this.gameService.player.setName(newName);
+  }
+  //From the help manual in moodle
+  rootRenderer(): UndoableSnapshot {
+    return setValue.getSnapshot(this.gameService.currentGame);
   }
 }

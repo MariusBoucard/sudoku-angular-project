@@ -20,6 +20,8 @@ import { GridMatrixComponent } from './grid-matrix/grid-matrix.component';
 import { ClassementComponent } from './components/classement/classement.component';
 import { GameComponent } from './components/game/game.component';
 import {HotkeyModule} from 'angular2-hotkeys';
+import { GameService } from "./services/game.service";
+import { Player } from "./classes/player";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,13 @@ import {HotkeyModule} from 'angular2-hotkeys';
         HotkeyModule.forRoot(),
         InteractoModule
     ],
-  providers: [interactoTreeUndoProviders(true)],
+  providers: [
+    interactoTreeUndoProviders(true),
+    GameService,
+    Player,
+    {provide: 'gameServ', useClass: GameService},
+    {provide: 'defaultName', useValue: 'Sly Bar'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

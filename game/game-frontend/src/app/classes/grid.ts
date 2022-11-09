@@ -71,8 +71,8 @@ export class Grid {
    * @param colonne Column coordinate of the element we want to get
    * @returns return the Tile from TileList of coordinates corresponding to the one in entry
    */
-  getTile(ligne: number, colonne: number): Tile {
-    return this.tileList[this.coordinates_to_index(ligne, colonne)];
+  getTile(index : number): Tile {
+    return this.tileList[index];
   }
 
   //Won't be implemented like that but we'll have to see how with history

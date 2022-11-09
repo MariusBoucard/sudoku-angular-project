@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -11,10 +11,11 @@ import { GameService } from 'src/app/services/game.service';
  * Component that display the grid
  */
 export class GridComponent implements OnInit {
-  
-  constructor(public gameService : GameService){
 
+  //The inject is meant to use the same gameService for both gamecomponent and grid
+  constructor(@Inject('gameServ')  public gameService : GameService){
   }
+  
   ngOnInit(){}
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
