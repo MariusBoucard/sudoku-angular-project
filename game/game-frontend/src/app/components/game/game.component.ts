@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TreeHistoryComponent } from 'interacto-angular';
 import { Player } from 'src/app/classes/player';
 
 
@@ -11,8 +12,10 @@ export class GameComponent implements OnInit {
 
   //Default value here to prevent error
   player : Player = new Player("Sly Bar");
-  history : History | undefined;
- 
+
+  @ViewChild('treeComp')
+  private treeComp: TreeHistoryComponent;
+  
   constructor() { }
 
   ngOnInit(): void {

@@ -45,7 +45,8 @@ import {HotkeyModule} from 'angular2-hotkeys';
         FormsModule,
         MatCheckboxModule,
         RouterModule,
-        HotkeyModule.forRoot()
+        HotkeyModule.forRoot(),
+        InteractoModule
     ],
   providers: [interactoTreeUndoProviders(true)],
   bootstrap: [AppComponent]
