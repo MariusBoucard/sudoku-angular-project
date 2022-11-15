@@ -9,7 +9,7 @@ import { Tile } from "./tile";
 export class Grid {
 
   id = 0;
-  difficulte: Difficulte = 1;
+  difficulte: Difficulte = Difficulte.Facile;
   classement: Classement=new Classement();
   tileList: Tile[] = [];
 

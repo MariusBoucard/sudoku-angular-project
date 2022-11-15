@@ -22,6 +22,7 @@ import { GameComponent } from './components/game/game.component';
 import {HotkeyModule} from 'angular2-hotkeys';
 import { GameService } from "./services/game.service";
 import { Player } from "./classes/player";
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { Player } from "./classes/player";
     GridComponent,
     GridMatrixComponent,
     ClassementComponent,
-    GameComponent
+    GameComponent,
+    MenuComponent
   ],
     imports: [
         BrowserModule,
