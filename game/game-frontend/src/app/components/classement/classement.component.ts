@@ -19,6 +19,17 @@ export class ClassementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let player1 = new Player("Dimitri");
+    player1.setScore(42);
+    let player2 = new Player("Godefroid");
+    player2.setScore(69);
+    let player3 = new Player("senslanu");
+    player3.setScore(420);
+    this.classement.push(player1);
+    this.classement.push(player2);
+    this.classement.push(player3);
+
+    //EN SCREED CA PEUT ETRE COOL LA TITE REQUETE HTTP TAVU
   }
 
   /**

@@ -1,1 +1,3 @@
-<p>classement works!</p>
+<div class="classementRow" *ngFor="let player of classement">
+{{player.getName()}} : {{player.getScore()}}
+</div>
