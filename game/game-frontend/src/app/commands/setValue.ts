@@ -1,4 +1,4 @@
-import { UndoableCommand } from "interacto";
+import { UndoableCommand, UndoableSnapshot } from "interacto";
 import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
 
@@ -33,7 +33,9 @@ export class setValue extends UndoableCommand {
 
 
 
-
+    public rootRenderer(): UndoableSnapshot {
+        return setValue.getSnapshot(this.gameService.currentGame);
+        }
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d")!;
@@ -57,4 +59,8 @@ export class setValue extends UndoableCommand {
             imgCache.src = canvas.toDataURL("image/png");
             return imgCache;
         }
+
+        public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | undefined {
+            return setValue.getSnapshot(this.gameService.currentGame);
+            }
 }

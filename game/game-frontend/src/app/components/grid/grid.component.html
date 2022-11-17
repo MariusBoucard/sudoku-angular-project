@@ -3,6 +3,8 @@
 
 </head>
 
+<button [ioButton]="binderClickEndGame">End game</button>
+
 <div class="grid-container" >
 
   <div [ngClass]="getClass(n)" (mouseenter)="hovered(n)"
@@ -15,9 +17,8 @@
     {{getValue(n)}}
     </div>
 
-
-    <mat-select>
-      <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" (onSelectionChange)="gameService.setValue(n, number)">{{number}}</mat-option>
+    <mat-select  [ioClick] (clickBinder)="directSet($event)" >
+      <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" >{{number}}</mat-option>
     </mat-select>
     <!-- {{n}} -->
   </div>

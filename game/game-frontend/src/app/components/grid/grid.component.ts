@@ -1,4 +1,8 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import { PartialButtonBinder, PartialPointBinder } from 'interacto';
+// import { PartialPointBinder } from 'interacto';
+import {  PartialMatSelectBinder } from 'interacto-angular';
+import { setValue } from 'src/app/commands/setValue';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -6,11 +10,11 @@ import { GameService } from 'src/app/services/game.service';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css'],
 })
-
 /**
  * Component that display the grid
  */
 export class GridComponent implements OnInit {
+  // @Output() myEvent = new EventEmitter<string>();
   valueToSet = 0;
   //The inject is meant to use the same gameService for both gamecomponent and grid
   constructor(@Inject('gameServ')  public gameService : GameService){
@@ -49,7 +53,7 @@ export class GridComponent implements OnInit {
     return this.gameService.getValue(index);
   }
   getSuggestedValues(index : number):number[]{
-    console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
+    // console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
     return this.gameService.getSuggestedValue(index);
   }
   getSelected(n : number):number{
@@ -87,4 +91,28 @@ export class GridComponent implements OnInit {
 
   }
 
+  public setValue(binder: PartialMatSelectBinder, index: number) {
+    console.log("Backtracking setValue : here in gridcomponent");
+
+    binder.toProduce(i => new setValue( index, i.change?.value ,this.gameService))
+    .bind();
+    // this.myEvent.emit('yolo');
+    }
+
+    public directSet(binder: PartialPointBinder) {
+      console.log("into direct");
+      binder
+      .toProduce(() =>
+      new setValue(1,this.gameService.getSuggestedValue(1)[0],this.gameService))
+      .when(i => i.button === 2)
+      .bind();
+      }
+      public binderClickEndGame(binder: PartialButtonBinder): void {
+        binder
+          .toProduceAnon(() => this.showEndGame())
+          .bind();
+      }
+      public showEndGame(){
+        console.log("finish")
+      }
 }

@@ -19,23 +19,23 @@ export class Grid {
 
     constructor(){
       
-      // for (let i = 0; i < 81; i++) {
+      for (let i = 0; i < 81; i++) {
 
-      //   this.tileList.push(new Tile());
-      // }
+        this.tileList.push(new Tile());
+      }
   
-      // for (let i = 0; i < 81; i++) {
+      for (let i = 0; i < 81; i++) {
   
-      //   this.setValue(i, Math.floor(Math.random() * 9) + 1);
-      // }
-      // for (let i = 0; i < 81; i++) {
-      //   this.tileList[i].constraintRespected = this.checkTile(i);
-      // }
-      // for (let i = 0; i < 81; i++) {
-      //   this.updateSuggestedValues(i);
-      // }
+        this.setValue(i, Math.floor(Math.random() * 9) + 1);
+      }
+      for (let i = 0; i < 81; i++) {
+        this.tileList[i].constraintRespected = this.checkTile(i);
+      }
+      for (let i = 0; i < 81; i++) {
+        this.updateSuggestedValues(i);
+      }
   
-      // console.log("Grid created");
+      console.log("Grid created");
     }
   
     ngOnInit(): void {

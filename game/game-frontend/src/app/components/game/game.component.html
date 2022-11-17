@@ -1,11 +1,13 @@
 <div class="box" style="margin-left: 15%;margin-right: 15%;">
 
   <div class="container" style="width:40%;height:100vh; justify-content: left">
-    <io-tree-history #treeComp style="height: 80%" [rootRenderer]="rootRenderer()">
+    <io-tree-history #treeComp style="height: 80%" [svgIconSize]="200" [rootRenderer]="rootRenderer()">
     </io-tree-history>
   </div>
   <div style="width:40%; justify-content: right; border-left: 50px" >
-    <app-grid></app-grid>
+    <app-grid ></app-grid>
+
+
   </div>
 
 </div>
