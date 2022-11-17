@@ -38,6 +38,7 @@ import { MenuComponent } from './components/menu/menu.component';
         AppRoutingModule,
         HttpClientModule,
         InteractoModule,
+        HttpClientModule,
         MatSelectModule,
         MatInputModule,
         MatFormFieldModule,
@@ -50,7 +51,6 @@ import { MenuComponent } from './components/menu/menu.component';
         MatCheckboxModule,
         RouterModule,
         HotkeyModule.forRoot(),
-        InteractoModule
     ],
   providers: [
     interactoTreeUndoProviders(true),

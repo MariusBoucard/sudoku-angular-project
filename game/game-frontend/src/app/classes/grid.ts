@@ -9,7 +9,7 @@ import { Tile } from "./tile";
 export class Grid {
 
   id = 0;
-  difficulte: Difficulte = Difficulte.Facile;
+  difficulte: Difficulte = Difficulte.easy;
   classement: Classement=new Classement();
   tileList: Tile[] = [];
 
@@ -18,23 +18,24 @@ export class Grid {
   selectedTabName = -1;
 
     constructor(){
-      for (let i = 0; i < 81; i++) {
+      
+      // for (let i = 0; i < 81; i++) {
 
-        this.tileList.push(new Tile());
-      }
+      //   this.tileList.push(new Tile());
+      // }
   
-      for (let i = 0; i < 81; i++) {
+      // for (let i = 0; i < 81; i++) {
   
-        this.setValue(i, Math.floor(Math.random() * 9) + 1);
-      }
-      for (let i = 0; i < 81; i++) {
-        this.tileList[i].constraintRespected = this.checkTile(i);
-      }
-      for (let i = 0; i < 81; i++) {
-        this.updateSuggestedValues(i);
-      }
+      //   this.setValue(i, Math.floor(Math.random() * 9) + 1);
+      // }
+      // for (let i = 0; i < 81; i++) {
+      //   this.tileList[i].constraintRespected = this.checkTile(i);
+      // }
+      // for (let i = 0; i < 81; i++) {
+      //   this.updateSuggestedValues(i);
+      // }
   
-      console.log("Grid created");
+      // console.log("Grid created");
     }
   
     ngOnInit(): void {
@@ -275,5 +276,32 @@ export class Grid {
 
     }
     return retour;
+  }
+
+  setClassement(c : Classement){
+    this.classement = c;
+  }
+  setTiles(t  : number[]){
+    t.forEach(value => this.tileList.push(new Tile(value)));
+  }
+  setID(i : number){
+    this.id = i;
+  }
+
+  setDifficulty(d :String){
+    switch(d){
+      case 'easy ': this.difficulte = Difficulte.easy;
+      break;
+      case 'medium ': this.difficulte = Difficulte.medium;
+      break;
+      case 'hard ': this.difficulte = Difficulte.hard;
+      break;
+      case 'veryhard ': this.difficulte = Difficulte.veryhard;
+      break;
+      case 'insane ': this.difficulte = Difficulte.insane;
+      break;
+      case 'inhuman ': this.difficulte = Difficulte.inhuman;
+      break;
+    }
   }
 }
