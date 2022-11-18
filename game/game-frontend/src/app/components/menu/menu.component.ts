@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   grille : Grid = new Grid();
   test : Observable<String> ;
   constructor(public backService:BackendServiceService) {
-    this.backService.getAllGrids().subscribe(gridtab => { this.Allgrids = gridtab });
+    // this.backService.getAllGrids().subscribe(gridtab => { this.Allgrids = gridtab });
     console.log("test "+this.Allgrids);
     this.test = this.backService.hello();
    }
