@@ -15,7 +15,6 @@ import { GameService } from 'src/app/services/game.service';
  */
 export class GridComponent implements OnInit {
   // @Output() myEvent = new EventEmitter<string>();
-  valueToSet = 0;
   //The inject is meant to use the same gameService for both gamecomponent and grid
   constructor(@Inject('gameServ')  public gameService : GameService){
   }
