@@ -23,6 +23,7 @@ import {HotkeyModule} from 'angular2-hotkeys';
 import { GameService } from "./services/game.service";
 import { Player } from "./classes/player";
 import { MenuComponent } from './components/menu/menu.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -33,25 +34,26 @@ import { MenuComponent } from './components/menu/menu.component';
     GameComponent,
     MenuComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        InteractoModule,
-        HttpClientModule,
-        MatSelectModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatIconModule,
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatListModule,
-        FormsModule,
-        MatCheckboxModule,
-        RouterModule,
-        HotkeyModule.forRoot(),
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    InteractoModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatListModule,
+    FormsModule,
+    MatCheckboxModule,
+    RouterModule,
+    HotkeyModule.forRoot(),
+    MatTableModule,
+  ],
   providers: [
     interactoTreeUndoProviders(true),
     GameService,
