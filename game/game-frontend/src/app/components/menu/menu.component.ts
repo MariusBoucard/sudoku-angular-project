@@ -36,7 +36,10 @@ export class MenuComponent implements OnInit {
     this.joueur = new Player(name);
   }
   generateGrid(){
-    this.backService.generateGrid("easy").subscribe(a => this.grille = a);
+    this.backService.generateGrid("easy").subscribe(gride =>{
+      
+        this.grille = gride;
+      });
     console.log("caca d"+this.grille.id);
   }
 }
