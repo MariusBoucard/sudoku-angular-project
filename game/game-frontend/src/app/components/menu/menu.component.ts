@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { Grid } from 'src/app/classes/grid';
 import { Player } from 'src/app/classes/player';
-import { BackendServiceService } from 'src/app/services/backend-service.service';
+// import { BackendServiceService } from 'src/app/services/backend-service.service';
 
 @Component({
   selector: 'app-menu',
@@ -16,17 +16,17 @@ export class MenuComponent implements OnInit {
   difficultes : String[] = ["eze","hard"]
   fakeArray: number[] = [];
   grille : Grid = new Grid();
-  test : Observable<String> ;
-  constructor(public backService:BackendServiceService) {
+  // test : Observable<String> ;
+  constructor() {
     // this.backService.getAllGrids().subscribe(gridtab => { this.Allgrids = gridtab });
     console.log("test "+this.Allgrids);
-    this.test = this.backService.hello();
+    // this.test = this.backService.hello();
    }
   
   ngOnInit(): void {
 
     this.fakeArray = new Array(81).fill(null).map((_, i) => i);
-    console.log(this.test+"Test 2 ");
+    // console.log(this.test+"Test 2 ");
 
   }
 
