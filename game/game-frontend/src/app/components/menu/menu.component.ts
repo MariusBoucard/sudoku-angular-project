@@ -36,10 +36,10 @@ export class MenuComponent implements OnInit {
     this.joueur = new Player(name);
   }
   generateGrid(){
-    this.backService.generateGrid("easy").subscribe(gride =>{
+    // this.backService.generateGrid("easy").subscribe(gride =>{
       
-        this.grille = gride;
-      });
-    console.log("caca d"+this.grille.id);
+    //     this.grille = gride;
+    //   });
+    //TODO Ca m'a gavé on va faire avec des promises
   }
 }
