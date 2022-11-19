@@ -6,6 +6,7 @@ export class setValue extends UndoableCommand {
     private oldValue!: number;
     private index!: number;
     public constructor(private tuileindex: number,private newValue:number,private gameService : GameService) {
+        console.log("A new setvalue ha been created");
         super();
     }
     
