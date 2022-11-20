@@ -92,11 +92,12 @@ export class GridComponent implements OnInit {
 
   public setValue(binder: PartialMatSelectBinder, index: number) {
     console.log("Backtracking setValue : here in gridcomponent");
-
-    binder.toProduce(i => new setValue( index, i.change?.value ,this.gameService))
+    binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
     // this.myEvent.emit('yolo');
     }
+
+
 
     public directSet(binder: PartialPointBinder) {
       console.log("into direct");
@@ -114,7 +115,7 @@ export class GridComponent implements OnInit {
       public showEndGame(){
         console.log("finish")
       }
-
+   
         //From the help manual in moodle
     rootRenderer(): UndoableSnapshot {
     return setValue.getSnapshot(this.gameService.currentGame);

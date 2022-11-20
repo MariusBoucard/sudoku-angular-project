@@ -40,7 +40,9 @@ export class GameService {
    }
 
    setValue(id : number,valeur:number){
+    console.log(valeur);
     this.currentGame.grid.setValue(id,valeur);
+    console.log("Yey la case a mtn une valeur de "+this.grid?.getTile(id).getValue());
    }
 
    getTile(index : number){
