@@ -1,4 +1,4 @@
-import { UndoableCommand, UndoableSnapshot } from "interacto";
+import { UndoableCommand } from "interacto";
 import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
 
@@ -25,7 +25,9 @@ export class setValue extends UndoableCommand {
     public redo(): void {
         this.execution();
     }
-    
+    public override canExecute(): boolean {
+        return this.gameService.currentGame.grid.getTile(this.index).getValue() !== this.newValue;
+        }
     public override getUndoName(): string {
         return 'Défaire le coup';
     }
@@ -33,10 +35,9 @@ export class setValue extends UndoableCommand {
 
 
 
-    public rootRenderer(): UndoableSnapshot {
-        return setValue.getSnapshot(this.gameService.currentGame);
-        }
+   
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
+        console.log("into getsnapshot u know");
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d")!;
         const tailleTuile=110;
@@ -46,7 +47,7 @@ export class setValue extends UndoableCommand {
         ctx.font = '100px Bodo';
         ctx.fillStyle = "red";
         for (let i = 0; i < game.grid.tileList.length; i++){
-            ctx.fillText(game.grid.tileList[i]?.toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
             }
             for(let i = 1; i < 9; i++) {
             ctx.moveTo(i * tailleTuile, 0);
@@ -59,8 +60,8 @@ export class setValue extends UndoableCommand {
             imgCache.src = canvas.toDataURL("image/png");
             return imgCache;
         }
-
         public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | undefined {
-            return setValue.getSnapshot(this.gameService.currentGame);
+            return setValue.getSnapshot(this.gameService.currentGame, this.index);
             }
+        
 }

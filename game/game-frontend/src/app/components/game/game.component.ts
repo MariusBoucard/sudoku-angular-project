@@ -34,8 +34,12 @@ export class GameComponent implements OnInit {
   }
 
   
-  
-  ;
+    //From the help manual in moodle
+
+  public rootRenderer(): UndoableSnapshot {
+    console.log("Try rootrender");
+    return setValue.getSnapshot(this.gameService.currentGame);
+    }
   
   public settValue(binder:String, index: number) {
     console.log("arrived in game component");
@@ -64,8 +68,5 @@ export class GameComponent implements OnInit {
   changeName(newName : String){
     this.gameService.player.setName(newName);
   }
-  //From the help manual in moodle
-  rootRenderer(): UndoableSnapshot {
-    return setValue.getSnapshot(this.gameService.currentGame);
-  }
+
 }

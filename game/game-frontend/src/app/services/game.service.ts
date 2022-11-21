@@ -39,8 +39,8 @@ export class GameService {
     this.currentGame.player.setScore(score);
    }
 
-   setValue(id : number,valeur:number){
-    this.currentGame.grid.setValue(id,valeur);
+   setValue(index : number,valeur:number){
+    this.currentGame.grid.setValue(index,valeur);
    }
 
    getTile(index : number){

@@ -103,7 +103,7 @@ export class GridComponent implements OnInit {
       binder
       .toProduce(() =>
       new setValue(1,this.gameService.getSuggestedValue(1)[0],this.gameService))
-      .when(i => i.button === 2)
+      .when(i => i.button === 1)
       .bind();
       }
       public binderClickEndGame(binder: PartialButtonBinder): void {
