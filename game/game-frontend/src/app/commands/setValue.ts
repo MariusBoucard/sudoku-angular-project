@@ -1,31 +1,34 @@
-import { UndoableCommand } from "interacto";
+import { UndoableCommand, UndoableSnapshot } from "interacto";
 import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
 
 export class setValue extends UndoableCommand {
+    
     private oldValue!: number;
     private index!: number;
-    public constructor(private tuileindex: number,private newValue:number,private gameService : GameService) {
+    public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
         super();
+        console.log("A new setvalue ha been created" + this.newValue);
     }
-    
+
     protected override createMemento(): void {
         this.oldValue = this.gameService.getValue(this.tuileindex);
         this.index = this.tuileindex;
     }
-    
+
     protected execution(): void {
-        this.gameService.setValue(this.index,this.newValue);
+        //Issue new value is empty
+        this.gameService.setValue(this.index, this.newValue);
     }
-    
+
     public undo(): void {
-        this.gameService.setValue(this.index,this.oldValue);
+        this.gameService.setValue(this.index, this.oldValue);
     }
-    
+
     public redo(): void {
         this.execution();
     }
-    public override canExecute(): boolean {
+public override canExecute(): boolean {
         return this.gameService.currentGame.grid.getTile(this.index).getValue() !== this.newValue;
         }
     public override getUndoName(): string {
@@ -35,7 +38,9 @@ export class setValue extends UndoableCommand {
 
 
 
-   
+    public rootRenderer(): UndoableSnapshot {
+        return setValue.getSnapshot(this.gameService.currentGame);
+        }
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
         console.log("into getsnapshot u know");
         const canvas = document.createElement("canvas");

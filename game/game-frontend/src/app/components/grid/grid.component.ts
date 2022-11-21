@@ -1,5 +1,5 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import { PartialButtonBinder, PartialPointBinder } from 'interacto';
+import { Bindings, PartialButtonBinder, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
 // import { PartialPointBinder } from 'interacto';
 import {  PartialMatSelectBinder } from 'interacto-angular';
 import { setValue } from 'src/app/commands/setValue';
@@ -16,7 +16,7 @@ import { GameService } from 'src/app/services/game.service';
 export class GridComponent implements OnInit {
   // @Output() myEvent = new EventEmitter<string>();
   //The inject is meant to use the same gameService for both gamecomponent and grid
-  constructor(@Inject('gameServ')  public gameService : GameService){
+  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
   }
 
   ngOnInit(){}
@@ -92,11 +92,12 @@ export class GridComponent implements OnInit {
 
   public setValue(binder: PartialMatSelectBinder, index: number) {
     console.log("Backtracking setValue : here in gridcomponent");
-
-    binder.toProduce(i => new setValue( index, i.change?.value ,this.gameService))
+    binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
     // this.myEvent.emit('yolo');
     }
+
+
 
     public directSet(binder: PartialPointBinder) {
       console.log("into direct");
@@ -114,4 +115,9 @@ export class GridComponent implements OnInit {
       public showEndGame(){
         console.log("finish")
       }
+   
+        //From the help manual in moodle
+    rootRenderer(): UndoableSnapshot {
+    return setValue.getSnapshot(this.gameService.currentGame);
+  }
 }

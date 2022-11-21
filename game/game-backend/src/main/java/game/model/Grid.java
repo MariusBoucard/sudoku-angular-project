@@ -1,0 +1,57 @@
+package game.model;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serializable;
+
+/**
+ * Just the grid, this object carry (almost?) all he needs as dependency
+ */
+@Getter
+@Setter
+@ToString
+public class Grid implements Serializable {
+    private static final long serialVersionUID = -5756298698047880134L; //-1584223699423688446L
+    int id;
+    Classement classement;
+    Difficulte difficulte;
+    int[] values = new int[81];
+
+    /**
+     * Constructeur without argument, usefull for serialization
+     */
+    public Grid() {
+
+    }
+
+    /**
+     * Constructor with initialisation for every attribute
+     *
+     * @param id
+     * @param classement
+     * @param diff
+     * @param values
+     */
+    public Grid(final int id, final Classement classement, final Difficulte diff, final int[] values) {
+        this.id = id;
+        this.classement = classement;
+        this.difficulte = diff;
+        this.values = values;
+    }
+
+    /**
+     * Here we don't care about having the some player with same name
+     *
+     * @param player
+     */
+    public void addScore(final Player player) {
+        classement.add(player);
+    }
+
+    public int getID() {
+        return this.id;
+    }
+
+}

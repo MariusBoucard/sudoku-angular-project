@@ -2,21 +2,27 @@
 
 
 </head>
-<mat-select [ioClick]="directSet" >
+<!-- <mat-select [ioClick]="directSet" >
   <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" >{{number}}</mat-option>
-</mat-select>
-<button [ioButton]="binderClickEndGame">End game</button>
+</mat-select> -->
+<!-- 
+<div class="container" style="width:40%;height:100vh; justify-content: left">
+  <io-tree-history #treeComp style="height: 80%" [svgIconSize]="200" [rootRenderer]="rootRenderer()">
+  </io-tree-history>
+</div> -->
 
-<div class="grid-container" >
+<div class="grid-container">
 
-  <div [ngClass]="getClass(n)" (mouseenter)="hovered(n)"
-       (mouseleave)="unhovered(n)" *ngFor="let n of indexArray" [ngStyle]="{'background-color': (!contraintRespected(n)) ? ((getSelected(n)==n) ? 'grey' :'red' ) :((getSelected(n)==n) ? 'grey' :'white' )}">
+  <div [ngClass]="getClass(n)" (mouseenter)="hovered(n)" (mouseleave)="unhovered(n)" *ngFor="let n of indexArray"
+    [ngStyle]="{'background-color': (!contraintRespected(n)) ? ((getSelected(n)==n) ? 'grey' :'red' ) :((getSelected(n)==n) ? 'grey' :'white' )}">
     <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
 
     <div>
-      <mat-select [ioClick] (clickBinder)="directSet($event)" >
-        <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" >{{number}}</mat-option>
+      <mat-select [ioMatSelect] (matSelectBinder)="setValue($event, n)" [ioClick] (clickBinder)="directSet($event)"
+        [value]="gameService.currentGame.grid.getTile(n).getValue()" style="height:50px;width:50px;font-weight:black;">
+        <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" [value]="number">{{number}}</mat-option>
       </mat-select>
+    
       {{getValue(n)}}
       <div class="suggested">{{getSuggestedValues(n)}}</div>
       <div class="suggested" *ngIf="!getSuggestedValues(n).length"> - </div>
