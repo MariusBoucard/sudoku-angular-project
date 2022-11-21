@@ -1,9 +1,9 @@
-package web.service;
+package game.service;
 
 import org.springframework.stereotype.Service;
-import web.model.Difficulte;
-import web.model.Grid;
-import web.model.Player;
+import game.model.Difficulte;
+import game.model.Grid;
+import game.model.Player;
 
 import java.io.IOException;
 import java.lang.reflect.Array;

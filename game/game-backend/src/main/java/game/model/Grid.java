@@ -1,4 +1,4 @@
-package web.model;
+package game.model;
 
 import lombok.Getter;
 import lombok.Setter;

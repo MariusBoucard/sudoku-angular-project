@@ -1,4 +1,4 @@
-package web.service;
+package game.service;
 
 public class DTOFactory {
 }

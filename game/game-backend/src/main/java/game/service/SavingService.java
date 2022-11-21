@@ -1,4 +1,4 @@
-package web.service;
+package game.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -6,14 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import web.model.Classement;
-import web.model.Difficulte;
-import web.model.Grid;
-import web.model.Player;
+import game.model.Classement;
+import game.model.Difficulte;
+import game.model.Grid;
+import game.model.Player;
 
 import java.io.File;
 import java.io.*;

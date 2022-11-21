@@ -1,14 +1,15 @@
-package web.controller;
+package game.controller;
 
+import game.service.MemoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import web.model.Classement;
-import web.model.Difficulte;
-import web.model.Grid;
-import web.model.Player;
-import web.service.MemoryService;
+import game.model.Classement;
+import game.model.Difficulte;
+import game.model.Grid;
+import game.model.Player;
+import game.service.MemoryService;
 
 import java.io.IOException;
 import java.util.ArrayList;

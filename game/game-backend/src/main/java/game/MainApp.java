@@ -1,4 +1,4 @@
-package web;
+package game;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,9 +6,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 
-@EntityScan("web.service.MemoryService")
-public class Main {
+@EntityScan("game.service.MemoryService")
+
+public class MainApp {
 	public static void main(final String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(MainApp.class, args);
 	}
 }
