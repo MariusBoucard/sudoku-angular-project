@@ -62,8 +62,11 @@ public class SavingService {
             final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
             file.write(a);
-            file.close();
-
+            try {
+                file.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -166,7 +169,7 @@ public class SavingService {
     }
 
 
-    public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
+  //  public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
 //        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
 //
 //        final Iterator<String> keysItr = object.keys();
@@ -190,14 +193,14 @@ public class SavingService {
 //        return map;
 //
 
-        try {
+/*        try {
             final Map<Difficulte, ArrayList<Grid>> map = new ObjectMapper().readValue((DataInput) object, Map.class);
             return map;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
-}
+
