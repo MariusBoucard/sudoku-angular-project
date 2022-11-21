@@ -3,22 +3,22 @@ package game.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
-import game.model.Player;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.Iterator;
+
+
 import org.springframework.stereotype.Service;
-import java.util.Scanner;
-import java.io.File;
-import java.util.Map;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
+
+import java.io.DataInput;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.ObjectOutputStream;
+import java.io.File;
+import java.util.Scanner;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -74,14 +74,16 @@ public class SavingService {
     public Map<Difficulte, ArrayList<Grid>> loadFromFile() {
         Map<Difficulte, ArrayList<Grid>> Map = new HashMap<>();
         final File file = new File(outputfile);
+
         Scanner myReader = null;
         final ObjectMapper mapperObj = new ObjectMapper();
         try {
             myReader = new Scanner(file);
+            //TODO un truc genre un forEach sur toutes les lignes ici, et mettre le contenu du while apres et c'est réglé (en théorie)
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        while (myReader.hasNextLine()) {
+        if (myReader.hasNextLine()) {
 //            JSONObject json = new JSONObject(myReader.nextLine());
 //            System.out.println(json);
             try {
@@ -165,27 +167,37 @@ public class SavingService {
 
 
     public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
-        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
+//        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
+//
+//        final Iterator<String> keysItr = object.keys();
+//        while (keysItr.hasNext()) {
+//            final String key = keysItr.next();
+//            final JSONArray value = object.getJSONArray(key);
+//            final ArrayList<Grid> gridsList = new ArrayList<>();
+//            for (int i = 0; i < value.length(); i++) {
+//                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
+//                final ArrayList<Player> classment = new ArrayList<>();
+//
+//                for (int j = 0; j < classm.length(); j++) {
+//                    classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
+//                }
+//                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
+//                gridsList.add(grid);
+//            }
+//
+//            map.put(Difficulte.valueOf(key), gridsList);
+//        }
+//        return map;
+//
 
-        final Iterator<String> keysItr = object.keys();
-        while (keysItr.hasNext()) {
-            final String key = keysItr.next();
-            final JSONArray value = object.getJSONArray(key);
-            final ArrayList<Grid> gridsList = new ArrayList<>();
-            for (int i = 0; i < value.length(); i++) {
-                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
-                final ArrayList<Player> classment = new ArrayList<>();
+        try {
+            final Map<Difficulte, ArrayList<Grid>> map = new ObjectMapper().readValue((DataInput) object, Map.class);
+            return map;
 
-                for (int j = 0; j < classm.length(); j++) {
-                    classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
-                }
-                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
-                gridsList.add(grid);
-            }
-
-            map.put(Difficulte.valueOf(key), gridsList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return map;
+
     }
 
 }
