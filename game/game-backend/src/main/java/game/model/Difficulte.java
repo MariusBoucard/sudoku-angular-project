@@ -1,7 +1,6 @@
 package game.model;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -13,5 +12,5 @@ import java.io.Serializable;
 @ToString
 public enum Difficulte implements Serializable {
 
-    EASY,MEDIUM,HARD,VERY_HARD,EXTREMELY_HARD,INSANELY_HARD
+    EASY, MEDIUM, HARD, VERY_HARD, EXTREMELY_HARD, INSANELY_HARD
 }

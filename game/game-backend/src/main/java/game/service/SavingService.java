@@ -3,24 +3,26 @@ package game.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.stereotype.Service;
 import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.Iterator;
+import org.springframework.stereotype.Service;
+import java.util.Scanner;
 import java.io.File;
-import java.io.*;
-import java.util.*;
+import java.util.Map;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class SavingService {
@@ -29,40 +31,37 @@ public class SavingService {
 //    ObjectOutputStream s;
 
 
-    public SavingService()  {
-        File file = new File(outputfile);
+    public SavingService() {
+        final File file = new File(outputfile);
         try {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
             } else {
                 System.out.println("File already exists.");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
 
 
-
-        System.out.println(file+"\n\n\n\n\n caca "+System.getProperty("user.dir")+" \n\n\n\n\n");
-
+        System.out.println(file + "\n\n\n\n\n caca " + System.getProperty("user.dir") + " \n\n\n\n\n");
 
 
     }
 
 
-    void saveOnFile(HashMap<Difficulte,  ArrayList<Grid>> gridMap) throws IOException {
-        ObjectOutputStream s;
+    void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
+        final ObjectOutputStream s;
         try {
-        //    FileOutputStream f = new FileOutputStream(outputfile);
-         //   s = new ObjectOutputStream(f);
-            System.out.println("obj"+gridMap);
+            //    FileOutputStream f = new FileOutputStream(outputfile);
+            //   s = new ObjectOutputStream(f);
+            System.out.println("obj" + gridMap);
 
-            FileWriter file = new FileWriter(outputfile);
-            String a = new ObjectMapper().writeValueAsString(gridMap);
+            final FileWriter file = new FileWriter(outputfile);
+            final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
-            file.write(a.toString());
+            file.write(a);
             file.close();
 
         } catch (FileNotFoundException e) {
@@ -72,11 +71,11 @@ public class SavingService {
         }
     }
 
-    public HashMap<Difficulte, ArrayList<Grid>> loadFromFile() {
-        HashMap<Difficulte, ArrayList<Grid>> Map = new HashMap<>();
-        File file = new File(outputfile);
+    public Map<Difficulte, ArrayList<Grid>> loadFromFile() {
+        Map<Difficulte, ArrayList<Grid>> Map = new HashMap<>();
+        final File file = new File(outputfile);
         Scanner myReader = null;
-        ObjectMapper mapperObj = new ObjectMapper();
+        final ObjectMapper mapperObj = new ObjectMapper();
         try {
             myReader = new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -87,11 +86,11 @@ public class SavingService {
 //            System.out.println(json);
             try {
 
-                Map = mapperObj.readValue(myReader.nextLine(), new TypeReference<HashMap<Difficulte,ArrayList<Grid>>>(){});
+                Map = mapperObj.readValue(myReader.nextLine(), new TypeReference<HashMap<Difficulte, ArrayList<Grid>>>() {
+                });
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
-            }
-            catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 e.printStackTrace();
             }
 
@@ -133,14 +132,14 @@ public class SavingService {
 //        }
         return Map;
 
-         //JSONObject jsonObject = (JSONObject)obj;
-         //Set<String> difficultes = jsonObject.keySet();
-         //System.out.println(difficultes);
-      //  for (String a : difficultes ) {
-            //JSONArray subjects = (JSONArray)jsonObject.get(Difficulte);
-            //Map.put(Difficulte.valueOf(a),   )
+        //JSONObject jsonObject = (JSONObject)obj;
+        //Set<String> difficultes = jsonObject.keySet();
+        //System.out.println(difficultes);
+        //  for (String a : difficultes ) {
+        //JSONArray subjects = (JSONArray)jsonObject.get(Difficulte);
+        //Map.put(Difficulte.valueOf(a),   )
 
-     //   }
+        //   }
 
 
 
@@ -161,26 +160,26 @@ public class SavingService {
                 throw new RuntimeException(e);
             }
         System.out.println("Loaded previous game!");*/
-           // return Map;
-        }
+        // return Map;
+    }
 
 
-    public static HashMap<Difficulte, ArrayList<Grid>> toMap(JSONObject object) throws JSONException {
-        HashMap<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
+    public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
+        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
 
-        Iterator<String> keysItr = object.keys();
-        while(keysItr.hasNext()) {
-            String key = keysItr.next();
-            JSONArray value = object.getJSONArray(key);
-            ArrayList<Grid> gridsList = new ArrayList<>();
+        final Iterator<String> keysItr = object.keys();
+        while (keysItr.hasNext()) {
+            final String key = keysItr.next();
+            final JSONArray value = object.getJSONArray(key);
+            final ArrayList<Grid> gridsList = new ArrayList<>();
             for (int i = 0; i < value.length(); i++) {
-                JSONArray classm= (JSONArray) value.getJSONArray(i).get(3);
-                ArrayList<Player> classment = new ArrayList<>();
+                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
+                final ArrayList<Player> classment = new ArrayList<>();
 
-                for(int j = 0;j<classm.length();j++){
+                for (int j = 0; j < classm.length(); j++) {
                     classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
                 }
-                Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment),(Difficulte) value.getJSONObject(i).get("difficulte"),(int[])value.getJSONObject(i).get("values"));
+                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
                 gridsList.add(grid);
             }
 

@@ -7,7 +7,12 @@ import game.model.Player;
 import game.service.MemoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -52,13 +57,13 @@ public class SudokuController {
 
 
         System.out.println("recu");
-        int[] a = new int[SUDOKU_SIZE];
+        final int[] a = new int[SUDOKU_SIZE];
       /*  for (int i = 0; i < SUDOKU_SIZE; i++) {
             a[i] = 6;
         }*/
-        int index = this.memoryService
+        final int index = this.memoryService
                 .getCurrentIndex();
-        Grid b = new Grid(index, new Classement(),
+        final Grid b = new Grid(index, new Classement(),
                 Difficulte.valueOf(level), a);
         System.out.println(b);
         this.memoryService.addGrid(b);
@@ -96,7 +101,7 @@ public class SudokuController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<Grid> sudokuList(
             @PathVariable("level") final String level) {
-        ArrayList<Grid> b = this.memoryService.getList(level);
+        final ArrayList<Grid> b = this.memoryService.getList(level);
         return b;
     }
 
@@ -110,7 +115,7 @@ public class SudokuController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Grid getById(@PathVariable("id") final String id) {
 
-        Grid b = this.memoryService.getGrid(Integer.parseInt(id));
+        final Grid b = this.memoryService.getGrid(Integer.parseInt(id));
         if (b == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "entity not found"
