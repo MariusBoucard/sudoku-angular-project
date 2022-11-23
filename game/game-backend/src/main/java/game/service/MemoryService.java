@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 @Service
 public class MemoryService {
-    Map<Difficulte, ArrayList<Grid>> GridMap = new HashMap<>();
+    Map<Difficulte, ArrayList<Grid>> gridMap = new HashMap<>();
     final  SavingService savingService = new SavingService();
 
     int index = 0;
@@ -28,42 +28,42 @@ public class MemoryService {
     }
 
     public void loadData() {
-        this.GridMap = savingService.loadFromFile();
+        this.gridMap = savingService.loadFromFile();
         //GridMap  =
         final Stream<Grid> stream = allGridsStream();
         index = (int) stream.count();
 
-        System.out.println("Gridmaaappp :" + this.GridMap);
+        System.out.println("Gridmaaappp :" + this.gridMap);
 
     }
 
     private void saveData() throws IOException {
-        savingService.saveOnFile((HashMap<Difficulte, ArrayList<Grid>>) GridMap);
+        savingService.saveOnFile(gridMap);
         final Stream<Grid> stream = allGridsStream();
         index = (int) stream.count();
     }
 
     public void addGrid(final Grid grid) throws IOException {
-        ArrayList<Grid> a = GridMap.get(grid.getDifficulte());
+        ArrayList<Grid> a = gridMap.get(grid.getDifficulte());
         if (a == null) {
             a = new ArrayList<Grid>();
         }
         a.add(grid);
-        this.GridMap.put(grid.getDifficulte(), a);
+        this.gridMap.put(grid.getDifficulte(), a);
         saveData();
     }
 
     public ArrayList<Grid> getList(final String diff) {
-        return GridMap.get(Difficulte.valueOf(diff));
+        return gridMap.get(Difficulte.valueOf(diff));
     }
 
 
     public Stream<Grid> allGridsStream() {
-        final Difficulte[] diff = new Difficulte[GridMap.keySet().size()];
+        final Difficulte[] diff = new Difficulte[gridMap.keySet().size()];
         final ArrayList<Grid> allArray = new ArrayList<Grid>();
-        System.arraycopy(GridMap.keySet().toArray(), 0, diff, 0, GridMap.keySet().size());
+        System.arraycopy(gridMap.keySet().toArray(), 0, diff, 0, gridMap.keySet().size());
         final Stream<Difficulte> keys = Arrays.stream(diff);
-        keys.forEach(difficult -> allArray.addAll(GridMap.get(difficult)));
+        keys.forEach(difficult -> allArray.addAll(gridMap.get(difficult)));
         final Grid[] grids = new Grid[allArray.size()];
 
         System.arraycopy(allArray.toArray(), 0, grids, 0, allArray.size());
@@ -87,10 +87,10 @@ public class MemoryService {
         final Grid grid = getGrid(Integer.parseInt(id));
         grid.addScore(player);
 
-        final ArrayList<Grid> a = GridMap.get(grid.getDifficulte());
+        final ArrayList<Grid> a = gridMap.get(grid.getDifficulte());
         a.remove(grid);
         a.add(grid);
-        this.GridMap.put(grid.getDifficulte(), a);
+        this.gridMap.put(grid.getDifficulte(), a);
         saveData();
 
     }
