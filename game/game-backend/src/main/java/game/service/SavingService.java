@@ -49,12 +49,7 @@ public class SavingService {
 
 
     void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
-        final ObjectOutputStream s;
         try {
-            //    FileOutputStream f = new FileOutputStream(outputfile);
-            //   s = new ObjectOutputStream(f);
-            System.out.println("obj" + gridMap);
-
             final FileWriter file = new FileWriter(outputfile);
             final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
@@ -72,7 +67,7 @@ public class SavingService {
             throw new RuntimeException(e);
         } catch (Exception e) {
             e.printStackTrace();
-         }
+        }
     }
 
     public Map<Difficulte, ArrayList<Grid>> loadFromFile() {
