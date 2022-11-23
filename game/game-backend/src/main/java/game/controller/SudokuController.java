@@ -64,7 +64,7 @@ public class SudokuController {
         final int index = this.memoryService
                 .getCurrentIndex();
         final Grid b = new Grid(index, new Classement(),
-                Difficulte.valueOf(level), a);
+                Difficulte.valueOf(level.toUpperCase()), a);
         System.out.println(b);
         this.memoryService.addGrid(b);
         return b;
