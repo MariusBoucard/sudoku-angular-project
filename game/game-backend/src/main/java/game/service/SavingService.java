@@ -5,13 +5,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import game.model.Difficulte;
 import game.model.Grid;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 import org.springframework.stereotype.Service;
 
-import java.io.DataInput;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -68,10 +65,9 @@ public class SavingService {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
+         }
     }
 
     public Map<Difficulte, ArrayList<Grid>> loadFromFile() {
