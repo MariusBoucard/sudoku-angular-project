@@ -39,7 +39,8 @@ export class setValue extends UndoableCommand {
     public rootRenderer(): UndoableSnapshot {
         return setValue.getSnapshot(this.gameService.currentGame);
     }
-    public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | undefined {
+    public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | string|undefined {
+        // return "coucou";
         return setValue.getSnapshot(this.gameService.currentGame, this.index);
     }
 
@@ -52,7 +53,7 @@ export class setValue extends UndoableCommand {
         ctx.font = '100px Bodo';
         ctx.fillStyle = 'black';
         for (let i = 0; i < 81; i++) {
-            ctx.fillText(game.grid.getTile(i).getValue?.toString() ?? "", (i % 9) * tileSize + 30, Math.floor(i / 9) * tileSize + 85);
+            ctx.fillText(game.grid.getTile(i).getValue()?.toString() ?? "", (i % 9) * tileSize + 30, Math.floor(i / 9) * tileSize + 85);
         }
         for (let i = 1; i < 9; i++) {
             ctx.moveTo(i * tileSize, 0);

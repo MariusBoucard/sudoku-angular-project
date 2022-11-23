@@ -57,6 +57,8 @@ export class GameComponent implements OnInit {
   changeName(newName : String){
     this.gameService.player.setName(newName);
   }
+
+  
   //From the help manual in moodle
   rootRenderer(): UndoableSnapshot {
     return setValue.getSnapshot(this.gameService.currentGame);
