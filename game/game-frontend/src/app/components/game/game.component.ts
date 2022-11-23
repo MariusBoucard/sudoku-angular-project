@@ -62,4 +62,12 @@ export class GameComponent implements OnInit {
     this.gameService.player.setName(newName);
   }
 
+<<<<<<< HEAD
+=======
+  
+  //From the help manual in moodle
+  rootRenderer(): UndoableSnapshot {
+    return setValue.getSnapshot(this.gameService.currentGame);
+  }
+>>>>>>> 1a113cd9b3ac8f01e11babc8aed7387ee53b0ca4
 }
