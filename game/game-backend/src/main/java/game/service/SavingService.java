@@ -59,7 +59,11 @@ public class SavingService {
             final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
             file.write(a);
-
+            try {
+                file.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
