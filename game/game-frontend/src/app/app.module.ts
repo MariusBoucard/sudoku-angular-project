@@ -24,6 +24,8 @@ import { GameService } from "./services/game.service";
 import { Player } from "./classes/player";
 import { MenuComponent } from './components/menu/menu.component';
 import {MatTableModule} from "@angular/material/table";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import {MatTableModule} from "@angular/material/table";
     GridMatrixComponent,
     ClassementComponent,
     GameComponent,
-    MenuComponent
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,8 @@ import {MatTableModule} from "@angular/material/table";
     RouterModule,
     HotkeyModule.forRoot(),
     MatTableModule,
+    MatDialogModule,
+    MatToolbarModule,
   ],
   providers: [
     interactoTreeUndoProviders(true),

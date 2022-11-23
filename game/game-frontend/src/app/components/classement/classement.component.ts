@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Player} from 'src/app/classes/player';
 import {MatTableDataSource} from "@angular/material/table";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-classement',
@@ -15,7 +16,7 @@ import {MatTableDataSource} from "@angular/material/table";
  */
 export class ClassementComponent implements OnInit {
   classement: Player[] = [];
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<ClassementComponent>) {
   }
 
   ngOnInit(): void {
@@ -25,9 +26,24 @@ export class ClassementComponent implements OnInit {
     player2.setScore(42);
     let player3 = new Player("senslanu");
     player3.setScore(420);
+    let player4 = new Player("p1");
+    player4.setScore(50);
+    let player5 = new Player("p2");
+    player5.setScore(20);
+    let player6 = new Player("p3");
+    player6.setScore(220);
+    let player7 = new Player("p4");
+    player7.setScore(820);
+    let player8 = new Player("p5");
+    player8.setScore(40);
     this.addToClassement(player1);
     this.addToClassement(player2);
     this.addToClassement(player3);
+    this.addToClassement(player4);
+    this.addToClassement(player5);
+    this.addToClassement(player6);
+    this.addToClassement(player7);
+    this.addToClassement(player8);
 
     //EN SCREED CA PEUT ETRE COOL LA TITE REQUETE HTTP TAVU
   }
@@ -41,14 +57,17 @@ export class ClassementComponent implements OnInit {
   addToClassement(joueur: Player) {
     this.classement.push(joueur);
     this.classement.sort((p1, p2) => (p1.score < p2.score ? -1 : 1)); //pas optimal mais c'est déjà ça
+    if (this.classement.length >= 5){
+      this.classement = this.classement.slice(0,5);
+    }
   }
 
   getClassement(): Player[] {
     return this.classement;
   }
 
-  getTop5() : Player[] {
-    return this.classement.slice(0,5); //marche pas, je sais pas pourquoi...
+  getTop5(){
+    this.dataSource = new MatTableDataSource(this.classement.slice(0,5));
   }
 
 
