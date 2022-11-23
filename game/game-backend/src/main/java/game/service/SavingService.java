@@ -59,6 +59,8 @@ public class SavingService {
             } catch (Exception e) {
 
                 e.printStackTrace();
+            } finally {
+                file.close();
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
