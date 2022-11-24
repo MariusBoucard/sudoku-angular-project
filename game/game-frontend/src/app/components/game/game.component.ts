@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit, ViewChild} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { Bindings, TreeUndoHistory, UndoableSnapshot } from 'interacto';
-import { TreeHistoryComponent } from 'interacto-angular';
 // import { TreeHistoryComponent } from 'interacto-angular';
 // import { TreeHistoryComponent } from 'interacto-angular';
 import { setValue } from 'src/app/commands/setValue';
@@ -18,8 +17,7 @@ export class GameComponent implements OnInit {
   //Default value here to prevent error
   
 
-  @ViewChild('treeComp')
-  private treeComp!: TreeHistoryComponent;
+
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>) { }
@@ -28,7 +26,6 @@ export class GameComponent implements OnInit {
   }
 
   public ngAfterViewInit(): void {
-    this.treeComp.width ="100%";
   }
   incrScore(){
     this.gameService.setScore(this.gameService.getScore()+1);
@@ -62,12 +59,4 @@ export class GameComponent implements OnInit {
     this.gameService.player.setName(newName);
   }
 
-<<<<<<< HEAD
-=======
-  
-  //From the help manual in moodle
-  rootRenderer(): UndoableSnapshot {
-    return setValue.getSnapshot(this.gameService.currentGame);
-  }
->>>>>>> 1a113cd9b3ac8f01e11babc8aed7387ee53b0ca4
 }
