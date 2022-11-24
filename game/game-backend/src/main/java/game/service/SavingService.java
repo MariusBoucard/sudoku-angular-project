@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.ArrayList;
@@ -49,15 +51,13 @@ public class SavingService {
 
     void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
         try {
-            final FileWriter file = new FileWriter(outputfile);
-            if(file != null) {
-                final String a = new ObjectMapper().writeValueAsString(gridMap);
-                System.out.println(a);
-                file.write(a);
-                file.close();
-            }
-        } catch (FileNotFoundException e) {
+            final String a = new ObjectMapper().writeValueAsString(gridMap);
+            System.out.println(a);
+            Path path = Path.of(outputfile);
+            Files.writeString(path, a);
 
+
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
 
