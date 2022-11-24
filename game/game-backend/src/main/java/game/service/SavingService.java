@@ -49,12 +49,13 @@ public class SavingService {
 
     void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
         try {
-            FileWriter file = new FileWriter(outputfile);
-            final String a = new ObjectMapper().writeValueAsString(gridMap);
-            System.out.println(a);
-            file.write(a);
-            file.close();
-
+            final FileWriter file = new FileWriter(outputfile);
+            if(file!=null) {
+                final String a = new ObjectMapper().writeValueAsString(gridMap);
+                System.out.println(a);
+                file.write(a);
+                file.close();
+            }
         } catch (FileNotFoundException e) {
 
             throw new RuntimeException(e);
