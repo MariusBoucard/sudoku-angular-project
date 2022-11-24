@@ -50,7 +50,7 @@ public class SavingService {
     void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
         try {
             final FileWriter file = new FileWriter(outputfile);
-            if(file!=null) {
+            if(file != null) {
                 final String a = new ObjectMapper().writeValueAsString(gridMap);
                 System.out.println(a);
                 file.write(a);
