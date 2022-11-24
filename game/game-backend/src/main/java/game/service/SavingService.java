@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -53,7 +52,7 @@ public class SavingService {
         try {
             final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
-            Path path = Path.of(outputfile);
+            final Path path = Path.of(outputfile);
             Files.writeString(path, a);
 
 
