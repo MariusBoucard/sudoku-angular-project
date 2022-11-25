@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
   }
 
   getGrid(id :number){
-    this.backService.getgrid(id).subscribe(res => this.gameService.currentGame.grid = res);
+    this.backService.getgrid(id).subscribe(res => {console.log(res);this.gameService.currentGame.grid = res;});
 
     console.log("test "+this.Allgrids);
     
