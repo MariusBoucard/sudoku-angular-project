@@ -3,7 +3,7 @@
 <input  #playerName (keyup.enter)="setPlayer(playerName.value)" (blur)="setPlayer(playerName.value);  " type=text>
 <p>Ton nom actuel : {{joueur.getName()}}</p>
 <mat-checkbox>Clique ici si t es un flemmard</mat-checkbox>
-
+<button (click)="getGrid(5)">test test test</button>
 
 <ul style="        list-style-type: none; align-items:center; text-align:center;"  class="BoardList">
 <a (click)="generateGrid()"><p style='display:inline-block'width="60%">Generate Random board</p></a>
@@ -16,13 +16,14 @@
   </mat-form-field>
   <a href="">
     <li *ngFor="let grid of Allgrids">
+      
         <div style="width:500px;height: 500px;">
 
             <div class="grid-container" >
                 <div class="grid-item"  *ngFor="let n of fakeArray" [ngStyle]="{'background-color': 'white'}">
                   <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
 
-                  {{grid.getTile(n).getValue()}}
+                  {{grid.tileList[n]}}
                   <!-- {{n}} -->
                 </div>
               </div>

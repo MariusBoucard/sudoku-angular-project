@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 @RestController
 @RequestMapping("api/")
@@ -105,6 +106,19 @@ public class SudokuController {
         return b;
     }
 
+    @GetMapping(path = "/getallgrids",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ArrayList<Grid> getallgrids() {
+        ArrayList<Grid> gridList = new ArrayList<Grid>();
+        EnumSet.allOf(Difficulte.class)
+                .forEach(diff -> {
+                    if(this.memoryService.getList(diff.name()) != null) {
+                        gridList.addAll(this.memoryService.getList(diff.name()));
+                    }}
+                    );
+        return gridList;
+    }
+
     /**
      * This route return a grid corresponding to the id provided in parameter
      *
@@ -121,6 +135,7 @@ public class SudokuController {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
+        System.out.println("Grid number "+id+" asked");
         return b;
     }
 

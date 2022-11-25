@@ -85,7 +85,6 @@ export class Grid {
    * @param value Value we want to set to the tile
    */
   setValue(index: number, value: number) {
-    console.log(this.tileList);
     this.tileList[index].setValue(value);
     this.tileList[index].constraintRespected = this.checkTile(index);
     // this.updateSuggestedValues(index);

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan("game.service.MemoryService")
 
-public class  MainApp {
+public class MainApp {
     public static void main(final String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
