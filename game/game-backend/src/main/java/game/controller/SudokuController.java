@@ -23,8 +23,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -68,20 +66,20 @@ public class SudokuController {
         System.out.println("recu");
         int[] a = new int[SUDOKU_SIZE];
         final int index = this.memoryService.getCurrentIndex();
-        URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/easy");
-        URLConnection yc = generator.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(
+        final URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/easy");
+        final URLConnection yc = generator.openConnection();
+        final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
 
-        String ligne2Sudok = in.readLine();
+        final String ligne2Sudok = in.readLine();
 
-        a =ligne2Sudok.chars().toArray();
-        ArrayList<Integer> cc = new ArrayList<Integer>();
-        ArrayList<Integer> da =Arrays.stream(a).map(lat -> lat-48).collect(ArrayList::new, ArrayList::add,
+        a = ligne2Sudok.chars().toArray();
+        final ArrayList<Integer> cc = new ArrayList<Integer>();
+        final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
                 ArrayList::addAll);
 
-        System.out.println("caca = "+da);
-        a = da.stream().mapToInt(i->i).toArray();
+        System.out.println("caca = " + da);
+        a = da.stream().mapToInt(i -> i).toArray();
         final Grid b = new Grid(index, new Classement(),
                 Difficulte.valueOf(level.toUpperCase()), a);
         System.out.println(b);
@@ -127,12 +125,13 @@ public class SudokuController {
     @GetMapping(path = "/getallgrids",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<Grid> getallgrids() {
-        ArrayList<Grid> gridList = new ArrayList<Grid>();
+        final ArrayList<Grid> gridList = new ArrayList<Grid>();
         EnumSet.allOf(Difficulte.class)
                 .forEach(diff -> {
                     if(this.memoryService.getList(diff.name()) != null) {
                         gridList.addAll(this.memoryService.getList(diff.name()));
-                    }}
+                    }
+                }
                     );
         return gridList;
     }
@@ -153,7 +152,7 @@ public class SudokuController {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
-        System.out.println("Grid number "+id+" asked");
+        System.out.println("Grid number " + id + " asked");
         return b;
     }
 
