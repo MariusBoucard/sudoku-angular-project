@@ -41,8 +41,8 @@ public class Grid implements Serializable {
         this.id = id;
         this.classement = classement;
         this.difficulte = diff;
-        List<Tile> a = new ArrayList<Tile>();
-        Arrays.stream(values).forEach(val ->{
+        final List<Tile> a = new ArrayList<Tile>();
+        Arrays.stream(values).forEach(val -> {
             a.add(new Tile(val));
         });
         this.values = a.toArray(new Tile[a.size()]);

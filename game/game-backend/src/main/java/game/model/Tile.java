@@ -11,8 +11,8 @@ import java.io.Serializable;
 @ToString
 public class Tile implements Serializable {
     int value;
-    Tile(){}
-    Tile( final int val){
-        value=val;
+    Tile() { }
+    Tile(final int val) {
+        value = val;
     }
 }
