@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { Grid } from 'src/app/classes/grid';
 import { Player } from 'src/app/classes/player';
+import { GridDTO } from 'src/app/DTO/grid-dto';
 import { BackendServiceService } from 'src/app/services/backend-service.service';
 import { GameService } from 'src/app/services/game.service';
 // import { BackendServiceService } from 'src/app/services/backend-service.service';
@@ -14,15 +15,20 @@ import { GameService } from 'src/app/services/game.service';
 export class MenuComponent implements OnInit {
   
   joueur : Player = new Player('Topin');
-  Allgrids : Grid[] =[];
+  Allgrids : GridDTO[] =[];
   difficultes : String[] = ["eze","hard"]
   fakeArray: number[] = [];
   grille : Grid = new Grid();
+  failure!: boolean;
 
 
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
+    let that = this;
+    this.backService.getAllGrids2().subscribe({
+      next(list) {that.Allgrids = list; that.failure = false; },
+      error(err) {that.failure = true; console.error(err)}
+    } );
 
-    this.backService.getAllGrids().subscribe( gridtab=> { this.Allgrids = gridtab });
 
     console.log("test "+this.Allgrids);
 
@@ -31,7 +37,7 @@ export class MenuComponent implements OnInit {
   generateGrid(){
     this.backService.generateGrid("easy").subscribe(gride =>{
         this.grille = gride;
-        console.log("test "+this.Allgrids);
+        console.log("test "+this.Allgrids[0].id);
 
      });
     //TODO Ca m'a gavé on va faire avec des promises

@@ -2,6 +2,7 @@ import {  Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs"; 
 import { Grid } from '../classes/grid';
+import { GridDTO, isGridDTOArray } from '../DTO/grid-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,27 @@ export class BackendServiceService {
             
             ;}
   
+
+
+            getAllGrids2() {
+
+              const res = this.http
+                .get<Array<GridDTO>>("/api/getallgrids")
+                .pipe(map((res : Array<any>) => {
+                  console.log(res);
+            
+                  if (isGridDTOArray(res)){
+                    return res;
+                  }else{
+                    throw new Error("Response is not a valid GameDTO array. Received :  " + res.toString());
+                  }
+            
+                  
+                }))
+              
+              return res;
+          
+            }
 
   }
   
