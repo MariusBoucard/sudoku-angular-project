@@ -1,12 +1,23 @@
 package game.service;
 
+import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,4 +118,40 @@ public class MemoryService {
         return this.index;
     }
 
+    public Grid generateGrid(final String level) {
+
+
+        final int index = this.getCurrentIndex();
+        try {
+
+            var client = HttpClient.newHttpClient();
+            var request = HttpRequest.newBuilder(
+                            URI.create("https://sudoku.diverse-team.fr/sudoku-provider/"+level))
+                    .header("accept", "application/json")
+                    .build();
+
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+
+            String reponseBody = response.body().toString();
+            String[] tab = reponseBody.split("");
+            List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
+            int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
+            Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
+
+            //TODO GENERATE DIFFICULTE
+            Difficulte diff = Difficulte.valueOf(level.toUpperCase());
+
+            System.out.println(tabRendu.toString());
+            Grid retour = new Grid(index, new Classement(), diff, tabRendu);
+            addGrid(retour);
+            return retour;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
