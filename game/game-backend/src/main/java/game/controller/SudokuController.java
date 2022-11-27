@@ -75,7 +75,7 @@ public class SudokuController {
         if(in.readLine() != null) {
             ligne2Sudok = in.readLine();
         } else {
-            ligne2Sudok = null;
+            ligne2Sudok = "";
         }
         a = ligne2Sudok.chars().toArray();
         final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
