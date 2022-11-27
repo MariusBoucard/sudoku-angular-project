@@ -131,7 +131,7 @@ public class MemoryService {
                     HttpResponse.BodyHandlers.ofString());
 
 
-            final String reponseBody = response.body().toString();
+            final String reponseBody = response.body();
             final String[] tab = reponseBody.split("");
             final List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
             final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
@@ -141,7 +141,6 @@ public class MemoryService {
             final String lvl = this.difficultMap.get(level);
             final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
 
-            System.out.println(tabRendu.toString());
             final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
             addGrid(retour);
             return retour;
