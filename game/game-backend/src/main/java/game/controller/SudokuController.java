@@ -98,14 +98,12 @@ public class SudokuController {
             System.out.println(b);
             this.memoryService.addGrid(b);
             return b;
-        }
-        finally {
+        } finally {
             try {
                 if (is != null) {
                     is.close();
                 }
-            }
-                catch (IOException e){
+            } catch (IOException e) {
                     e.printStackTrace();
                 }
 
