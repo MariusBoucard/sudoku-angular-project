@@ -71,7 +71,7 @@ public class SudokuController {
         final URLConnection yc = generator.openConnection();
         final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
-        String ligne2Sudok;
+        final String ligne2Sudok;
         if(in.readLine() != null) {
             ligne2Sudok = in.readLine();
         } else {
@@ -80,7 +80,7 @@ public class SudokuController {
         a = ligne2Sudok.chars().toArray();
         final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
                 ArrayList::addAll);
-        String level2;
+        final String level2;
         System.out.println("caca = " + da);
         if("very-hard".equals(level)) {
             level2 = "very_hard";
