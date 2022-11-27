@@ -1,37 +1,42 @@
-<div class="container"  style="background-color: green; width:60%;margin: auto;align-items: center; text-align: center;">
-<label style="display:block">Entre ton nom de tocard, tocard</label>
-<input  #playerName (keyup.enter)="setPlayer(playerName.value)" (blur)="setPlayer(playerName.value);  " type=text>
-<p>Ton nom actuel : {{joueur.getName()}}</p>
-<mat-checkbox>Clique ici si t es un flemmard</mat-checkbox>
-<button (click)="getGrid(5)">test test test</button>
+<div class="container" style="background-color: green; width:60%;margin: auto;align-items: center; text-align: center;">
+  <label style="display:block">Entre ton nom de tocard, tocard</label>
+  <input #playerName (keyup.enter)="setPlayer(playerName.value)" (blur)="setPlayer(playerName.value);  " type=text>
+  <p>Ton nom actuel : {{joueur.getName()}}</p>
+  <mat-checkbox>Clique ici si t es un flemmard</mat-checkbox>
+  <button (click)="getGrid(5)">test test test</button>
 
-<ul style="        list-style-type: none; align-items:center; text-align:center;"  class="BoardList">
-<a (click)="generateGrid()"><p style='display:inline-block'width="60%">Generate Random board</p></a>
-<mat-form-field style="padding-left: 20px;">
-    <mat-select style="display: inline-block;padding-left:60px ; width: 20%;"placeholder="Difficulté">
-      <mat-option *ngFor="let difficult of difficultes" [value]="difficult">
-        {{ difficult}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <a href="">
-    <li *ngFor="let grid of Allgrids">
-      
+  <ul style="        list-style-type: none; align-items:center; text-align:center;" class="BoardList">
+    <a href="" (click)="generateGrid()">
+      <div>
+        <p style='display:inline-block' width="60%">Generate Random board</p>
+      </div>
+    </a>
+    <mat-form-field style="padding-left: 20px;">
+      <mat-select style="display: inline-block;padding-left:60px ; width: 20%;"
+        (selectionChange)="changeDifficulte($event.value)" placeholder="Difficulté">
+        <mat-option *ngFor="let difficult of difficultes" [value]="difficult">
+          {{ difficult}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <a href="">
+      <li *ngFor="let grid of Allgrids">
+        <p>Numero de la grille {{grid.id}}</p>
         <div style="width:500px;height: 500px;">
 
-            <div class="grid-container" >
-                <div class="grid-item"  *ngFor="let n of fakeArray" [ngStyle]="{'background-color': 'white'}">
-                  <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
+          <div class="grid-container">
+            <div class="grid-item" *ngFor="let n of fakeArray" [ngStyle]="{'background-color': 'white'}">
+              <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
 
-                  {{grid.values[n].value}}
-                  <!-- {{n}} -->
-                </div>
-              </div>
+              {{grid.values[n].value}}
+              <!-- {{n}} -->
+            </div>
+          </div>
 
         </div>
         <p>{{grid.difficulte.toLocaleString()}}</p>
-    </li>
-</a>
-</ul>
+      </li>
+    </a>
+  </ul>
 
 </div>

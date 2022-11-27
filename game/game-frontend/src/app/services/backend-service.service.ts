@@ -29,12 +29,7 @@ export class BackendServiceService {
           }));
     ;}
   
-        getAllGrids(): Observable<Grid[]> {
-          return this.http.get<Grid[]>("/api/getallgrids").pipe(
-            map(response =>{
-              console.log("type get all grids "+typeof <Grid[]> response);
-              return <Grid[]> response})) ;
-        }
+       
 
         
         
@@ -65,7 +60,7 @@ export class BackendServiceService {
   
 
 
-            getAllGrids2() {
+            getAllGrids() {
 
               const res = this.http
                 .get<Array<GridDTO>>("/api/getallgrids")
@@ -84,7 +79,12 @@ export class BackendServiceService {
               return res;
           
             }
-
+ // getAllGrids(): Observable<Grid[]> {
+        //   return this.http.get<Grid[]>("/api/getallgrids").pipe(
+        //     map(response =>{
+        //       console.log("type get all grids "+typeof <Grid[]> response);
+        //       return <Grid[]> response})) ;
+        // }
   }
   
 

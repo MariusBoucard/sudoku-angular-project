@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 public enum Difficulte implements Serializable {
 
-    EASY("EASY"), MEDIUM("MEDIUM"), HARD("HARD"), VERY_HARD("VERY_HARD"), EXTREMELY_HARD("EXTREMENLY_HARD"), INSANELY_HARD("INSANELY_HARD");
+    EASY("EASY"), MEDIUM("MEDIUM"), HARD("HARD"), VERY_HARD("VERY-HARD"), INSANE("INSANE"), INHUMAN("INHUMAN");
 
     Difficulte(final String easy) {
     }

@@ -21,10 +21,18 @@ public class MemoryService {
     Map<Difficulte, ArrayList<Grid>> gridMap = new HashMap<>();
     final  SavingService savingService = new SavingService();
 
+    final public Map<String,String> difficultMap = new HashMap<>();
     int index = 0;
 
     MemoryService() {
         loadData();
+        difficultMap.put("easy", "easy");
+        difficultMap.put("medium", "medium");
+        difficultMap.put("hard", "hard");
+        difficultMap.put("very-hard", "very-hard");
+        difficultMap.put("insane", "insane");
+        difficultMap.put("inhuman", "inhuman");
+
     }
 
     public void loadData() {

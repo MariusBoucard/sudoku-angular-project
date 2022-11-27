@@ -60,13 +60,14 @@ public class SudokuController {
      */
     @GetMapping(path = "/generategrid/{level}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Grid generate(@PathVariable("level") final String level) throws IOException {
+    public Grid generate(@PathVariable("level") String level) throws IOException {
 
 
         System.out.println("recu");
         int[] a = new int[SUDOKU_SIZE];
         final int index = this.memoryService.getCurrentIndex();
-        final URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/easy");
+
+        final URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/"+this.memoryService.difficultMap.get(level));
         final URLConnection yc = generator.openConnection();
         final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
@@ -74,11 +75,13 @@ public class SudokuController {
         final String ligne2Sudok = in.readLine();
 
         a = ligne2Sudok.chars().toArray();
-        final ArrayList<Integer> cc = new ArrayList<Integer>();
         final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
                 ArrayList::addAll);
 
         System.out.println("caca = " + da);
+        if(level.equals("very-hard")) {
+            level = "very_hard";
+        }
         a = da.stream().mapToInt(i -> i).toArray();
         final Grid b = new Grid(index, new Classement(),
                 Difficulte.valueOf(level.toUpperCase()), a);

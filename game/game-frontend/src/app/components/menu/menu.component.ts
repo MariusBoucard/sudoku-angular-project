@@ -13,10 +13,12 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+
   
   joueur : Player = new Player('Topin');
   Allgrids : GridDTO[] =[];
-  difficultes : String[] = ["eze","hard"]
+  difficultes : String[] = ["easy","medium","hard","very-hard","insane","inhuman"]
+  choosedDifficulte = "easy";
   fakeArray: number[] = [];
   grille : Grid = new Grid();
   failure!: boolean;
@@ -24,7 +26,7 @@ export class MenuComponent implements OnInit {
 
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
     let that = this;
-    this.backService.getAllGrids2().subscribe({
+    this.backService.getAllGrids().subscribe({
       next(list) {that.Allgrids = list; that.failure = false; },
       error(err) {that.failure = true; console.error(err)}
     } );
@@ -35,9 +37,8 @@ export class MenuComponent implements OnInit {
   }
   
   generateGrid(){
-    this.backService.generateGrid("easy").subscribe(gride =>{
+    this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
         this.grille = gride;
-        console.log("test "+this.Allgrids[0].id);
 
      });
     //TODO Ca m'a gavé on va faire avec des promises
@@ -45,13 +46,6 @@ export class MenuComponent implements OnInit {
 
   getGrid(id :number){
     this.backService.getgrid(id).subscribe(res => {console.log(res);this.gameService.currentGame.grid = res;});
-
-    console.log("test "+this.Allgrids);
-    
-    console.log("test 2 "+ typeof this.Allgrids[2]);
-    
-    console.log(this.gameService.currentGame.grid);
-     
     //TODO Ca m'a gavé on va faire avec des promises
   }
 
@@ -67,6 +61,7 @@ promise.then(function(value) {
 });
 pk pas ca
    */
+  
   ngOnInit(): void {
 
     this.fakeArray = new Array(81).fill(null).map((_, i) => i);
@@ -84,5 +79,11 @@ pk pas ca
   }
   setPlayer(name : String){
     this.joueur = new Player(name);
+  }
+
+
+  changeDifficulte(value : string) {
+    this.choosedDifficulte = value;
+    console.log("la diff : "+this.choosedDifficulte);
   }
 }
