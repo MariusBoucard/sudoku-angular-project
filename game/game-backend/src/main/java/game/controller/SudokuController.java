@@ -1,6 +1,5 @@
 package game.controller;
 
-import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
@@ -63,12 +62,14 @@ public class SudokuController {
     public Grid generate(@PathVariable("level") final String level) throws IOException {
 
 
+
         System.out.println("recu");
         int[] a;
         final int index = this.memoryService.getCurrentIndex();
 
         final URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/" + this.memoryService.difficultMap.get(level));
         final URLConnection yc = generator.openConnection();
+
         final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
         final String ligne2Sudok;
@@ -85,13 +86,10 @@ public class SudokuController {
         } else {
             level2 = level;
         }
-        a = da.stream().mapToInt(i -> i).toArray();
-        final Grid b = new Grid(index, new Classement(),
-                Difficulte.valueOf(level2.toUpperCase()), a);
-        System.out.println(b);
-        this.memoryService.addGrid(b);
-        return b;
+
+        return null;
     }
+
 
     /**
      * Helloword function, I could have make
