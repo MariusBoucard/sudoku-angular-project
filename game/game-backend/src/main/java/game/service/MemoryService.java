@@ -6,18 +6,15 @@ import game.model.Grid;
 import game.model.Player;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 
-import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
+
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +37,7 @@ public class MemoryService {
         difficultMap.put("easy", "easy");
         difficultMap.put("medium", "medium");
         difficultMap.put("hard", "hard");
-        difficultMap.put("very-hard", "very-hard");
+        difficultMap.put("very-hard", "very_hard");
         difficultMap.put("insane", "insane");
         difficultMap.put("inhuman", "inhuman");
 
@@ -124,27 +121,28 @@ public class MemoryService {
         final int index = this.getCurrentIndex();
         try {
 
-            var client = HttpClient.newHttpClient();
-            var request = HttpRequest.newBuilder(
-                            URI.create("https://sudoku.diverse-team.fr/sudoku-provider/"+level))
+            final var client = HttpClient.newHttpClient();
+            final var request = HttpRequest.newBuilder(
+                            URI.create("https://sudoku.diverse-team.fr/sudoku-provider/" + level))
                     .header("accept", "application/json")
                     .build();
 
-            HttpResponse<String> response = client.send(request,
+            final HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
 
-            String reponseBody = response.body().toString();
-            String[] tab = reponseBody.split("");
-            List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
-            int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
+            final String reponseBody = response.body().toString();
+            final String[] tab = reponseBody.split("");
+            final List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
+            final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
             Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
 
             //TODO GENERATE DIFFICULTE
-            Difficulte diff = Difficulte.valueOf(level.toUpperCase());
+            final String lvl = this.difficultMap.get(level);
+            final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
 
             System.out.println(tabRendu.toString());
-            Grid retour = new Grid(index, new Classement(), diff, tabRendu);
+            final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
             addGrid(retour);
             return retour;
         } catch (IOException e) {
