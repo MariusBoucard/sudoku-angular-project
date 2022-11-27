@@ -64,20 +64,23 @@ public class SudokuController {
 
 
         System.out.println("recu");
-        int[] a = new int[SUDOKU_SIZE];
+        int[] a;
         final int index = this.memoryService.getCurrentIndex();
 
         final URL generator = new URL("https://sudoku.diverse-team.fr/sudoku-provider/" + this.memoryService.difficultMap.get(level));
         final URLConnection yc = generator.openConnection();
         final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
-
-        final String ligne2Sudok = in.readLine();
-
+        String ligne2Sudok;
+        if(in.readLine() != null) {
+            ligne2Sudok = in.readLine();
+        } else {
+            ligne2Sudok = null;
+        }
         a = ligne2Sudok.chars().toArray();
         final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
                 ArrayList::addAll);
-        String level2 = level;
+        String level2;
         System.out.println("caca = " + da);
         if("very-hard".equals(level)) {
             level2 = "very_hard";
