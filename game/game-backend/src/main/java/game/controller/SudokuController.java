@@ -72,11 +72,9 @@ public class SudokuController {
         final BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
         final String ligne2Sudok;
-        if(in.readLine() != null) {
-            ligne2Sudok = in.readLine();
-        } else {
-            ligne2Sudok = "";
-        }
+
+        ligne2Sudok = in.readLine();
+
         a = ligne2Sudok.chars().toArray();
         final ArrayList<Integer> da = Arrays.stream(a).map(lat -> lat - 48).collect(ArrayList::new, ArrayList::add,
                 ArrayList::addAll);
