@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.ObjectOutputStream;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.ArrayList;
@@ -49,25 +49,21 @@ public class SavingService {
 
 
     void saveOnFile(final Map<Difficulte, ArrayList<Grid>> gridMap) throws IOException {
-        final ObjectOutputStream s;
         try {
-            //    FileOutputStream f = new FileOutputStream(outputfile);
-            //   s = new ObjectOutputStream(f);
-            System.out.println("obj" + gridMap);
-
-            final FileWriter file = new FileWriter(outputfile);
             final String a = new ObjectMapper().writeValueAsString(gridMap);
             System.out.println(a);
-            file.write(a);
-            try {
-                file.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) { 
+            final Path path = Path.of(outputfile);
+            Files.writeString(path, a);
+
+
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
         }
     }
 
@@ -199,5 +195,44 @@ public class SavingService {
         }*/
 
     }
+
+//     /**
+//      * @param object
+//      * @return
+//      * @throws JSONException
+//      */
+//     public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
+// //        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
+// //
+// //        final Iterator<String> keysItr = object.keys();
+// //        while (keysItr.hasNext()) {
+// //            final String key = keysItr.next();
+// //            final JSONArray value = object.getJSONArray(key);
+// //            final ArrayList<Grid> gridsList = new ArrayList<>();
+// //            for (int i = 0; i < value.length(); i++) {
+// //                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
+// //                final ArrayList<Player> classment = new ArrayList<>();
+// //
+// //                for (int j = 0; j < classm.length(); j++) {
+// //                    classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
+// //                }
+// //                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
+// //                gridsList.add(grid);
+// //            }
+// //
+// //            map.put(Difficulte.valueOf(key), gridsList);
+// //        }
+// //        return map;
+// //
+
+//         try {
+//             final Map<Difficulte, ArrayList<Grid>> map = new ObjectMapper().readValue( object, Map.class);
+//             return map;
+
+//         } catch (IOException e) {
+//             throw new RuntimeException(e);
+//         }
+
+//     }
 
 

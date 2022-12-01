@@ -1,6 +1,5 @@
 package game.controller;
 
-import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
@@ -15,8 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import java.io.IOException;
+
 import java.util.ArrayList;
+
+import java.util.EnumSet;
+
 
 @RestController
 @RequestMapping("api/")
@@ -54,21 +58,12 @@ public class SudokuController {
     @GetMapping(path = "/generategrid/{level}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Grid generate(@PathVariable("level") final String level) throws IOException {
+        return this.memoryService.generateGrid(level);
 
 
-        System.out.println("recu");
-        final int[] a = new int[SUDOKU_SIZE];
-      /*  for (int i = 0; i < SUDOKU_SIZE; i++) {
-            a[i] = 6;
-        }*/
-        final int index = this.memoryService
-                .getCurrentIndex();
-        final Grid b = new Grid(index, new Classement(),
-                Difficulte.valueOf(level), a);
-        System.out.println(b);
-        this.memoryService.addGrid(b);
-        return b;
+
     }
+
 
     /**
      * Helloword function, I could have make
@@ -105,6 +100,20 @@ public class SudokuController {
         return b;
     }
 
+    @GetMapping(path = "/getallgrids",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ArrayList<Grid> getallgrids() {
+        final ArrayList<Grid> gridList = new ArrayList<Grid>();
+        EnumSet.allOf(Difficulte.class)
+                .forEach(diff -> {
+                    if(this.memoryService.getList(diff.name()) != null) {
+                        gridList.addAll(this.memoryService.getList(diff.name()));
+                    }
+                }
+                    );
+        return gridList;
+    }
+
     /**
      * This route return a grid corresponding to the id provided in parameter
      *
@@ -121,6 +130,7 @@ public class SudokuController {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
+        System.out.println("Grid number " + id + " asked");
         return b;
     }
 

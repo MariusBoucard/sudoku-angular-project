@@ -5,6 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Just the grid, this object carry (almost?) all he needs as dependency
@@ -17,7 +20,7 @@ public class Grid implements Serializable {
     int id;
     Classement classement;
     Difficulte difficulte;
-    int[] values = new int[81];
+    Tile[] values = new Tile[81];
 
     /**
      * Constructeur without argument, usefull for serialization
@@ -38,7 +41,11 @@ public class Grid implements Serializable {
         this.id = id;
         this.classement = classement;
         this.difficulte = diff;
-        this.values = values;
+        final List<Tile> a = new ArrayList<Tile>();
+        Arrays.stream(values).forEach(val -> {
+            a.add(new Tile(val));
+        });
+        this.values = a.toArray(new Tile[a.size()]);
     }
 
     /**

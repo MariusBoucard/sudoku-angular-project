@@ -8,12 +8,13 @@ export class setValue extends UndoableCommand {
     private index!: number;
     public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
         super();
-        console.log("A new setvalue ha been created" + this.newValue);
+        console.log("A new setvalue ha been created" + this.newValue+"index "+tuileindex);
     }
 
     protected override createMemento(): void {
         this.oldValue = this.gameService.getValue(this.tuileindex);
         this.index = this.tuileindex;
+        console.log("tuileindex"+this.index);
     }
 
     protected execution(): void {
@@ -29,7 +30,9 @@ export class setValue extends UndoableCommand {
         this.execution();
     }
 public override canExecute(): boolean {
-        return this.gameService.currentGame.grid.getTile(this.index).getValue() !== this.newValue;
+    console.log(this.index);
+
+        return this.gameService.currentGame.grid.getTile(this.tuileindex).getValue() !== this.newValue;
         }
     public override getUndoName(): string {
         return 'Défaire le coup';

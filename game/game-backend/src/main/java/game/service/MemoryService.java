@@ -1,11 +1,19 @@
 package game.service;
 
+import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+
+import java.net.URI;
+
+
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,10 +29,18 @@ public class MemoryService {
     Map<Difficulte, ArrayList<Grid>> gridMap = new HashMap<>();
     final  SavingService savingService = new SavingService();
 
+    public final Map<String, String> difficultMap = new HashMap<>();
     int index = 0;
 
     MemoryService() {
         loadData();
+        difficultMap.put("easy", "easy");
+        difficultMap.put("medium", "medium");
+        difficultMap.put("hard", "hard");
+        difficultMap.put("very-hard", "very_hard");
+        difficultMap.put("insane", "insane");
+        difficultMap.put("inhuman", "inhuman");
+
     }
 
     public void loadData() {
@@ -99,4 +115,40 @@ public class MemoryService {
         return this.index;
     }
 
+    public Grid generateGrid(final String level) {
+
+
+        final int index = this.getCurrentIndex();
+        try {
+
+            final var client = HttpClient.newHttpClient();
+            final var request = HttpRequest.newBuilder(
+                            URI.create("https://sudoku.diverse-team.fr/sudoku-provider/" + level))
+                    .header("accept", "application/json")
+                    .build();
+
+            final HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+
+            final String reponseBody = response.body();
+            final String[] tab = reponseBody.split("");
+            final List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
+            final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
+            Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
+
+            //TODO GENERATE DIFFICULTE
+            final String lvl = this.difficultMap.get(level);
+            final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
+
+            final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
+            addGrid(retour);
+            return retour;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

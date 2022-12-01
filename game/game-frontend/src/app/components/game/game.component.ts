@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit, ViewChild} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { Bindings, TreeUndoHistory, UndoableSnapshot } from 'interacto';
-import { TreeHistoryComponent } from 'interacto-angular';
 // import { TreeHistoryComponent } from 'interacto-angular';
 // import { TreeHistoryComponent } from 'interacto-angular';
 import { setValue } from 'src/app/commands/setValue';
@@ -19,8 +18,7 @@ export class GameComponent implements OnInit {
 
   //Default value here to prevent error
 
-  @ViewChild('treeComp')
-  private treeComp!: TreeHistoryComponent;
+
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,public dialog: MatDialog) { }
@@ -29,7 +27,6 @@ export class GameComponent implements OnInit {
   }
 
   public ngAfterViewInit(): void {
-    this.treeComp.width ="100%";
   }
   incrScore(){
     this.gameService.setScore(this.gameService.getScore()+1);
