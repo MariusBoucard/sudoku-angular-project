@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toCollection;
+
 @Service
 public class MemoryService {
     Map<Difficulte, ArrayList<Grid>> gridMap = new HashMap<>();
@@ -71,9 +73,8 @@ public class MemoryService {
 
     public ArrayList<GridDTO1> getList(final String diff) {
         final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
-        final List<GridDTO1> retour =  gridList.stream().map(grille -> new GridDTO1(grille)).collect(Collectors.toList());
-        final ArrayList<GridDTO1> ret = (ArrayList<GridDTO1>) retour;
-        return ret;
+        final ArrayList<GridDTO1> retour =  gridList.stream().map(grille -> new GridDTO1(grille)).collect(toCollection(ArrayList::new));
+        return retour;
     }
 
 
@@ -92,7 +93,7 @@ public class MemoryService {
 
     public Grid getGrid(final int id) {
         final Stream<Grid> stream = allGridsStream();
-        final List Result = stream.filter((grid -> (grid.getID() == id))).collect(Collectors.toList());
+        final List Result = stream.filter((grid -> (grid.getId() == id))).collect(Collectors.toList());
 
         if (Result.size() == 0) {
             System.out.println("\n\n SHITTIIIII HERE \n\n");
