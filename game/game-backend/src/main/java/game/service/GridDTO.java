@@ -18,7 +18,7 @@ public class GridDTO {
     Tile[] values = new Tile[81];
 
     public GridDTO(final Grid grid) {
-        id = grid.getID();
+        id = grid.getId();
         classement = grid.getClassement();
         difficulte = grid.getDifficulte();
         values = grid.getValues();
