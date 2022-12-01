@@ -18,4 +18,8 @@ export class Tile {
     this.value = value;
   }
 
+  getValue(){
+    return this.value;
+  }
+
 }

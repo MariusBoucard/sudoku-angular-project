@@ -20,6 +20,12 @@ import { GridMatrixComponent } from './grid-matrix/grid-matrix.component';
 import { ClassementComponent } from './components/classement/classement.component';
 import { GameComponent } from './components/game/game.component';
 import {HotkeyModule} from 'angular2-hotkeys';
+import { GameService } from "./services/game.service";
+import { Player } from "./classes/player";
+import { MenuComponent } from './components/menu/menu.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -27,28 +33,38 @@ import {HotkeyModule} from 'angular2-hotkeys';
     GridComponent,
     GridMatrixComponent,
     ClassementComponent,
-    GameComponent
+    GameComponent,
+    MenuComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        InteractoModule,
-        MatSelectModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatIconModule,
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatListModule,
-        FormsModule,
-        MatCheckboxModule,
-        RouterModule,
-        HotkeyModule.forRoot(),
-        InteractoModule
-    ],
-  providers: [interactoTreeUndoProviders(true)],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    InteractoModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatListModule,
+    FormsModule,
+    MatCheckboxModule,
+    RouterModule,
+    HotkeyModule.forRoot(),
+    MatTableModule,
+    MatDialogModule,
+    MatToolbarModule,
+  ],
+  providers: [
+    interactoTreeUndoProviders(true),
+    GameService,
+    Player,
+    {provide: 'gameServ', useClass: GameService},
+    {provide: 'defaultName', useValue: 'Sly Bar'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

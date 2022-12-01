@@ -1,10 +1,29 @@
-<main class="container">
-  <h1>{{title}}</h1>
+<header>
+  <mat-toolbar>
+    <div class="test-spacer">
+      <p>Sudoku</p>
+    </div>
+    <div class="test-spacer">
+      <a routerLink="/menu">Menu</a>
+    </div>
+    <div class="test-spacer">
+      <a routerLink="/game">Game Page</a>
+    </div>
 
-</main>
-<main class="container">
-  <app-grid></app-grid>
-</main>  
+  </mat-toolbar>
+</header>
+
+
+  <router-outlet></router-outlet>
+<!--  <app-game></app-game>-->
+
+<!--<app-menu></app-menu>-->
+
+<!--
 
 
 
+  <app-menu></app-menu>-->
+<!--  <app-classement></app-classement>-->
+
+  -->

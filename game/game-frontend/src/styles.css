@@ -7,4 +7,6 @@
 }
 */
 
-
+.mat-select-arrow{
+  display: none;
+}

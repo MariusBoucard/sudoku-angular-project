@@ -1,4 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import { Bindings, PartialButtonBinder, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
+// import { PartialPointBinder } from 'interacto';
+import {  PartialMatSelectBinder } from 'interacto-angular';
+import { setValue } from 'src/app/commands/setValue';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -6,15 +10,15 @@ import { GameService } from 'src/app/services/game.service';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css'],
 })
-
 /**
  * Component that display the grid
  */
 export class GridComponent implements OnInit {
-  
-  constructor(public gameService : GameService){
-
+  // @Output() myEvent = new EventEmitter<string>();
+  //The inject is meant to use the same gameService for both gamecomponent and grid
+  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
   }
+
   ngOnInit(){}
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
@@ -25,7 +29,7 @@ export class GridComponent implements OnInit {
 
   contraintRespected(index : number):boolean{
     return this.gameService.contraintRespected(index);
-  
+
   }
 
 
@@ -48,7 +52,7 @@ export class GridComponent implements OnInit {
     return this.gameService.getValue(index);
   }
   getSuggestedValues(index : number):number[]{
-    console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
+    // console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
     return this.gameService.getSuggestedValue(index);
   }
   getSelected(n : number):number{
@@ -83,7 +87,37 @@ export class GridComponent implements OnInit {
         this.gameService.setValue(this.gameService.getSelected(),(event.key as unknown as number));
       }
 
-    
+
   }
-  
+
+  public setValue(binder: PartialMatSelectBinder, index: number) {
+    console.log("Backtracking setValue : here in gridcomponent");
+    binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
+    .bind();
+    // this.myEvent.emit('yolo');
+    }
+
+
+
+    public directSet(binder: PartialPointBinder) {
+      console.log("into direct");
+      binder
+      .toProduce(() =>
+      new setValue(1,this.gameService.getSuggestedValue(1)[0],this.gameService))
+      .when(i => i.button === 1)
+      .bind();
+      }
+      public binderClickEndGame(binder: PartialButtonBinder): void {
+        binder
+          .toProduceAnon(() => this.showEndGame())
+          .bind();
+      }
+      public showEndGame(){
+        console.log("finish")
+      }
+   
+        //From the help manual in moodle
+    rootRenderer(): UndoableSnapshot {
+    return setValue.getSnapshot(this.gameService.currentGame);
+  }
 }

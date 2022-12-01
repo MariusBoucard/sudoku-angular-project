@@ -1,9 +1,12 @@
 {
   "/api/*": {
-    "target": "http://localhost:4445",
+    "target": "http://localhost:4445/api",
     "secure": false,
     "logLevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
   },
   "/sudoku-provider/*": {
     "target": "http://localhost:3001",

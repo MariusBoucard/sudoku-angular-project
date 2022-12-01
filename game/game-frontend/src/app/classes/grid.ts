@@ -9,7 +9,7 @@ import { Tile } from "./tile";
 export class Grid {
 
   id = 0;
-  difficulte: Difficulte = 1;
+  difficulte: Difficulte = Difficulte.easy;
   classement: Classement=new Classement();
   tileList: Tile[] = [];
 
@@ -18,6 +18,7 @@ export class Grid {
   selectedTabName = -1;
 
     constructor(){
+      
       for (let i = 0; i < 81; i++) {
 
         this.tileList.push(new Tile());
@@ -71,8 +72,8 @@ export class Grid {
    * @param colonne Column coordinate of the element we want to get
    * @returns return the Tile from TileList of coordinates corresponding to the one in entry
    */
-  getTile(ligne: number, colonne: number): Tile {
-    return this.tileList[this.coordinates_to_index(ligne, colonne)];
+  getTile(index : number): Tile {
+    return this.tileList[index];
   }
 
   //Won't be implemented like that but we'll have to see how with history
@@ -84,8 +85,7 @@ export class Grid {
    * @param value Value we want to set to the tile
    */
   setValue(index: number, value: number) {
-
-    this.tileList[index].value = value;
+    this.tileList[index].setValue(value);
     this.tileList[index].constraintRespected = this.checkTile(index);
     // this.updateSuggestedValues(index);
   }
@@ -275,5 +275,32 @@ export class Grid {
 
     }
     return retour;
+  }
+
+  setClassement(c : Classement){
+    this.classement = c;
+  }
+  setTiles(t  : number[]){
+    t.forEach(value => this.tileList.push(new Tile(value)));
+  }
+  setID(i : number){
+    this.id = i;
+  }
+
+  setDifficulty(d :String){
+    switch(d){
+      case 'easy ': this.difficulte = Difficulte.easy;
+      break;
+      case 'medium ': this.difficulte = Difficulte.medium;
+      break;
+      case 'hard ': this.difficulte = Difficulte.hard;
+      break;
+      case 'veryhard ': this.difficulte = Difficulte.veryhard;
+      break;
+      case 'insane ': this.difficulte = Difficulte.insane;
+      break;
+      case 'inhuman ': this.difficulte = Difficulte.inhuman;
+      break;
+    }
   }
 }
