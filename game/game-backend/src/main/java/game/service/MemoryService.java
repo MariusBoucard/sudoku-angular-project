@@ -72,7 +72,8 @@ public class MemoryService {
     public ArrayList<GridDTO1> getList(final String diff) {
         final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
         final List<GridDTO1> retour =  gridList.stream().map(grille -> new GridDTO1(grille)).collect(Collectors.toList());
-        return (ArrayList<GridDTO1>) retour;
+        ArrayList<GridDTO1> ret = (ArrayList<GridDTO1>) retour;
+        return ret;
     }
 
 
