@@ -69,8 +69,10 @@ public class MemoryService {
         saveData();
     }
 
-    public ArrayList<Grid> getList(final String diff) {
-        return gridMap.get(Difficulte.valueOf(diff));
+    public ArrayList<GridDTO1> getList(final String diff) {
+        final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
+        final List<GridDTO1> retour =  gridList.stream().map(grille -> new GridDTO1(grille)).collect(Collectors.toList());
+        return (ArrayList<GridDTO1>) retour;
     }
 
 
@@ -115,7 +117,7 @@ public class MemoryService {
         return this.index;
     }
 
-    public Grid generateGrid(final String level) {
+    public GridDTO generateGrid(final String level) {
 
 
         final int index = this.getCurrentIndex();
@@ -136,14 +138,13 @@ public class MemoryService {
             final List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
             final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
             Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
-
-            //TODO GENERATE DIFFICULTE
             final String lvl = this.difficultMap.get(level);
             final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
 
             final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
             addGrid(retour);
-            return retour;
+            System.out.println(retour.toString());
+            return new GridDTO(retour);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

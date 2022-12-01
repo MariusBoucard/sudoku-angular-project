@@ -3,6 +3,8 @@ package game.controller;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
+import game.service.GridDTO;
+import game.service.GridDTO1;
 import game.service.MemoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,10 +59,10 @@ public class SudokuController {
      */
     @GetMapping(path = "/generategrid/{level}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Grid generate(@PathVariable("level") final String level) throws IOException {
-        return this.memoryService.generateGrid(level);
-
-
+    public GridDTO generate(@PathVariable("level") final String level) throws IOException {
+        final GridDTO a = this.memoryService.generateGrid(level);
+        System.out.println(a.toString());
+        return a;
 
     }
 
@@ -94,16 +96,16 @@ public class SudokuController {
      */
     @GetMapping(path = "/sudokulist/{level}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<Grid> sudokuList(
+    public ArrayList<GridDTO1> sudokuList(
             @PathVariable("level") final String level) {
-        final ArrayList<Grid> b = this.memoryService.getList(level);
+        final ArrayList<GridDTO1> b = this.memoryService.getList(level);
         return b;
     }
 
     @GetMapping(path = "/getallgrids",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<Grid> getallgrids() {
-        final ArrayList<Grid> gridList = new ArrayList<Grid>();
+    public ArrayList<GridDTO1> getallgrids() {
+        final ArrayList<GridDTO1> gridList = new ArrayList<GridDTO1>();
         EnumSet.allOf(Difficulte.class)
                 .forEach(diff -> {
                     if(this.memoryService.getList(diff.name()) != null) {
@@ -122,7 +124,7 @@ public class SudokuController {
      */
     @GetMapping(path = "/sudokugrid/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Grid getById(@PathVariable("id") final String id) {
+    public GridDTO getById(@PathVariable("id") final String id) {
 
         final Grid b = this.memoryService.getGrid(Integer.parseInt(id));
         if (b == null) {
@@ -131,7 +133,7 @@ public class SudokuController {
             );
         }
         System.out.println("Grid number " + id + " asked");
-        return b;
+        return new GridDTO(b);
     }
 
     /**
