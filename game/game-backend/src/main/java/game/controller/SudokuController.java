@@ -60,9 +60,17 @@ public class SudokuController {
     @GetMapping(path = "/generategrid/{level}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public GridDTO generate(@PathVariable("level") final String level) throws IOException {
-        final GridDTO a = this.memoryService.generateGrid(level);
-        System.out.println(a.toString());
-        return a;
+        if(this.memoryService.difficultMap.get(level) != null) {
+            final GridDTO a = this.memoryService.generateGrid(level);
+            System.out.println(a.toString());
+            System.out.println("foundddd");
+            return a;
+        } else {
+            System.out.println("on a pas trouvé");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "On a pas trouvé de niveau bro <3 force a toi"
+            );
+        }
 
     }
 
@@ -74,7 +82,7 @@ public class SudokuController {
      * @return a string.
      */
     @GetMapping(path = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String sudokuList() {
+    public String helloworld() {
         return "Hello";
     }
 
