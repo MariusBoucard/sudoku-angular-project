@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
 
   
   joueur : Player = new Player('Topin');
-  Allgrids : GridDTO[] =[];
+  Allgrids : Array<GridDTO> =new Array<GridDTO>;
   difficultes : String[] = ["easy","medium","hard","very-hard","insane","inhuman"]
   choosedDifficulte = "easy";
   fakeArray: number[] = [];

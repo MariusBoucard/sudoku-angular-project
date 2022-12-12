@@ -15,20 +15,20 @@
     </mat-select>
   </mat-form-field>
   <a href="">
-    <li *ngFor="let grid of Allgrids">
+    <li *ngFor="let griddto of Allgrids">
         <div style="width:500px;height: 500px;">
 
             <div class="grid-container" >
                 <div class="grid-item"  *ngFor="let n of fakeArray" [ngStyle]="{'background-color': 'white'}">
                   <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
 
-                  <!-- {{grid.getTile(n).getValue()}} -->
+                  {{griddto.values[n].value}}
                   <!-- {{n}} -->
                 </div>
               </div>
 
         </div>
-        <p>{{grid.difficulte.toLocaleString()}}</p>
+        <p>{{griddto.difficulte.toLocaleString()}}</p>
     </li>
 </a>
 </ul>

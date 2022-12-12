@@ -73,8 +73,11 @@ public class MemoryService {
 
     public ArrayList<GridDTO1> getList(final String diff) {
         final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
-        final ArrayList<GridDTO1> retour =  gridList.stream().map(grille -> new GridDTO1(grille)).collect(toCollection(ArrayList::new));
-        return retour;
+        if(gridList!= null) {
+            final ArrayList<GridDTO1> retour = gridList.stream().map(grille -> new GridDTO1(grille)).collect(toCollection(ArrayList::new));
+            return retour;
+        }
+        return null;
     }
 
 

@@ -25,6 +25,7 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -127,7 +128,7 @@ class SudokuControllerTest {
     @Test
     void getById() throws Exception {
         this.mockMvc.perform(get("http://localhost:4445/api//sudokugrid/0"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andDo(print());
     }
 
     @Test
