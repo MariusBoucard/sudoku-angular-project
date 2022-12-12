@@ -2,7 +2,7 @@ import {  Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs"; 
 import { Grid } from '../classes/grid';
-import { GridDTO, isGridDTOArray } from '../DTO/grid-dto';
+import { GridDTO, isGridDTO, isGridDTOArray } from '../DTO/grid-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -32,21 +32,30 @@ export class BackendServiceService {
        
 
         
-        
-        getgrid(id : number) {
-          console.log("We re sending request for grid N °"+id);
-          return this.http.get("/api/sudokugrid/"+id).
-          pipe(
-            map((gridJson: any) => {
-              let grille : Grid = new Grid();
-              grille.setID(gridJson.id);
-              grille.setTiles(gridJson.values);
-              grille.setClassement(gridJson.classement);
-              grille.setDifficulty(gridJson.difficulte);
-              console.log(grille);
-              return grille;
-            }));
-          ;}
+    /**
+     * Je voulais faire ca avec des promises mais comme to promise est genre deprecié on l'a dans l'os
+     * @param n 
+     * @returns 
+     */
+    getGrid(n : number) {
+      const res = this.http
+        .get<GridDTO>("/api/sudokugrid/"+n)
+        .pipe(map((res : GridDTO) => {
+          console.log(res);
+    
+          if (isGridDTO(res)){
+            console.log("recu a grille")
+            return res;
+          }else{
+            throw new Error("Response is not a valid GameDTO array. Received :  " );
+          }
+    
+          
+        }))
+      
+      return res;
+  
+    }
           
 
           hello(): Observable<String> {

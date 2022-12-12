@@ -1,6 +1,6 @@
 import { Classement } from "../interfaces/classement"
 import { Difficulte } from "../enums/difficulte"
-import { Tile } from "../interfaces/tile"
+import { Tile } from "../classes/tile"
 import { isTileDTO } from "./tile-dto"
 
 
