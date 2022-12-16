@@ -21,9 +21,14 @@ export class GameComponent implements OnInit {
 
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
-  constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,public dialog: MatDialog) { }
+  constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
+  public dialog: MatDialog) {
+ 
+   }
 
   ngOnInit(): void {
+    
+
   }
 
   public ngAfterViewInit(): void {

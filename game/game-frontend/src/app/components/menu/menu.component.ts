@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
 
   
   joueur : Player = new Player('Topin');
-  Allgrids : GridDTO[] =[];
+  Allgrids : Array<GridDTO> =new Array<GridDTO>;
   difficultes : String[] = ["easy","medium","hard","very-hard","insane","inhuman"]
   choosedDifficulte = "easy";
   fakeArray: number[] = [];
@@ -44,10 +44,6 @@ export class MenuComponent implements OnInit {
     //TODO Ca m'a gavé on va faire avec des promises
   }
 
-  getGrid(id :number){
-    this.backService.getgrid(id).subscribe(res => {console.log(res);this.gameService.currentGame.grid = res;});
-    //TODO Ca m'a gavé on va faire avec des promises
-  }
 
   /**
    * const promise = new Promise(function(resolve, reject) {
@@ -70,7 +66,8 @@ pk pas ca
   }
 
 
-  lauchGame(){
+  launchGame(n : number){
+    this.gameService.setGrid(n,this.joueur.getName());
     //TODO
     /**
      * Has to keep name in memory -> Saved in gameservice

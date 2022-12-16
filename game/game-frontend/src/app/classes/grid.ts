@@ -281,6 +281,7 @@ export class Grid {
     this.classement = c;
   }
   setTiles(t  : number[]){
+    this.tileList = new Array<Tile>;
     t.forEach(value => this.tileList.push(new Tile(value)));
   }
   setID(i : number){

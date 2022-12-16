@@ -5,7 +5,7 @@ import {GameComponent} from "./components/game/game.component";
 
 const routes: Routes = [
   { path: 'menu', component: MenuComponent },
-  { path: 'game', component: GameComponent },
+  { path: 'game/:idgrid', component: GameComponent },
   { path: '**', redirectTo: '/menu', pathMatch: 'full' }
 ];
 

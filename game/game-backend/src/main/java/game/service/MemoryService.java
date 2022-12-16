@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toCollection;
+
 @Service
 public class MemoryService {
     Map<Difficulte, ArrayList<Grid>> gridMap = new HashMap<>();
@@ -69,8 +71,13 @@ public class MemoryService {
         saveData();
     }
 
-    public ArrayList<Grid> getList(final String diff) {
-        return gridMap.get(Difficulte.valueOf(diff));
+    public ArrayList<GridDTO1> getList(final String diff) {
+        final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
+        if(gridList != null) {
+            final ArrayList<GridDTO1> retour = gridList.stream().map(grille -> new GridDTO1(grille)).collect(toCollection(ArrayList::new));
+            return retour;
+        }
+        return null;
     }
 
 
@@ -89,7 +96,7 @@ public class MemoryService {
 
     public Grid getGrid(final int id) {
         final Stream<Grid> stream = allGridsStream();
-        final List Result = stream.filter((grid -> (grid.getID() == id))).collect(Collectors.toList());
+        final List Result = stream.filter((grid -> (grid.getId() == id))).collect(Collectors.toList());
 
         if (Result.size() == 0) {
             System.out.println("\n\n SHITTIIIII HERE \n\n");
@@ -115,7 +122,7 @@ public class MemoryService {
         return this.index;
     }
 
-    public Grid generateGrid(final String level) {
+    public GridDTO generateGrid(final String level) {
 
 
         final int index = this.getCurrentIndex();
@@ -136,14 +143,13 @@ public class MemoryService {
             final List<Integer> tabInt = Arrays.stream(tab).map(ca -> Integer.parseInt(ca)).collect(Collectors.toList());
             final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
             Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
-
-            //TODO GENERATE DIFFICULTE
             final String lvl = this.difficultMap.get(level);
             final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
 
             final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
             addGrid(retour);
-            return retour;
+            System.out.println(retour.toString());
+            return new GridDTO(retour);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

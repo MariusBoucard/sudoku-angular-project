@@ -3,17 +3,42 @@ import { Classement } from '../classes/classement';
 import { Game } from '../classes/game';
 import { Grid } from '../classes/grid';
 import { Player } from '../classes/player';
+import { Tile } from '../classes/tile';
+import { GridDTO } from '../DTO/grid-dto';
+import { BackendServiceService } from './backend-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  constructor(private grid : Grid,public player:Player) {
+  constructor(private grid : Grid,public player:Player,private backService : BackendServiceService) {
 
    }
    currentGame : Game = new Game(this.grid,this.player);
+   fillGame(data : GridDTO){
+      this.currentGame.grid.id = data.id;
+      data.classement.classement.forEach(player => this.currentGame.grid.classement.addToClassement(player));
+      let listnum = new Array(81);
 
+      data.values.forEach((tile: Tile) => listnum.push(tile.value));
+      console.log(this.currentGame.grid.tileList);
+
+        this.currentGame.grid.setTiles(listnum);
+        console.log(this.currentGame.grid.tileList);
+
+      console.log(this.currentGame.grid.tileList);
+   }
+   setGrid(n:number,joueur: String){
+    let play = new Player(joueur);
+    this.backService.getGrid(n).subscribe(
+      (data:any) => this.fillGame(data),
+      (error: any) => console.log(error),
+      () => console.log("completed")
+    );
+    this.currentGame.player = play;
+
+   }
    getSelected():number{
     return this.currentGame.grid.selectedTabName;
    }
@@ -47,4 +72,6 @@ export class GameService {
     return this.currentGame.grid.getTile(index);
    }
 }
+
+
 

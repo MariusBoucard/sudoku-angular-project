@@ -2,7 +2,7 @@ import { Player } from "../classes/player";
 import { isPlayerDTO } from "./player-dto";
 
 export type ClassementDTO = {
-    class : Player[],
+    classement : Player[];
     
 
 }

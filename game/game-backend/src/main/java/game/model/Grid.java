@@ -57,8 +57,6 @@ public class Grid implements Serializable {
         classement.add(player);
     }
 
-    public int getID() {
-        return this.id;
-    }
+
 
 }
