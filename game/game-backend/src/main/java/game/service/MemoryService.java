@@ -144,7 +144,8 @@ public class MemoryService {
             final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
             Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
             final String lvl = this.difficultMap.get(level);
-            final Difficulte diff = Difficulte.valueOf(lvl.toUpperCase());
+            final Difficulte diff = Difficulte.valueOf(lvl);
+
 
             final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
             addGrid(retour);

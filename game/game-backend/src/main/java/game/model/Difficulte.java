@@ -15,5 +15,6 @@ public enum Difficulte implements Serializable {
     EASY("EASY"), MEDIUM("MEDIUM"), HARD("HARD"), VERY_HARD("VERY-HARD"), INSANE("INSANE"), INHUMAN("INHUMAN");
 
     Difficulte(final String easy) {
+
     }
 }

@@ -21,7 +21,7 @@
   </mat-form-field>
   <ul class="grid-list">
     <a href="">
-      <li *ngFor="let grid of Allgrids">
+      <li *ngFor="let griddto of Allgrids">
         <a [routerLink]="['/game',griddto.id]" (click)="launchGame(griddto.id)">
           <div style="width:500px;height: 500px;">
             <div class="grid-container">
