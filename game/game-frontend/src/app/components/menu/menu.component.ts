@@ -27,7 +27,10 @@ export class MenuComponent implements OnInit {
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
     let that = this;
     this.backService.getAllGrids().subscribe({
-      next(list) {that.Allgrids = list; that.failure = false; },
+      next(list) {that.Allgrids = list; that.failure = false;                 
+      console.log(that.Allgrids);
+      console.log("allgrids");
+    },
       error(err) {that.failure = true; console.error(err)}
     } );
 

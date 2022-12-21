@@ -106,7 +106,7 @@ public class SudokuController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<GridDTO1> sudokuList(
             @PathVariable("level") final String level) {
-        final ArrayList<GridDTO1> b = this.memoryService.getList(level);
+        final ArrayList<GridDTO1> b = this.memoryService.getList(this.memoryService.diffObjMap.get(this.memoryService.difficultMap.get(level)));
         return b;
     }
 
@@ -116,8 +116,8 @@ public class SudokuController {
         final ArrayList<GridDTO1> gridList = new ArrayList<GridDTO1>();
         EnumSet.allOf(Difficulte.class)
                 .forEach(diff -> {
-                    if(this.memoryService.getList(diff.name()) != null) {
-                        gridList.addAll(this.memoryService.getList(diff.name()));
+                    if(this.memoryService.getList(diff) != null) {
+                        gridList.addAll(this.memoryService.getList(diff));
                     }
                 }
                     );

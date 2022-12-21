@@ -74,9 +74,9 @@ export class BackendServiceService {
               const res = this.http
                 .get<Array<GridDTO>>("/api/getallgrids")
                 .pipe(map((res : Array<any>) => {
-                  console.log(res);
             
                   if (isGridDTOArray(res)){
+                    console.log("c'est bien des gridsdto "+res);
                     return res;
                   }else{
                     throw new Error("Response is not a valid GameDTO array. Received :  " + res.toString());
