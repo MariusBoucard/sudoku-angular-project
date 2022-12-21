@@ -5,21 +5,31 @@ import game.model.Classement;
 import game.model.Difficulte;
 import game.model.Grid;
 import game.model.Player;
+import game.service.GridDTO;
+import game.service.GridDTO1;
 import game.service.MemoryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,12 +45,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = SudokuController.class)
 class SudokuControllerTest {
     static final Logger LOGGER =
             Logger.getAnonymousLogger();
-    @MockBean
+    @Mock
     private MemoryService memoryService;
 
 
@@ -48,6 +58,7 @@ class SudokuControllerTest {
     private MockMvc mockMvc;
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach
@@ -55,20 +66,29 @@ class SudokuControllerTest {
     }
 
     @Test
-    void generate() throws Exception {
-        try {
+    void generateGrid() throws Exception {
+        int tabf[] = {8,1,2,3,9,7,6,5,4,9,0,0,0,2,0,7,1,8,7,6,4,8,1,5,3,9,0,5,0,7,9,0,1,8,0,0,0,8,9,0,3,0,5,7,1,1,2,6,7,5,8,9,4,3,6,9,1,0,7,3,0,0,5,0,4,
+                8,5,6,9,1,3,7,3,0,5,1,8,0,0,6,9};
+        Grid grille = new Grid(1,new Classement(), Difficulte.EASY,tabf);
+        GridDTO dto = new GridDTO(grille);
+        when(memoryService.generateGrid("easy")).thenReturn(dto);
+        this.mockMvc.perform(get("/api/generategrid/easy"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(
+                        "difficulte")))
+                .andDo(print());
+    }
 
+    @Test
+    void generateGridwronglevel() throws Exception {
+        int tabf[] = {8,1,2,3,9,7,6,5,4,9,0,0,0,2,0,7,1,8,7,6,4,8,1,5,3,9,0,5,0,7,9,0,1,8,0,0,0,8,9,0,3,0,5,7,1,1,2,6,7,5,8,9,4,3,6,9,1,0,7,3,0,0,5,0,4,
+                8,5,6,9,1,3,7,3,0,5,1,8,0,0,6,9};
+        Grid grille = new Grid(1,new Classement(), Difficulte.EASY,tabf);
 
-            this.mockMvc.perform(get("http://localhost:4445/api/generategrid/easy")
-                            .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                   ;
+        this.mockMvc.perform(get("/api/generategrid/nigueudouille"))
+                .andExpect(status().isNotFound())
 
-        }catch(Exception ex) {
-            LOGGER.log(Level.SEVERE , "CRASH : we just tried to generate a new grid, and this shitted in the " +
-                    "glue : ", ex);
-        }
-
+                .andDo(print());
     }
 
 
@@ -104,31 +124,6 @@ class SudokuControllerTest {
                 .andExpect(status().isNotFound())
 
                 .andDo(print());
-    }
-    @Test
-    void generatenotOk() throws Exception {
-        try {
-
-
-            RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:4445/api/generategrid/clodo")
-                    .accept(MediaType.APPLICATION_JSON);
-
-
-
-            MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-
-            int actualResult = mvcResult.getResponse().getStatus();
-            int expectedResult = HttpStatus.OK.value();
-
-            assertEquals("Result as expected!",expectedResult,actualResult);
-
-
-
-        }catch(Exception ex) {
-            LOGGER.log(Level.SEVERE , "CRASH : we just tried to generate a new grid, and this shitted in the " +
-                    "glue : ", ex);
-        }
-
     }
 
     @Test
@@ -172,4 +167,23 @@ class SudokuControllerTest {
         this.mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk());
     }
+    @Test
+    void getList() throws Exception {
+        int tabf[] = {8,1,2,3,9,7,6,5,4,9,0,0,0,2,0,7,1,8,7,6,4,8,1,5,3,9,0,5,0,7,9,0,1,8,0,0,0,8,9,0,3,0,5,7,1,1,2,6,7,5,8,9,4,3,6,9,1,0,7,3,0,0,5,0,4,
+                8,5,6,9,1,3,7,3,0,5,1,8,0,0,6,9};
+        Grid grille = new Grid(1,new Classement(), Difficulte.EASY,tabf);
+        GridDTO1 dto = new GridDTO1(grille);
+        ArrayList<GridDTO1> list = new ArrayList<>();
+        list.add(dto);
+        list.add(dto);
+        when(memoryService.getList("easy")).thenReturn(list);
+        this.mockMvc.perform(get("/api/sudokulist/easy"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(
+                        "difficulte")))
+                .andDo(print());
+    }
+
 }
+
+
