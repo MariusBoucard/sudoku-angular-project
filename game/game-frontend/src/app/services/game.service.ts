@@ -16,19 +16,19 @@ export class GameService {
 
    }
    currentGame : Game = new Game(this.grid,this.player);
+
    fillGame(data : GridDTO){
       this.currentGame.grid.id = data.id;
       data.classement.classement.forEach(player => this.currentGame.grid.classement.addToClassement(player));
       let listnum = new Array(81);
 
       data.values.forEach((tile: Tile) => listnum.push(tile.value));
-      console.log(this.currentGame.grid.tileList);
 
         this.currentGame.grid.setTiles(listnum);
-        console.log(this.currentGame.grid.tileList);
+        this.currentGame.grid.checkTiles();
 
-      console.log(this.currentGame.grid.tileList);
    }
+
    setGrid(n:number,joueur: String){
     let play = new Player(joueur);
     this.backService.getGrid(n).subscribe(

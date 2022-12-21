@@ -99,6 +99,16 @@ export class Grid {
     return this.checkColumn(index) && this.checkLine(index) && this.checkSubGrid(index);
   }
 
+    /**
+   * Check the validity of a tile, usefull for exemple after setting it's value
+   * @param index index of the tile we want to check the validity
+   * @returns boolean : true if everything's OK and False if something is wront
+   */
+    checkTiles() {
+     for(let i=0;i<81;i++){
+      this.tileList[i].constraintRespected = this.checkColumn(i) && this.checkLine(i) && this.checkSubGrid(i);
+     }
+    }
   /**
    *
    * @param index index of the tile for which we want to check the validity at the column level

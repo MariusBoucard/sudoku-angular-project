@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs"; 
 import { Grid } from '../classes/grid';
 import { GridDTO, isGridDTO, isGridDTOArray } from '../DTO/grid-dto';
+import { ClassementDTO, isClassementDTO } from '../DTO/classement-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,26 @@ export class BackendServiceService {
       
       return res;
   
+    }
+
+    /**
+     * 
+     * @param n Potentiellement inutile donc j'ai pas encore fait dans le back
+     * @returns 
+     */
+
+    getclassement(n : number) {
+      const resu = this.http
+        .get<ClassementDTO>("/api/getclassement")
+        .pipe((ds ) => {
+          if (isClassementDTO(ds)){
+            console.log("c'est bien des gridsdto "+ds);
+            return ds;
+          }else{
+            throw new Error("Response is not a valid GameDTO array. Received :  " + ds.toString());
+          }
+        });
+      return resu;
     }
           
 
