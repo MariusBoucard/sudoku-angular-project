@@ -59,6 +59,7 @@ export class MenuComponent implements OnInit {
 
   launchGame(n : number){
     this.gameService.player = this.joueur;
+    this.gameService.help=this.IsChecked;
     this.gameService.setGrid(n,this.joueur.getName());
     //TODO
     /**

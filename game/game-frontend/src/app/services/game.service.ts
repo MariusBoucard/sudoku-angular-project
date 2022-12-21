@@ -15,6 +15,7 @@ export class GameService {
   constructor(private grid : Grid,public player:Player,private backService : BackendServiceService) {
 
    }
+   help = false;
    gameEnded = false;
    currentGame : Game = new Game(this.grid,this.player);
    gameEndedValueChanges : EventEmitter<any> = new EventEmitter();

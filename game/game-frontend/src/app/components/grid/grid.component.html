@@ -18,7 +18,8 @@
         [value]="gameService.currentGame.grid.getTile(n).getValue()" style="height:50px;width:50px;font-weight:black;">
         <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" [value]="number">{{number}}</mat-option>
       </mat-select>
-      <div class="suggested">{{getSuggestedValues(n)}}</div>
+     
+      <div class="suggested" *ngIf="this.gameService.help">{{getSuggestedValues(n)}}</div>
       <div class="suggested" *ngIf="!getSuggestedValues(n).length"> - </div>
     </div>
   </div>
