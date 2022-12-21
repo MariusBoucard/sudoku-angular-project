@@ -14,7 +14,6 @@ import { GameService } from 'src/app/services/game.service';
  * Component that display the grid
  */
 export class GridComponent implements OnInit {
-  // @Output() myEvent = new EventEmitter<string>();
   //The inject is meant to use the same gameService for both gamecomponent and grid
   constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
   }
@@ -52,7 +51,6 @@ export class GridComponent implements OnInit {
     return this.gameService.getValue(index);
   }
   getSuggestedValues(index : number):number[]{
-    // console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
     return this.gameService.getSuggestedValue(index);
   }
   getSelected(n : number):number{
@@ -60,7 +58,6 @@ export class GridComponent implements OnInit {
   }
 
   /**
-   *
    * @param n index in the tab
    * @returns return the css class to apply to the tile to make it really beautiful (Just joking bro)
    */
@@ -94,7 +91,6 @@ export class GridComponent implements OnInit {
     console.log("Backtracking setValue : here in gridcomponent");
     binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
-    // this.myEvent.emit('yolo');
     }
 
     updateSuggestedvalues(){

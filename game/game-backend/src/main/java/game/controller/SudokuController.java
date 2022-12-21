@@ -121,7 +121,7 @@ public class SudokuController {
                         gridList.addAll(this.memoryService.getList(diff));
                     }
                 }
-                    );
+                );
         return gridList;
     }
 

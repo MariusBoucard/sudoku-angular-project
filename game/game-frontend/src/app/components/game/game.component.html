@@ -1,5 +1,5 @@
 <div class="box" style="margin-left: 0%;margin-right: 0%;">
-
+  <p>{{this.gameService.currentGame.player.getName()}}</p>
   <div class="history-container">
     <io-tree-history style="height: 80%" [style.width]="'35%'" [svgIconSize]="200" [rootRenderer]="rootRenderer()">
     </io-tree-history>
@@ -13,6 +13,7 @@
 
   <button mat-button (click)="endGame()" style="background-color: red;">
   </button>
+
 </div>
 
 

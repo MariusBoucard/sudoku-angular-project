@@ -42,24 +42,11 @@ export class MenuComponent implements OnInit {
   generateGrid(){
     this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
         this.grille = gride;
-
      });
     //TODO Ca m'a gavé on va faire avec des promises
   }
 
 
-  /**
-   * const promise = new Promise(function(resolve, reject) {
-  setTimeout(function() {
-    resolve('Promise returns after 1.5 second!');
-  }, 1500);
-});
-promise.then(function(value) {
-  console.log(value);
-  // Promise returns after 1.5 second!
-});
-pk pas ca
-   */
   
   ngOnInit(): void {
 
@@ -70,6 +57,7 @@ pk pas ca
 
 
   launchGame(n : number){
+    this.gameService.player = this.joueur;
     this.gameService.setGrid(n,this.joueur.getName());
     //TODO
     /**

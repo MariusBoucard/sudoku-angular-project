@@ -25,7 +25,7 @@ export class GameService {
       data.classement.classement.forEach(player => {
         this.currentGame.grid.classement.addToClassement(player)
       });
-      
+
       console.log(this.currentGame.grid.classement.classement);
       let listnum = new Array(81);
 
@@ -83,7 +83,7 @@ export class GameService {
     return this.currentGame.grid.tileList[index].value;
    }
    getSuggestedValue(index : number):number[]{
-    return this.currentGame.grid.tileList[index].suggestedValues;
+    return this.currentGame.grid.getSuggestedValue(index);
    }
    getClassement(): Classement {
       return this.currentGame.grid.getClassement();
