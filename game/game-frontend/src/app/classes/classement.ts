@@ -17,6 +17,7 @@ export class Classement {
    *
    */
   addToClassement(joueur: Player) {
+    this.classement.push(joueur);
     //TODO use of stream to add at the right place ?
   }
 

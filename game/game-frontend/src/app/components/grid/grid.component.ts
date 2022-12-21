@@ -97,6 +97,9 @@ export class GridComponent implements OnInit {
     // this.myEvent.emit('yolo');
     }
 
+    updateSuggestedvalues(){
+      this.gameService.updateSuggestedValues();
+    }
 
 
     public directSet(binder: PartialPointBinder) {

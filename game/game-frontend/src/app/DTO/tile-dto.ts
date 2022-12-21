@@ -3,8 +3,8 @@ export type TileDTO = {
 }
 
 export function isTileDTO(object : any) : object is TileDTO {
-    console.log("Type du classement " +typeof object.classement);
+
     return object !== undefined 
-        && typeof object.value === "number"
+        && typeof object.value === "number";
        
 }

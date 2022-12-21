@@ -8,7 +8,9 @@ export class setValue extends UndoableCommand {
     private index!: number;
     public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
         super();
-        console.log("A new setvalue ha been created" + this.newValue+"index "+tuileindex);
+        gameService.updateSuggestedValues();
+        gameService.isGameFinished();
+        
     }
 
     protected override createMemento(): void {

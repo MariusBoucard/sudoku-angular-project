@@ -26,8 +26,8 @@
           <div style="width:500px;height: 500px;">
             <div class="grid-container">
               <div class="grid-item" *ngFor="let n of fakeArray" [ngStyle]="{'background-color': 'white'}">
-
-                {{griddto.values[n].value}}
+                <div *ngIf="griddto.values[n].value"> {{griddto.values[n].value}} </div>
+                
 
               </div>
             </div>

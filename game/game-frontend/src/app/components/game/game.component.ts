@@ -23,6 +23,12 @@ export class GameComponent implements OnInit {
 
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
   public dialog: MatDialog) {
+    this.gameService.gameEndedValueChanges.subscribe(valeur => {
+      console.log('ouais le jeu est fini ? : ', valeur);
+      if(valeur){
+        this.endGame();
+      }
+   })
  
    }
 
@@ -51,10 +57,14 @@ export class GameComponent implements OnInit {
  * say that it's finished
  */
   endGame(){
+    console.log(this.gameService.currentGame.grid.classement.classement);
+
+    this.gameService.endGame();
+   
     //TODO -> ADD Player to grid classement
-    //Display message
-    //maybe do boolean
+
   }
+
   //Est ce qu'on change pas l'UML Par hasard
   /**
    *
@@ -68,7 +78,6 @@ export class GameComponent implements OnInit {
   openDialog() {
     // @ts-ignore
     const dialogRef = this.dialog.open(ClassementComponent);
-
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });

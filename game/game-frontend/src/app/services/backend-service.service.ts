@@ -2,8 +2,9 @@ import {  Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs"; 
 import { Grid } from '../classes/grid';
-import { GridDTO, isGridDTO, isGridDTOArray } from '../DTO/grid-dto';
+import { GridDTO, isGridDTO, isGridDTO1Array } from '../DTO/grid-dto';
 import { ClassementDTO, isClassementDTO } from '../DTO/classement-dto';
+import { Player } from '../classes/player';
 
 @Injectable({
   providedIn: 'root'
@@ -96,7 +97,7 @@ export class BackendServiceService {
                 .get<Array<GridDTO>>("/api/getallgrids")
                 .pipe(map((res : Array<any>) => {
             
-                  if (isGridDTOArray(res)){
+                  if (isGridDTO1Array(res)){
                     console.log("c'est bien des gridsdto "+res);
                     return res;
                   }else{
@@ -108,6 +109,19 @@ export class BackendServiceService {
               
               return res;
           
+            }
+
+            sendPlayer(player : Player,id : number){
+              const body=JSON.stringify(player);
+              console.log("on est dans sendlayer\n\n\n");
+              console.log(id);
+              console.log(player.getName());
+              console.log(body);
+              //const headers = { 'content-type': 'application/json'}  
+              const res = this.http.post<Player>("/api/addscore/"+id, player);
+              res.subscribe();
+              console.log(res);
+            return res;
             }
  // getAllGrids(): Observable<Grid[]> {
         //   return this.http.get<Grid[]>("/api/getallgrids").pipe(
