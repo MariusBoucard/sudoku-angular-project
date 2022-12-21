@@ -32,7 +32,7 @@ public class MemoryService {
     final  SavingService savingService = new SavingService();
 
     public final Map<String, String> difficultMap = new HashMap<>();
-    public final Map<String,Difficulte> diffObjMap = new HashMap<>();
+    public final Map<String, Difficulte> diffObjMap = new HashMap<>();
     int index = 0;
 
     public MemoryService() {
@@ -44,12 +44,12 @@ public class MemoryService {
         difficultMap.put("insane", "insane");
         difficultMap.put("inhuman", "inhuman");
 
-        diffObjMap.put( "easy",Difficulte.EASY);
-        diffObjMap.put("medium",Difficulte.MEDIUM);
-        diffObjMap.put("hard",Difficulte.HARD);
-        diffObjMap.put("very_hard",Difficulte.VERY_HARD);
-        diffObjMap.put("insane",Difficulte.INSANE);
-        diffObjMap.put( "inhuman",Difficulte.INHUMAN);
+        diffObjMap.put("easy", Difficulte.EASY);
+        diffObjMap.put("medium", Difficulte.MEDIUM);
+        diffObjMap.put("hard", Difficulte.HARD);
+        diffObjMap.put("very_hard", Difficulte.VERY_HARD);
+        diffObjMap.put("insane", Difficulte.INSANE);
+        diffObjMap.put("inhuman", Difficulte.INHUMAN);
 
     }
 

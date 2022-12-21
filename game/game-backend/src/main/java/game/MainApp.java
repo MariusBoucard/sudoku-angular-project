@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 public class MainApp {
     @Bean
 public MemoryService memo() {
-    return new MemoryService ();
+    return new MemoryService();
 }
     public static void main(final String[] args) {
         SpringApplication.run(MainApp.class, args);
