@@ -22,6 +22,7 @@ export class MenuComponent implements OnInit {
   fakeArray: number[] = [];
   grille : Grid = new Grid();
   failure!: boolean;
+  IsChecked: boolean =  false;
 
 
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
