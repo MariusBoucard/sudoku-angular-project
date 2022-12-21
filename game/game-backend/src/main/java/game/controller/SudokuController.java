@@ -83,7 +83,7 @@ public class SudokuController {
      */
     @GetMapping(path = "/", produces = MediaType.TEXT_PLAIN_VALUE)
     public String helloworld() {
-        return "Hello";
+        return "hello";
     }
 
     /**
