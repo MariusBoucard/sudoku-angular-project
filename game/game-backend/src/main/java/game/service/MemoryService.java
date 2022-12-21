@@ -32,9 +32,10 @@ public class MemoryService {
     final  SavingService savingService = new SavingService();
 
     public final Map<String, String> difficultMap = new HashMap<>();
+    public final Map<String, Difficulte> diffObjMap = new HashMap<>();
     int index = 0;
 
-    MemoryService() {
+    public MemoryService() {
         loadData();
         difficultMap.put("easy", "easy");
         difficultMap.put("medium", "medium");
@@ -42,6 +43,13 @@ public class MemoryService {
         difficultMap.put("very-hard", "very_hard");
         difficultMap.put("insane", "insane");
         difficultMap.put("inhuman", "inhuman");
+
+        diffObjMap.put("easy", Difficulte.EASY);
+        diffObjMap.put("medium", Difficulte.MEDIUM);
+        diffObjMap.put("hard", Difficulte.HARD);
+        diffObjMap.put("very_hard", Difficulte.VERY_HARD);
+        diffObjMap.put("insane", Difficulte.INSANE);
+        diffObjMap.put("inhuman", Difficulte.INHUMAN);
 
     }
 
@@ -72,7 +80,7 @@ public class MemoryService {
     }
 
     public ArrayList<GridDTO1> getList(final String diff) {
-        final ArrayList<Grid> gridList = gridMap.get(Difficulte.valueOf(diff));
+        final ArrayList<Grid> gridList = gridMap.get(this.diffObjMap.get(diff));
         if(gridList != null) {
             final ArrayList<GridDTO1> retour = gridList.stream().map(grille -> new GridDTO1(grille)).collect(toCollection(ArrayList::new));
             return retour;
@@ -144,10 +152,9 @@ public class MemoryService {
             final int[] tabRendu = tabInt.stream().mapToInt(i -> i).toArray();
             Arrays.stream(tabRendu).forEach(fa -> System.out.println(fa));
             final String lvl = this.difficultMap.get(level);
-            final Difficulte diff = Difficulte.valueOf(lvl);
 
 
-            final Grid retour = new Grid(index, new Classement(), diff, tabRendu);
+            final Grid retour = new Grid(index, new Classement(), this.diffObjMap.get(lvl), tabRendu);
             addGrid(retour);
             System.out.println(retour.toString());
             return new GridDTO(retour);

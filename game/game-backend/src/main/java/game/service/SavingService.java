@@ -80,10 +80,7 @@ public class SavingService {
             throw new RuntimeException(e);
         }
         if (myReader.hasNextLine()) {
-//            JSONObject json = new JSONObject(myReader.nextLine());
-//            System.out.println(json);
             try {
-
                 Map = mapperObj.readValue(myReader.nextLine(), new TypeReference<HashMap<Difficulte, ArrayList<Grid>>>() {
                 });
             } catch (JsonProcessingException e) {
@@ -95,144 +92,10 @@ public class SavingService {
         }
 
 
-/*
-
-
-        JSONParser parser = new JSONParser(outputfile);
-
-        try {
-            Object obj = parser.parse();
-            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
-            JSONObject jsonObject = (JSONObject) obj;
-            // A JSON array. JSONObject supports java.util.List interface.
-            JSONArray companyList = (JSONArray) jsonObject.get("Company List");
-            // An iterator over a collection. Iterator takes the place of Enumeration in the Java Collections Framework.
-            // Iterators differ from enumerations in two ways:
-            // 1. Iterators allow the caller to remove elements from the underlying collection during the iteration with well-defined semantics.
-            // 2. Method names have been improved.
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
-
-//        JSONObject json  = new JSONObject(outputfile);
-
-//        JSONParser jsonP = new JSONParser(outputfile);
-//        try {
-//            JSONObject jsonO = (JSONObject) jsonP.parse();
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//        Object obj = null;
-//        if(json != JSONObject.NULL) {
-//            Map = toMap(json);
-//        }
         return Map;
 
-        //JSONObject jsonObject = (JSONObject)obj;
-        //Set<String> difficultes = jsonObject.keySet();
-        //System.out.println(difficultes);
-        //  for (String a : difficultes ) {
-        //JSONArray subjects = (JSONArray)jsonObject.get(Difficulte);
-        //Map.put(Difficulte.valueOf(a),   )
-
-        //   }
-
-
-
-            /*try{FileInputStream entree = new FileInputStream(outputfile);
-                ObjectInputStream stream = new ObjectInputStream(entree);
-
-                Map= (Object) stream.readObject();
-                System.out.println(Map.toString());
-                //Map = (HashMap<Difficulte, ArrayList<Grid>>) stream.readObject();
-            }catch (EOFException e){
-                Map = new HashMap<Difficulte, ArrayList<Grid>>();
-            }
-            catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        System.out.println("Loaded previous game!");*/
-        // return Map;
     }
 
-
-  //  public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
-//        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
-//
-//        final Iterator<String> keysItr = object.keys();
-//        while (keysItr.hasNext()) {
-//            final String key = keysItr.next();
-//            final JSONArray value = object.getJSONArray(key);
-//            final ArrayList<Grid> gridsList = new ArrayList<>();
-//            for (int i = 0; i < value.length(); i++) {
-//                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
-//                final ArrayList<Player> classment = new ArrayList<>();
-//
-//                for (int j = 0; j < classm.length(); j++) {
-//                    classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
-//                }
-//                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
-//                gridsList.add(grid);
-//            }
-//
-//            map.put(Difficulte.valueOf(key), gridsList);
-//        }
-//        return map;
-//
-
-/*        try {
-            final Map<Difficulte, ArrayList<Grid>> map = new ObjectMapper().readValue((DataInput) object, Map.class);
-            return map;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
-    }
-
-//     /**
-//      * @param object
-//      * @return
-//      * @throws JSONException
-//      */
-//     public static Map<Difficulte, ArrayList<Grid>> toMap(final JSONObject object) throws JSONException {
-// //        final Map<Difficulte, ArrayList<Grid>> map = new HashMap<Difficulte, ArrayList<Grid>>();
-// //
-// //        final Iterator<String> keysItr = object.keys();
-// //        while (keysItr.hasNext()) {
-// //            final String key = keysItr.next();
-// //            final JSONArray value = object.getJSONArray(key);
-// //            final ArrayList<Grid> gridsList = new ArrayList<>();
-// //            for (int i = 0; i < value.length(); i++) {
-// //                final JSONArray classm = (JSONArray) value.getJSONArray(i).get(3);
-// //                final ArrayList<Player> classment = new ArrayList<>();
-// //
-// //                for (int j = 0; j < classm.length(); j++) {
-// //                    classment.add(new Player((String) classm.getJSONObject(j).get("name"), (Integer) classm.getJSONObject(j).get("score")));
-// //                }
-// //                final Grid grid = new Grid((Integer) value.getJSONObject(i).get("id"), new Classement(classment), (Difficulte) value.getJSONObject(i).get("difficulte"), (int[]) value.getJSONObject(i).get("values"));
-// //                gridsList.add(grid);
-// //            }
-// //
-// //            map.put(Difficulte.valueOf(key), gridsList);
-// //        }
-// //        return map;
-// //
-
-//         try {
-//             final Map<Difficulte, ArrayList<Grid>> map = new ObjectMapper().readValue( object, Map.class);
-//             return map;
-
-//         } catch (IOException e) {
-//             throw new RuntimeException(e);
-//         }
-
-//     }
+}
 
 

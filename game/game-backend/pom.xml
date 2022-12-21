@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.11</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.11</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
-    <groupId>fr.insarennes.info</groupId>
-    <artifactId>game-backend</artifactId>
-    <version>0.0.1</version>
+	<groupId>fr.insarennes.info</groupId>
+	<artifactId>game-backend</artifactId>
+	<version>0.0.1</version>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -36,26 +36,15 @@
             <version>1.18.22</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20141113</version>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <plugins>
+	<build>
+		<plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -142,9 +131,9 @@
                 </dependencies>
             </plugin>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -153,7 +142,7 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>
+			</plugin>
 
             <plugin>
                 <groupId>org.owasp</groupId>
@@ -170,7 +159,8 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 
 </project>
+
