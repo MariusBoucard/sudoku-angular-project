@@ -71,7 +71,7 @@ export class GameService {
 
    updateConstraintRespected(){
     for(let i =0;i<this.currentGame.grid.tileList.length;i++){
-      this.currentGame.grid.tileList[i].suggestedValues = this.currentGame.grid.getSuggestedValue(i);
+      this.currentGame.grid.tileList[i].constraintRespected = this.currentGame.grid.checkTile(i);
     }
    }
    getSelected():number{

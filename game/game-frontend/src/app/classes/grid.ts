@@ -96,6 +96,9 @@ export class Grid {
    * @returns boolean : true if everything's OK and False if something is wront
    */
   checkTile(index: number): boolean {
+    if(this.tileList[index].value===0){
+      return true;
+    }
     return this.checkColumn(index) && this.checkLine(index) && this.checkSubGrid(index);
   }
 
@@ -105,8 +108,9 @@ export class Grid {
    * @returns boolean : true if everything's OK and False if something is wront
    */
     checkTiles() {
+      console.log("on check bien toutes les tiles")
      for(let i=0;i<81;i++){
-      this.tileList[i].constraintRespected = this.checkColumn(i) && this.checkLine(i) && this.checkSubGrid(i);
+      this.tileList[i].constraintRespected = this.checkTile(i);
      }
     }
   /**
