@@ -66,12 +66,12 @@ export class GridMatrixComponent implements OnInit {
         else if (i < 6)
         {
             //si kré milieu
-            if (j==Math.floor((i/3)*3))
+            if (j===Math.floor((i/3)*3))
                 j =  j + 3;
         }
         else
         {   //check si pas dernier carré
-            if (j == 6)
+            if (j === 6)
             {
                 i = i + 1;
                 j = 0;

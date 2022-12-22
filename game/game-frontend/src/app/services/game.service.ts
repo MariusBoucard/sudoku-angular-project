@@ -98,6 +98,9 @@ export class GameService {
    setScore(score : number){
     this.currentGame.player.setScore(score);
    }
+   addScore(){
+    this.currentGame.player.score++;
+   }
 
    endGame(){
     this.backService.sendPlayer(this.player,this.currentGame.grid.id);

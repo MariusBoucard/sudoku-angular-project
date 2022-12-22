@@ -110,6 +110,7 @@ onRightClick(event: { preventDefault: () => void; }) {
       .when(i => i.button === 2)
       .bind();
       }
+      
       public binderClickEndGame(binder: PartialButtonBinder): void {
         binder
           .toProduceAnon(() => this.showEndGame())

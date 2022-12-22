@@ -8,6 +8,7 @@ export class setValue extends UndoableCommand {
     private index!: number;
     public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
         super();
+        gameService.addScore();
         gameService.updateSuggestedValues();
         gameService.isGameFinished();
         
@@ -21,7 +22,14 @@ export class setValue extends UndoableCommand {
 
     protected execution(): void {
         //Issue new value is empty
-        this.gameService.setValue(this.index, this.newValue);
+        if(this.newValue !== undefined){
+
+            this.gameService.setValue(this.index, this.newValue);
+        }
+        else {
+            this.gameService.setValue(this.index, 0);
+
+        }
     }
 
     public undo(): void {
