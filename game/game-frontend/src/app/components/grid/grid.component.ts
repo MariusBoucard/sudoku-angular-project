@@ -17,6 +17,10 @@ export class GridComponent implements OnInit {
   //The inject is meant to use the same gameService for both gamecomponent and grid
   constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
   }
+  @HostListener('contextmenu', ['$event'])
+onRightClick(event: { preventDefault: () => void; }) {
+  event.preventDefault();
+}
 
   ngOnInit(){}
   indexArray = new Array(81).fill(null).map((_, i) => i);
