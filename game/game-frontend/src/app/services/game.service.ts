@@ -67,6 +67,7 @@ export class GameService {
     if(check){
       this.gameEnded =true;
       console.log("gamefinished oueoue")
+      this.endGame();
       this.gameEndedValueChanges.emit(this.gameEndedValueChanges); 
     }
     return check;
@@ -111,12 +112,14 @@ export class GameService {
    endGame(){
     if(!this.help){
       console.log("\n\n\n\n Envoi du score u know \n\n\n");
-      this.backService.sendPlayer(this.player,this.currentGame.grid.id);
+      this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
     }
     else {
       console.log("on envoi pas le score car tu as triché bah ouais tu t attendais à quoi ?");
+      //this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
+
     }
-    
+
 
    }
    setValue(index : number,valeur:number){

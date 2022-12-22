@@ -43,9 +43,6 @@ export class GameComponent implements OnInit {
 
   public ngAfterViewInit(): void {
   }
-  incrScore(){
-    this.gameService.setScore(this.gameService.getScore()+1);
-  }
 
 
     //From the help manual in moodle
@@ -58,13 +55,11 @@ export class GameComponent implements OnInit {
  * We have to define some action
  * at the end of the game -> but still we have to determinate a way to
  * say that it's finished
+ * L envoi du score au back se fait dans le service
  */
   endGame(){
-    console.log(this.gameService.currentGame.grid.classement.classement);
-
-    this.gameService.endGame();
+    //TODO : METTRE UN BEAU DIALOG AVZC LE CLASSEMENT ET TT
    
-    //TODO -> ADD Player to grid classement
 
   }
 

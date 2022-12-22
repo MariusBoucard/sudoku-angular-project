@@ -12,7 +12,9 @@ public class GridDTO1 {
     int id;
     Difficulte difficulte;
     Tile[] values;
+    public GridDTO1() {
 
+    }
     public GridDTO1(final Grid grid) {
         id = grid.getId();
         difficulte = grid.getDifficulte();

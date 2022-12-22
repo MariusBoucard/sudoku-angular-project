@@ -1,5 +1,5 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import { Bindings, PartialButtonBinder, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
+import { Bindings, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
 // import { PartialPointBinder } from 'interacto';
 import {  PartialMatSelectBinder } from 'interacto-angular';
 import { setValue } from 'src/app/commands/setValue';
@@ -109,13 +109,13 @@ onRightClick(event: { preventDefault: () => void; }) {
       .bind();
       }
       
-      public binderClickEndGame(binder: PartialButtonBinder): void {
-        binder
-          .toProduceAnon(() => this.showEndGame())
-          .bind();
-      }
-      public showEndGame(){
-      }
+      // public binderClickEndGame(binder: PartialButtonBinder): void {
+      //   binder
+      //     .toProduceAnon(() => this.showEndGame())
+      //     .bind();
+      // }
+      // public showEndGame(){
+      // }
    
         //From the help manual in moodle
     rootRenderer(): UndoableSnapshot {
