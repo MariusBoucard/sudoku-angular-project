@@ -109,8 +109,14 @@ export class GameService {
    }
 
    endGame(){
-    console.log("\n\n\n\n ENDGAME \n\n\n");
-    this.backService.sendPlayer(this.player,this.currentGame.grid.id);
+    if(!this.help){
+      console.log("\n\n\n\n Envoi du score u know \n\n\n");
+      this.backService.sendPlayer(this.player,this.currentGame.grid.id);
+    }
+    else {
+      console.log("on envoi pas le score car tu as triché bah ouais tu t attendais à quoi ?");
+    }
+    
 
    }
    setValue(index : number,valeur:number){

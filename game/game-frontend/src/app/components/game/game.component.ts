@@ -24,11 +24,10 @@ export class GameComponent implements OnInit {
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
   public dialog: MatDialog) {
 
-    this.gameService.gameEndedValueChanges.subscribe(valeur => {
-      console.log('ouais le jeu est fini ? : ', valeur);
-      if(valeur){
+    this.gameService.gameEndedValueChanges.subscribe(() => {
+      
         this.endGame();
-      }
+      
    })
 
    this.gameService.ScoreValueChanges.subscribe(() => {
