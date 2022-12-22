@@ -35,7 +35,6 @@ export class Grid {
         this.updateSuggestedValues(i);
       }
   
-      console.log("Grid created");
     }
   
     ngOnInit(): void {
@@ -108,7 +107,6 @@ export class Grid {
    * @returns boolean : true if everything's OK and False if something is wront
    */
     checkTiles() {
-      console.log("on check bien toutes les tiles")
      for(let i=0;i<81;i++){
       this.tileList[i].constraintRespected = this.checkTile(i);
      }

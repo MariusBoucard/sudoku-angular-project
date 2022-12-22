@@ -23,6 +23,7 @@ export class GameComponent implements OnInit {
   scoreintra : number = 0;
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
   public dialog: MatDialog) {
+
     this.gameService.gameEndedValueChanges.subscribe(valeur => {
       console.log('ouais le jeu est fini ? : ', valeur);
       if(valeur){
@@ -51,7 +52,6 @@ export class GameComponent implements OnInit {
     //From the help manual in moodle
 
   public rootRenderer(): UndoableSnapshot {
-    console.log("Try rootrender");
     return setValue.getSnapshot(this.gameService.currentGame);
     }
 

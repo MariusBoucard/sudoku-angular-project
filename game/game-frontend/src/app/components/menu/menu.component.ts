@@ -29,14 +29,11 @@ export class MenuComponent implements OnInit {
     let that = this;
     this.backService.getAllGrids().subscribe({
       next(list) {that.Allgrids = list; that.failure = false;                 
-      console.log(that.Allgrids);
-      console.log("allgrids");
     },
       error(err) {that.failure = true; console.error(err)}
     } );
 
 
-    console.log("test "+this.Allgrids);
 
   }
   
@@ -44,7 +41,6 @@ export class MenuComponent implements OnInit {
     this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
         this.grille = gride;
      });
-    //TODO Ca m'a gavé on va faire avec des promises
   }
 
 
@@ -52,7 +48,6 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
 
     this.fakeArray = new Array(81).fill(null).map((_, i) => i);
-    // console.log(this.test+"Test 2 ");
 
   }
 
@@ -74,6 +69,5 @@ export class MenuComponent implements OnInit {
 
   changeDifficulte(value : string) {
     this.choosedDifficulte = value;
-    console.log("la diff : "+this.choosedDifficulte);
   }
 }

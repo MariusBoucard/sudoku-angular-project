@@ -30,7 +30,6 @@ export class GridMatrixComponent implements OnInit {
 
     this.fillDiag();
     this.fillRest(0,9);
-    console.log("error "+this.errorArray);
 
     for(var i =0;i<9;i++){
       for(var j=0;j<9;j++){
@@ -100,11 +99,10 @@ export class GridMatrixComponent implements OnInit {
     
     fillDiag(){
       for(var i=0;i<3;i++){
-        console.log("i value :"+i);
-        console.log(this.valueMatrix);
+       
         this.fillBlock(i*3,i*3);
       }
-      console.log(this.valueMatrix);//Le remplissage chiais
+    
     }
     
     dispoBox(ligne:number,colonne:number,nombre : number){
@@ -115,15 +113,14 @@ export class GridMatrixComponent implements OnInit {
           }
         }
       }
-      console.log(nombre+" est dispo en "+ligne+","+colonne);
+     
       return true;
       
     }
 
     fillBlock(ligne:number,colonne:number){
         var numero = this.getRandomId();
-        console.log("Fillblock : "+ligne+","+colonne);//great
-        console.log(this.valueMatrix);
+      
 
         for(var i =0;i<3;i++){
           for(var j =0;j<3;j++){
@@ -132,10 +129,9 @@ export class GridMatrixComponent implements OnInit {
             }
             var y=ligne+i;
             var x = colonne+j;
-            console.log("ancienne valeur de "+y+", "+x+" : "+this.valueMatrix[y][x]);
-            console.log(numero);
+           
             this.valueMatrix[y][x] = numero;
-            console.log("nouvelle valeur de "+y+", "+x+" : "+this.valueMatrix[y][x]);
+           
             }
           }
     }
@@ -166,7 +162,7 @@ isRight(coordo : number[], value : number){
   
 
   if(this.checkLine(coordo,value) &&this.checkColumn(coordo,value) ){
-    console.log("celui la est bon ligne :"+coordo);
+   
     this.errorArray[coordo[0]*9+coordo[1]]=false;
     return true;
   }
@@ -208,7 +204,6 @@ checkColumnInit(coordinates : number[],value : number){
 
 checkLine(coordinates : number[],value:number){
   var vu = 0;
-  console.log("valeur de la case"+value);
     for(var i=0;i<9;i++){
         if(this.valueMatrix[coordinates[0]][i]===value){
           vu++;
@@ -246,7 +241,6 @@ getRandom(ca : number[],coord : number[]) {
     else{break;}
   }
   if(ca.includes(randTmp)){
-  console.log("way to much shit in : "+coord);
   }
   // while(ca.includes(randTmp)){
   //   randTmp  = Math.floor((Math.random()*9)+1);
@@ -258,7 +252,6 @@ getRandom(ca : number[],coord : number[]) {
 hovered(tab : number) {
   this.selectedTabName = tab;
   var coord = this.coordinatesFromIndice(tab);
-  console.log("Hovered coords"+coord);
   this.isRight(coord,this.valueMatrix[coord[0]][coord[1]]);
 }
 unhovered(tab : number) {

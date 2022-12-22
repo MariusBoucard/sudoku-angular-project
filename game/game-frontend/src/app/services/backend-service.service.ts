@@ -43,10 +43,8 @@ export class BackendServiceService {
       const res = this.http
         .get<GridDTO>("/api/sudokugrid/"+n)
         .pipe(map((res : GridDTO) => {
-          console.log(res);
     
           if (isGridDTO(res)){
-            console.log("recu a grille")
             return res;
           }else{
             throw new Error("Response is not a valid GameDTO array. Received :  " );
@@ -70,7 +68,6 @@ export class BackendServiceService {
         .get<ClassementDTO>("/api/getclassement")
         .pipe((ds ) => {
           if (isClassementDTO(ds)){
-            console.log("c'est bien des gridsdto "+ds);
             return ds;
           }else{
             throw new Error("Response is not a valid GameDTO array. Received :  " + ds.toString());
@@ -81,7 +78,6 @@ export class BackendServiceService {
           
 
           hello(): Observable<String> {
-            console.log("caca");
             return this.http.get<String>("/api/").
             pipe(
               map((reponse: any) =>{ return reponse; // If response is null return empty array for safety.
@@ -98,7 +94,6 @@ export class BackendServiceService {
                 .pipe(map((res : Array<any>) => {
             
                   if (isGridDTO1Array(res)){
-                    console.log("c'est bien des gridsdto "+res);
                     return res;
                   }else{
                     throw new Error("Response is not a valid GameDTO array. Received :  " + res.toString());
@@ -112,15 +107,11 @@ export class BackendServiceService {
             }
 
             sendPlayer(player : Player,id : number){
-              const body=JSON.stringify(player);
-              console.log("on est dans sendlayer\n\n\n");
-              console.log(id);
-              console.log(player.getName());
-              console.log(body);
+             // const body=JSON.stringify(player);
+        
               //const headers = { 'content-type': 'application/json'}  
               const res = this.http.post<Player>("/api/addscore/"+id, player);
               res.subscribe();
-              console.log(res);
             return res;
             }
  // getAllGrids(): Observable<Grid[]> {

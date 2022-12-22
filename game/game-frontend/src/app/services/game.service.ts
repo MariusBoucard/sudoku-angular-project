@@ -29,7 +29,6 @@ export class GameService {
         this.currentGame.grid.classement.addToClassement(player)
       });
 
-      console.log(this.currentGame.grid.classement.classement);
       let listnum = new Array(81);
 
       data.values.forEach((tile: Tile) => listnum.push(tile.value));
@@ -60,6 +59,7 @@ export class GameService {
     for(let i =0;i<this.currentGame.grid.tileList.length;i++){
       if(this.currentGame.grid.tileList[i].constraintRespected === false ||this.currentGame.grid.tileList[i].getValue()<1 ){
         check = false;
+        console.log("ca chie en "+i);
         this.gameEnded =false;
         break;
       }
@@ -102,7 +102,6 @@ export class GameService {
     this.currentGame.player.setScore(score);
    }
    addScore(){
-    console.log("n addscore");
     this.currentGame.player.score++;
     this.ScoreValueChanges.emit(this.ScoreValueChanges); 
 

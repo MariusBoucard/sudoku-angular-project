@@ -1,3 +1,4 @@
+import { Inject } from "@angular/core";
 import { UndoableCommand, UndoableSnapshot } from "interacto";
 import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
@@ -6,12 +7,10 @@ export class setValue extends UndoableCommand {
     
     private oldValue!: number;
     private index!: number;
-    public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
+    public constructor(private tuileindex: number, private newValue: number,@Inject("gameServ") private gameService: GameService) {
         super();
         gameService.addScore();
-        gameService.updateSuggestedValues();
-        gameService.updateConstraintRespected();
-        gameService.isGameFinished();
+      
 
     }
 
@@ -25,6 +24,9 @@ export class setValue extends UndoableCommand {
         if(this.newValue !== undefined){
 
             this.gameService.setValue(this.index, this.newValue);
+            this.gameService.updateSuggestedValues();
+            this.gameService.updateConstraintRespected();
+            this.gameService.isGameFinished();
         }
         else {
             this.gameService.setValue(this.index, 0);
@@ -34,6 +36,9 @@ export class setValue extends UndoableCommand {
 
     public undo(): void {
         this.gameService.setValue(this.index, this.oldValue);
+        this.gameService.updateSuggestedValues();
+            this.gameService.updateConstraintRespected();
+            
     }
 
     public redo(): void {

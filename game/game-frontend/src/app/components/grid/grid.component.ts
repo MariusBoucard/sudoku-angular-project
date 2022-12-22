@@ -92,7 +92,6 @@ onRightClick(event: { preventDefault: () => void; }) {
   }
 
   public setValue(binder: PartialMatSelectBinder, index: number) {
-    console.log("Backtracking setValue : here in gridcomponent");
     binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
     }
@@ -103,7 +102,6 @@ onRightClick(event: { preventDefault: () => void; }) {
 
 
     public directSet(binder: PartialPointBinder,n : number) {
-      console.log("into direct");
       binder
       .toProduce(() =>
       new setValue(n,this.gameService.getSuggestedValue(n)[0],this.gameService))
@@ -117,7 +115,6 @@ onRightClick(event: { preventDefault: () => void; }) {
           .bind();
       }
       public showEndGame(){
-        console.log("finish")
       }
    
         //From the help manual in moodle

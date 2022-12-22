@@ -20,7 +20,6 @@ export type GridDTO = {
  * @returns 
  */
 export function isGridDTO(object : any) : object is GridDTO {
-    console.log("difficulte " +object.difficulte);
     return object !== undefined 
         && typeof object.id === "number"
         && isClassementDTO(object.classement)
@@ -33,7 +32,6 @@ export function isGridDTO(object : any) : object is GridDTO {
  * @returns 
  */
 export function isGridDTO1(object : any) : object is GridDTO {
-    console.log("difficulte " +object.difficulte);
     return object !== undefined 
         && typeof object.id === "number"
         //&& isClassementDTO(object.classement)
