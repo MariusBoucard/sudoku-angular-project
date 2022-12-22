@@ -20,7 +20,7 @@ export class GameComponent implements OnInit {
 
 
   indexArray = new Array(81).fill(null).map((_, i) => i);
-
+  scoreintra : number = 0;
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
   public dialog: MatDialog) {
     this.gameService.gameEndedValueChanges.subscribe(valeur => {
@@ -29,6 +29,10 @@ export class GameComponent implements OnInit {
         this.endGame();
       }
    })
+
+   this.gameService.ScoreValueChanges.subscribe(valeur => {
+    this.scoreintra = this.gameService.getScore();
+ })
  
    }
 

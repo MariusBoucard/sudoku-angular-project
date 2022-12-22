@@ -11,6 +11,7 @@ export class setValue extends UndoableCommand {
         gameService.addScore();
         gameService.updateSuggestedValues();
         gameService.isGameFinished();
+        gameService.updateConstraintRespected();
         
     }
 

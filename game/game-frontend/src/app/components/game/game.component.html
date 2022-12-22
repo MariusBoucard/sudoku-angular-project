@@ -11,6 +11,10 @@
     <img src="assets/podium.png" style="width:80px;height:80px;">
   </button>
 
+  <p>score</p>
+  <p [(ngModel)]='this.gameService.player.score'></p>
+{{this.scoreintra}}
+
   <button mat-button (click)="endGame()" style="background-color: red;">
   </button>
 

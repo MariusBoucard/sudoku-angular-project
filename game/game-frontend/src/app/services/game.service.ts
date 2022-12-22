@@ -19,6 +19,8 @@ export class GameService {
    gameEnded = false;
    currentGame : Game = new Game(this.grid,this.player);
    gameEndedValueChanges : EventEmitter<any> = new EventEmitter();
+   ScoreValueChanges : EventEmitter<any> = new EventEmitter();
+
 
    fillGame(data : GridDTO){
       this.currentGame.grid.id = data.id;
@@ -56,7 +58,7 @@ export class GameService {
    isGameFinished():boolean{
     let check = true;
     for(let i =0;i<this.currentGame.grid.tileList.length;i++){
-      if(this.currentGame.grid.tileList[i].constraintRespected === false ||this.currentGame.grid.tileList[i].getValue()<1 || this.currentGame.grid.tileList[i].getValue()>9){
+      if(this.currentGame.grid.tileList[i].constraintRespected === false ||this.currentGame.grid.tileList[i].getValue()<1 ){
         check = false;
         this.gameEnded =false;
         break;
@@ -64,6 +66,7 @@ export class GameService {
     }
     if(check){
       this.gameEnded =true;
+      console.log("gamefinished oueoue")
       this.gameEndedValueChanges.emit(this.gameEndedValueChanges); 
     }
     return check;
@@ -99,10 +102,15 @@ export class GameService {
     this.currentGame.player.setScore(score);
    }
    addScore(){
+    console.log("n addscore");
     this.currentGame.player.score++;
+    this.ScoreValueChanges.emit(this.ScoreValueChanges); 
+
+    console.log(this.currentGame.player.score);
    }
 
    endGame(){
+    console.log("\n\n\n\n ENDGAME \n\n\n");
     this.backService.sendPlayer(this.player,this.currentGame.grid.id);
 
    }
