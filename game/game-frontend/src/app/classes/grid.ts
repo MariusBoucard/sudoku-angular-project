@@ -275,15 +275,26 @@ export class Grid {
       }
       if(resultat){
         //C'est ici que ca chhie
-      for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
-        for (let col = coord[0] / 3; col < 3; col++) {
-          if (this.tileList[this.coordinates_to_index(ligne, col)].value === i ) {
-            resultat = false;
-            break;
-          }
+
+    let lignedepart = Math.floor(coord[1] / 3) * 3;
+    let colonnedepart = Math.floor(coord[0] / 3) * 3;
+    for (let ligne = lignedepart; ligne < lignedepart + 3; ligne++) {
+      for (let col = colonnedepart; col < colonnedepart + 3; col++) {
+        if (this.tileList[this.coordinates_to_index(ligne, col)].value === i) {
+          resultat = false;
         }
-        
       }
+    }
+
+      // for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
+      //   for (let col = coord[0] / 3; col < 3; col++) {
+      //     if (this.tileList[this.coordinates_to_index(ligne, col)].value === i ) {
+      //       resultat = false;
+      //       break;
+      //     }
+      //   }
+        
+      // }
       //Fin chie
     }
       if (resultat) {
