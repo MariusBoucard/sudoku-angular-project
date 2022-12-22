@@ -10,15 +10,14 @@ export class setValue extends UndoableCommand {
         super();
         gameService.addScore();
         gameService.updateSuggestedValues();
-        gameService.isGameFinished();
         gameService.updateConstraintRespected();
-        
+        gameService.isGameFinished();
+
     }
 
     protected override createMemento(): void {
         this.oldValue = this.gameService.getValue(this.tuileindex);
         this.index = this.tuileindex;
-        console.log("tuileindex"+this.index);
     }
 
     protected execution(): void {
@@ -41,7 +40,6 @@ export class setValue extends UndoableCommand {
         this.execution();
     }
 public override canExecute(): boolean {
-    console.log(this.index);
 
         return this.gameService.currentGame.grid.getTile(this.tuileindex).getValue() !== this.newValue;
         }
@@ -56,7 +54,6 @@ public override canExecute(): boolean {
         return setValue.getSnapshot(this.gameService.currentGame);
         }
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
-        console.log("into getsnapshot u know");
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d")!;
         const tailleTuile=110;
@@ -66,7 +63,12 @@ public override canExecute(): boolean {
         ctx.font = '100px Bodo';
         ctx.fillStyle = "red";
         for (let i = 0; i < game.grid.tileList.length; i++){
-            ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            if(game.grid.tileList[i]?.getValue()===0){
+                ctx.fillText("", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            } else {
+
+                ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            }
             }
             for(let i = 1; i < 9; i++) {
             ctx.moveTo(i * tailleTuile, 0);

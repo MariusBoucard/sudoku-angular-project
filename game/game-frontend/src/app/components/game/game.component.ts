@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
       }
    })
 
-   this.gameService.ScoreValueChanges.subscribe(valeur => {
+   this.gameService.ScoreValueChanges.subscribe(() => {
     this.scoreintra = this.gameService.getScore();
  })
  
