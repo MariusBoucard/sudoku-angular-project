@@ -67,11 +67,11 @@ onRightClick(event: { preventDefault: () => void; }) {
    */
   getClass(n: number): String {
     let retour = "grid-item ";
-    if (n == 80) {
+    if (n === 80) {
       return retour;
     }
 
-    if (((n + 1) % 3) == 0) {
+    if (((n + 1) % 3) === 0) {
       retour += ' lignedroite ';
     }
     if (((n) % 27) < 9) {
@@ -102,12 +102,12 @@ onRightClick(event: { preventDefault: () => void; }) {
     }
 
 
-    public directSet(binder: PartialPointBinder) {
+    public directSet(binder: PartialPointBinder,n : number) {
       console.log("into direct");
       binder
       .toProduce(() =>
-      new setValue(1,this.gameService.getSuggestedValue(1)[0],this.gameService))
-      .when(i => i.button === 1)
+      new setValue(n,this.gameService.getSuggestedValue(n)[0],this.gameService))
+      .when(i => i.button === 2)
       .bind();
       }
       public binderClickEndGame(binder: PartialButtonBinder): void {

@@ -56,7 +56,7 @@ export class GameService {
    isGameFinished():boolean{
     let check = true;
     for(let i =0;i<this.currentGame.grid.tileList.length;i++){
-      if(this.currentGame.grid.tileList[i].constraintRespected == false ||this.currentGame.grid.tileList[i].getValue()<1 || this.currentGame.grid.tileList[i].getValue()>9){
+      if(this.currentGame.grid.tileList[i].constraintRespected === false ||this.currentGame.grid.tileList[i].getValue()<1 || this.currentGame.grid.tileList[i].getValue()>9){
         check = false;
         this.gameEnded =false;
         break;
