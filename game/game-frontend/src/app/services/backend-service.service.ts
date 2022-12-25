@@ -2,7 +2,9 @@ import {  Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs"; 
 import { Grid } from '../classes/grid';
-import { GridDTO, isGridDTO, isGridDTOArray } from '../DTO/grid-dto';
+import { GridDTO, isGridDTO, isGridDTO1Array } from '../DTO/grid-dto';
+import { ClassementDTO, isClassementDTO } from '../DTO/classement-dto';
+import { Player } from '../classes/player';
 
 @Injectable({
   providedIn: 'root'
@@ -41,10 +43,8 @@ export class BackendServiceService {
       const res = this.http
         .get<GridDTO>("/api/sudokugrid/"+n)
         .pipe(map((res : GridDTO) => {
-          console.log(res);
     
           if (isGridDTO(res)){
-            console.log("recu a grille")
             return res;
           }else{
             throw new Error("Response is not a valid GameDTO array. Received :  " );
@@ -56,10 +56,28 @@ export class BackendServiceService {
       return res;
   
     }
+
+    /**
+     * 
+     * @param n Potentiellement inutile donc j'ai pas encore fait dans le back
+     * @returns 
+     */
+
+    getclassement(n : number) {
+      const resu = this.http
+        .get<ClassementDTO>("/api/getclassement")
+        .pipe((ds ) => {
+          if (isClassementDTO(ds)){
+            return ds;
+          }else{
+            throw new Error("Response is not a valid GameDTO array. Received :  " + ds.toString());
+          }
+        });
+      return resu;
+    }
           
 
           hello(): Observable<String> {
-            console.log("caca");
             return this.http.get<String>("/api/").
             pipe(
               map((reponse: any) =>{ return reponse; // If response is null return empty array for safety.
@@ -74,9 +92,8 @@ export class BackendServiceService {
               const res = this.http
                 .get<Array<GridDTO>>("/api/getallgrids")
                 .pipe(map((res : Array<any>) => {
-                  console.log(res);
             
-                  if (isGridDTOArray(res)){
+                  if (isGridDTO1Array(res)){
                     return res;
                   }else{
                     throw new Error("Response is not a valid GameDTO array. Received :  " + res.toString());
@@ -87,6 +104,15 @@ export class BackendServiceService {
               
               return res;
           
+            }
+
+            sendPlayer(player : Player,id : number){
+             // const body=JSON.stringify(player);
+        
+              //const headers = { 'content-type': 'application/json'}  
+              const res = this.http.post<Player>("/api/addscore/"+id, player);
+              res.subscribe();
+            return res;
             }
  // getAllGrids(): Observable<Grid[]> {
         //   return this.http.get<Grid[]>("/api/getallgrids").pipe(

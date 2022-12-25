@@ -20,28 +20,35 @@ export class GameComponent implements OnInit {
 
 
   indexArray = new Array(81).fill(null).map((_, i) => i);
-
+  scoreintra : number = 0;
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
-  public dialog: MatDialog) {
+  public dialog: MatDialog,private undoHistory: TreeUndoHistory) {
+    this.gameService.gameEndedValueChanges.subscribe(() => {
+      
+        this.endGame();
+      
+   })
+
+   //each time score is changed, it sends a lil event that updates this, but there is an
+   //error in the front
+   this.gameService.ScoreValueChanges.subscribe(() => {
+    this.scoreintra = this.gameService.getScore();
+ })
  
    }
 
   ngOnInit(): void {
-    
+    this.undoHistory.clear();
 
   }
 
   public ngAfterViewInit(): void {
-  }
-  incrScore(){
-    this.gameService.setScore(this.gameService.getScore()+1);
   }
 
 
     //From the help manual in moodle
 
   public rootRenderer(): UndoableSnapshot {
-    console.log("Try rootrender");
     return setValue.getSnapshot(this.gameService.currentGame);
     }
 
@@ -49,12 +56,14 @@ export class GameComponent implements OnInit {
  * We have to define some action
  * at the end of the game -> but still we have to determinate a way to
  * say that it's finished
+ * L envoi du score au back se fait dans le service
  */
   endGame(){
-    //TODO -> ADD Player to grid classement
-    //Display message
-    //maybe do boolean
+    //TODO : METTRE UN BEAU DIALOG AVZC LE CLASSEMENT ET TT
+   
+
   }
+
   //Est ce qu'on change pas l'UML Par hasard
   /**
    *
@@ -68,7 +77,6 @@ export class GameComponent implements OnInit {
   openDialog() {
     // @ts-ignore
     const dialogRef = this.dialog.open(ClassementComponent);
-
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });

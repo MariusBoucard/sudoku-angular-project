@@ -75,6 +75,7 @@ public class SudokuController {
     }
 
 
+
     /**
      * Helloword function, I could have make
      * it insult us, but it would have been too dirty.
@@ -106,7 +107,7 @@ public class SudokuController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<GridDTO1> sudokuList(
             @PathVariable("level") final String level) {
-        final ArrayList<GridDTO1> b = this.memoryService.getList(level);
+        final ArrayList<GridDTO1> b = this.memoryService.getList(this.memoryService.diffObjMap.get(this.memoryService.difficultMap.get(level)));
         return b;
     }
 
@@ -116,11 +117,11 @@ public class SudokuController {
         final ArrayList<GridDTO1> gridList = new ArrayList<GridDTO1>();
         EnumSet.allOf(Difficulte.class)
                 .forEach(diff -> {
-                    if(this.memoryService.getList(diff.name()) != null) {
-                        gridList.addAll(this.memoryService.getList(diff.name()));
+                    if(this.memoryService.getList(diff) != null) {
+                        gridList.addAll(this.memoryService.getList(diff));
                     }
                 }
-                    );
+                );
         return gridList;
     }
 
@@ -157,6 +158,9 @@ public class SudokuController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addScore(@RequestBody final Player player,
                          @PathVariable("id") final String id) throws IOException {
+        System.out.println("on a voulu rajouter un joueur");
+        System.out.println(player.getName());
+        System.out.println(player.getScore());
         memoryService.addScore(id, player);
     }
 }

@@ -1,3 +1,4 @@
+import { Inject } from "@angular/core";
 import { UndoableCommand, UndoableSnapshot } from "interacto";
 import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
@@ -6,31 +7,44 @@ export class setValue extends UndoableCommand {
     
     private oldValue!: number;
     private index!: number;
-    public constructor(private tuileindex: number, private newValue: number, private gameService: GameService) {
+    public constructor(private tuileindex: number, private newValue: number,@Inject("gameServ") private gameService: GameService) {
         super();
-        console.log("A new setvalue ha been created" + this.newValue+"index "+tuileindex);
+        gameService.addScore();
+      
+
     }
 
     protected override createMemento(): void {
         this.oldValue = this.gameService.getValue(this.tuileindex);
         this.index = this.tuileindex;
-        console.log("tuileindex"+this.index);
     }
 
     protected execution(): void {
         //Issue new value is empty
-        this.gameService.setValue(this.index, this.newValue);
+        if(this.newValue !== undefined){
+
+            this.gameService.setValue(this.index, this.newValue);
+            this.gameService.updateSuggestedValues();
+            this.gameService.updateConstraintRespected();
+            this.gameService.isGameFinished();
+        }
+        else {
+            this.gameService.setValue(this.index, 0);
+
+        }
     }
 
     public undo(): void {
         this.gameService.setValue(this.index, this.oldValue);
+        this.gameService.updateSuggestedValues();
+            this.gameService.updateConstraintRespected();
+            
     }
 
     public redo(): void {
         this.execution();
     }
 public override canExecute(): boolean {
-    console.log(this.index);
 
         return this.gameService.currentGame.grid.getTile(this.tuileindex).getValue() !== this.newValue;
         }
@@ -45,7 +59,6 @@ public override canExecute(): boolean {
         return setValue.getSnapshot(this.gameService.currentGame);
         }
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
-        console.log("into getsnapshot u know");
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d")!;
         const tailleTuile=110;
@@ -55,7 +68,12 @@ public override canExecute(): boolean {
         ctx.font = '100px Bodo';
         ctx.fillStyle = "red";
         for (let i = 0; i < game.grid.tileList.length; i++){
-            ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            if(game.grid.tileList[i]?.getValue()===0){
+                ctx.fillText("", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            } else {
+
+                ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+            }
             }
             for(let i = 1; i < 9; i++) {
             ctx.moveTo(i * tailleTuile, 0);

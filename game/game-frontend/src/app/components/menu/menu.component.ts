@@ -22,51 +22,39 @@ export class MenuComponent implements OnInit {
   fakeArray: number[] = [];
   grille : Grid = new Grid();
   failure!: boolean;
+  IsChecked: boolean =  false;
 
 
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
     let that = this;
     this.backService.getAllGrids().subscribe({
-      next(list) {that.Allgrids = list; that.failure = false; },
+      next(list) {that.Allgrids = list; that.failure = false;                 
+    },
       error(err) {that.failure = true; console.error(err)}
     } );
 
 
-    console.log("test "+this.Allgrids);
 
   }
   
   generateGrid(){
     this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
         this.grille = gride;
-
      });
-    //TODO Ca m'a gavé on va faire avec des promises
   }
 
 
-  /**
-   * const promise = new Promise(function(resolve, reject) {
-  setTimeout(function() {
-    resolve('Promise returns after 1.5 second!');
-  }, 1500);
-});
-promise.then(function(value) {
-  console.log(value);
-  // Promise returns after 1.5 second!
-});
-pk pas ca
-   */
   
   ngOnInit(): void {
 
     this.fakeArray = new Array(81).fill(null).map((_, i) => i);
-    // console.log(this.test+"Test 2 ");
 
   }
 
 
   launchGame(n : number){
+    this.gameService.player = this.joueur;
+    this.gameService.help=this.IsChecked;
     this.gameService.setGrid(n,this.joueur.getName());
     //TODO
     /**
@@ -81,6 +69,5 @@ pk pas ca
 
   changeDifficulte(value : string) {
     this.choosedDifficulte = value;
-    console.log("la diff : "+this.choosedDifficulte);
   }
 }

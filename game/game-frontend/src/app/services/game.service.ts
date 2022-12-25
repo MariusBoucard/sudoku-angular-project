@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Classement } from '../classes/classement';
 import { Game } from '../classes/game';
 import { Grid } from '../classes/grid';
@@ -15,20 +15,29 @@ export class GameService {
   constructor(private grid : Grid,public player:Player,private backService : BackendServiceService) {
 
    }
+   help = false;
+   gameEnded = false;
    currentGame : Game = new Game(this.grid,this.player);
+   gameEndedValueChanges : EventEmitter<any> = new EventEmitter();
+   ScoreValueChanges : EventEmitter<any> = new EventEmitter();
+
+
    fillGame(data : GridDTO){
       this.currentGame.grid.id = data.id;
-      data.classement.classement.forEach(player => this.currentGame.grid.classement.addToClassement(player));
+
+      data.classement.classement.forEach(player => {
+        this.currentGame.grid.classement.addToClassement(player)
+      });
+
       let listnum = new Array(81);
 
       data.values.forEach((tile: Tile) => listnum.push(tile.value));
-      console.log(this.currentGame.grid.tileList);
 
         this.currentGame.grid.setTiles(listnum);
-        console.log(this.currentGame.grid.tileList);
+        this.currentGame.grid.checkTiles();
 
-      console.log(this.currentGame.grid.tileList);
    }
+
    setGrid(n:number,joueur: String){
     let play = new Player(joueur);
     this.backService.getGrid(n).subscribe(
@@ -36,8 +45,56 @@ export class GameService {
       (error: any) => console.log(error),
       () => console.log("completed")
     );
-    this.currentGame.player = play;
+  
+      this.currentGame.player = play;
+    
+    this.gameEnded = false;
+   }
 
+   setGridRefresh(n:number){
+    if(this.currentGame.player.name === "DeFauLtNaMe065345"){
+      let play = new Player("Chester");
+      console.log("on demande la grille no "+n);
+      this.backService.getGrid(n).subscribe(
+        (data:any) => this.fillGame(data),
+        (error: any) => console.log(error),
+        () => console.log("completed")
+      );
+  
+        this.currentGame.player = play;
+      
+      this.gameEnded = false;
+    }
+   }
+
+   updateSuggestedValues(){
+    for(let i =0;i<this.currentGame.grid.tileList.length;i++){
+      this.currentGame.grid.tileList[i].suggestedValues = this.currentGame.grid.getSuggestedValue(i);
+    }
+   }
+   isGameFinished():boolean{
+    let check = true;
+    for(let i =0;i<this.currentGame.grid.tileList.length;i++){
+      if(this.currentGame.grid.tileList[i].constraintRespected === false ||this.currentGame.grid.tileList[i].getValue()<1 ){
+        check = false;
+        console.log("ca chie en "+i);
+        this.gameEnded =false;
+        break;
+      }
+    }
+    if(check){
+      this.gameEnded =true;
+      console.log("gamefinished oueoue")
+      this.endGame();
+      this.gameEndedValueChanges.emit(this.gameEndedValueChanges); 
+    }
+    return check;
+   }
+
+   updateConstraintRespected(){
+    for(let i =0;i<this.currentGame.grid.tileList.length;i++){
+      this.currentGame.grid.tileList[i].constraintRespected = this.currentGame.grid.checkTile(i);
+    }
    }
    getSelected():number{
     return this.currentGame.grid.selectedTabName;
@@ -63,7 +120,26 @@ export class GameService {
    setScore(score : number){
     this.currentGame.player.setScore(score);
    }
+   addScore(){
+    this.currentGame.player.score++;
+    this.ScoreValueChanges.emit(this.ScoreValueChanges); 
 
+    console.log(this.currentGame.player.score);
+   }
+
+   endGame(){
+    if(!this.help){
+      console.log("\n\n\n\n Envoi du score u know \n\n\n");
+      this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
+    }
+    else {
+      console.log("on envoi pas le score car tu as triché bah ouais tu t attendais à quoi ?");
+      //this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
+
+    }
+
+
+   }
    setValue(index : number,valeur:number){
     this.currentGame.grid.setValue(index,valeur);
    }

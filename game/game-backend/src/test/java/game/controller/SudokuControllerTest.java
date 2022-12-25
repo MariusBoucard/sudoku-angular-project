@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.xmlunit.diff.Diff;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -176,7 +177,7 @@ class SudokuControllerTest {
         ArrayList<GridDTO1> list = new ArrayList<>();
         list.add(dto);
         list.add(dto);
-        when(memoryService.getList("easy")).thenReturn(list);
+        when(memoryService.getList(Difficulte.EASY)).thenReturn(list);
         this.mockMvc.perform(get("/api/sudokulist/easy"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(

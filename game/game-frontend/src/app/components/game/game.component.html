@@ -1,15 +1,20 @@
 <div class="box" style="margin-left: 0%;margin-right: 0%;">
-
-  <div class="container" style="width:40%;height:100%; justify-content: left">
-    <io-tree-history #treeComp style="height: 1000px;" [svgIconSize]="200" [rootRenderer]="rootRenderer()">
+  <p>{{this.gameService.currentGame.player.getName()}}</p>
+  <div class="history-container">
+    <io-tree-history style="height: 80%" [style.width]="'35%'" [svgIconSize]="200" [rootRenderer]="rootRenderer()">
     </io-tree-history>
-  </div>
+    </div>
   <div style="width:40%; justify-content: center; border-left: 50px; padding-right: 350px" >
     <app-grid ></app-grid>
   </div>
   <button mat-button (click)="openDialog()">
     <img src="assets/podium.png" style="width:80px;height:80px;">
   </button>
+
+  <p>score</p>
+  <p [(ngModel)]='this.gameService.player.score'></p>
+      {{this.scoreintra}}
+
 
 </div>
 

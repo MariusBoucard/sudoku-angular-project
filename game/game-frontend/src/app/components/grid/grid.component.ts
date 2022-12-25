@@ -1,5 +1,6 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import { Bindings, PartialButtonBinder, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
+import { ActivatedRoute } from '@angular/router';
+import { Bindings, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
 // import { PartialPointBinder } from 'interacto';
 import {  PartialMatSelectBinder } from 'interacto-angular';
 import { setValue } from 'src/app/commands/setValue';
@@ -14,12 +15,23 @@ import { GameService } from 'src/app/services/game.service';
  * Component that display the grid
  */
 export class GridComponent implements OnInit {
-  // @Output() myEvent = new EventEmitter<string>();
   //The inject is meant to use the same gameService for both gamecomponent and grid
-  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
+  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>,private route: ActivatedRoute){
   }
+  @HostListener('contextmenu', ['$event'])
+onRightClick(event: { preventDefault: () => void; }) {
+  event.preventDefault();
+}
+idGrid : string | null | undefined;
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.idGrid = this.route.snapshot.paramMap.get('idgrid');
+    if( !Number.isNaN(Number(this.idGrid))){
+      console.log("idGrid "+this.idGrid );
+      this.gameService.setGridRefresh(Number(this.idGrid));
+      //TODO -> Charger la grille via le back, mais on charge pas le player      
+    }
+  }
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
   /**
@@ -52,7 +64,6 @@ export class GridComponent implements OnInit {
     return this.gameService.getValue(index);
   }
   getSuggestedValues(index : number):number[]{
-    // console.log("suggestedvalues : "+ this.gameService.getSuggestedValue(index));
     return this.gameService.getSuggestedValue(index);
   }
   getSelected(n : number):number{
@@ -60,17 +71,16 @@ export class GridComponent implements OnInit {
   }
 
   /**
-   *
    * @param n index in the tab
    * @returns return the css class to apply to the tile to make it really beautiful (Just joking bro)
    */
   getClass(n: number): String {
     let retour = "grid-item ";
-    if (n == 80) {
+    if (n === 80) {
       return retour;
     }
 
-    if (((n + 1) % 3) == 0) {
+    if (((n + 1) % 3) === 0) {
       retour += ' lignedroite ';
     }
     if (((n) % 27) < 9) {
@@ -91,30 +101,30 @@ export class GridComponent implements OnInit {
   }
 
   public setValue(binder: PartialMatSelectBinder, index: number) {
-    console.log("Backtracking setValue : here in gridcomponent");
     binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
-    // this.myEvent.emit('yolo');
+    }
+
+    updateSuggestedvalues(){
+      this.gameService.updateSuggestedValues();
     }
 
 
-
-    public directSet(binder: PartialPointBinder) {
-      console.log("into direct");
+    public directSet(binder: PartialPointBinder,n : number) {
       binder
       .toProduce(() =>
-      new setValue(1,this.gameService.getSuggestedValue(1)[0],this.gameService))
-      .when(i => i.button === 1)
+      new setValue(n,this.gameService.getSuggestedValue(n)[0],this.gameService))
+      .when(i => i.button === 2)
       .bind();
       }
-      public binderClickEndGame(binder: PartialButtonBinder): void {
-        binder
-          .toProduceAnon(() => this.showEndGame())
-          .bind();
-      }
-      public showEndGame(){
-        console.log("finish")
-      }
+      
+      // public binderClickEndGame(binder: PartialButtonBinder): void {
+      //   binder
+      //     .toProduceAnon(() => this.showEndGame())
+      //     .bind();
+      // }
+      // public showEndGame(){
+      // }
    
         //From the help manual in moodle
     rootRenderer(): UndoableSnapshot {

@@ -63,7 +63,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     GameService,
     Player,
     {provide: 'gameServ', useClass: GameService},
-    {provide: 'defaultName', useValue: 'Sly Bar'}
+    //Because this value is used to discriminate cases, it can't be used by 
+    //anyone, so I put something very unlikely to happend
+    {provide: 'defaultName', useValue: 'DeFauLtNaMe065345'}
   ],
   bootstrap: [AppComponent]
 })

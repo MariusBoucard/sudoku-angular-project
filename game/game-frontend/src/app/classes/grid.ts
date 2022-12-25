@@ -35,7 +35,6 @@ export class Grid {
         this.updateSuggestedValues(i);
       }
   
-      console.log("Grid created");
     }
   
     ngOnInit(): void {
@@ -96,9 +95,22 @@ export class Grid {
    * @returns boolean : true if everything's OK and False if something is wront
    */
   checkTile(index: number): boolean {
+    if(this.tileList[index].value===0){
+      return true;
+    }
     return this.checkColumn(index) && this.checkLine(index) && this.checkSubGrid(index);
   }
 
+    /**
+   * Check the validity of a tile, usefull for exemple after setting it's value
+   * @param index index of the tile we want to check the validity
+   * @returns boolean : true if everything's OK and False if something is wront
+   */
+    checkTiles() {
+     for(let i=0;i<81;i++){
+      this.tileList[i].constraintRespected = this.checkTile(i);
+     }
+    }
   /**
    *
    * @param index index of the tile for which we want to check the validity at the column level
@@ -222,13 +234,16 @@ export class Grid {
    * just played
    */
   updateSuggestedValues(index: number) {
-    this.tileList[index].suggestedValues = this.getSuggestedValue(index);
-    var subgridIndex = this.indexSubGrid(index);
-    var lineIndex = this.indexLine(index);
-    var columnIndex = this.indexColumn(index);
-    subgridIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
-    lineIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
-    columnIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
+    for(let i =0;i<81;i++){
+
+      this.tileList[index].suggestedValues = this.getSuggestedValue(index);
+    }
+    // var subgridIndex = this.indexSubGrid(index);
+    // var lineIndex = this.indexLine(index);
+    // var columnIndex = this.indexColumn(index);
+    // subgridIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
+    // lineIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
+    // columnIndex.forEach(index => {this.tileList[index].suggestedValues = this.getSuggestedValue(index);});
     //Update les valeurs suggérées pour toute la colonne, pour toute la ligne pour tout le carré
 
   }
@@ -244,7 +259,7 @@ export class Grid {
     for (let i = 1; i < 10; i++) {
       let resultat = true;
       for (let col = 0; col < 9; col++) {
-        if (this.tileList[col + coord[1] * 9].value === i && (col + coord[1]) !== index) {
+        if (this.tileList[col + coord[1] * 9].value === i ) {
           resultat = false;
           break;
         }
@@ -252,22 +267,35 @@ export class Grid {
       if(resultat){
 
         for (let ligne = 0; ligne < 9; ligne++) {
-          if (this.tileList[ligne * 9 + coord[0]].value === i && (ligne * 9 + coord[0]) !== index) {
+          if (this.tileList[ligne * 9 + coord[0]].value === i ) {
             resultat = false;
             break;
           }
         }
       }
       if(resultat){
-      for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
-        for (let col = coord[0] / 3; col < 3; col++) {
-          if (this.tileList[this.coordinates_to_index(ligne, col)].value === i && this.coordinates_to_index(ligne, col) !== index) {
-            resultat = false;
-            break;
-          }
+        //C'est ici que ca chhie
+
+    let lignedepart = Math.floor(coord[1] / 3) * 3;
+    let colonnedepart = Math.floor(coord[0] / 3) * 3;
+    for (let ligne = lignedepart; ligne < lignedepart + 3; ligne++) {
+      for (let col = colonnedepart; col < colonnedepart + 3; col++) {
+        if (this.tileList[this.coordinates_to_index(ligne, col)].value === i) {
+          resultat = false;
         }
-        
       }
+    }
+
+      // for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
+      //   for (let col = coord[0] / 3; col < 3; col++) {
+      //     if (this.tileList[this.coordinates_to_index(ligne, col)].value === i ) {
+      //       resultat = false;
+      //       break;
+      //     }
+      //   }
+        
+      // }
+      //Fin chie
     }
       if (resultat) {
         retour.push(i);
