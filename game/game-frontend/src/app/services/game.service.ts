@@ -45,10 +45,28 @@ export class GameService {
       (error: any) => console.log(error),
       () => console.log("completed")
     );
-    this.currentGame.player = play;
+  
+      this.currentGame.player = play;
+    
     this.gameEnded = false;
-
    }
+
+   setGridRefresh(n:number){
+    if(this.currentGame.player.name === "DeFauLtNaMe065345"){
+      let play = new Player("Chester");
+      console.log("on demande la grille no "+n);
+      this.backService.getGrid(n).subscribe(
+        (data:any) => this.fillGame(data),
+        (error: any) => console.log(error),
+        () => console.log("completed")
+      );
+  
+        this.currentGame.player = play;
+      
+      this.gameEnded = false;
+    }
+   }
+
    updateSuggestedValues(){
     for(let i =0;i<this.currentGame.grid.tileList.length;i++){
       this.currentGame.grid.tileList[i].suggestedValues = this.currentGame.grid.getSuggestedValue(i);

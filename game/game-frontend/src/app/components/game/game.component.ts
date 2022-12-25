@@ -30,6 +30,8 @@ export class GameComponent implements OnInit {
       
    })
 
+   //each time score is changed, it sends a lil event that updates this, but there is an
+   //error in the front
    this.gameService.ScoreValueChanges.subscribe(() => {
     this.scoreintra = this.gameService.getScore();
  })

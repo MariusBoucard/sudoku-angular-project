@@ -1,4 +1,5 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Bindings, PartialPointBinder, TreeUndoHistory, UndoableSnapshot } from 'interacto';
 // import { PartialPointBinder } from 'interacto';
 import {  PartialMatSelectBinder } from 'interacto-angular';
@@ -15,14 +16,22 @@ import { GameService } from 'src/app/services/game.service';
  */
 export class GridComponent implements OnInit {
   //The inject is meant to use the same gameService for both gamecomponent and grid
-  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>){
+  constructor(@Inject('gameServ')  public gameService : GameService,public History: TreeUndoHistory, public bindings: Bindings<TreeUndoHistory>,private route: ActivatedRoute){
   }
   @HostListener('contextmenu', ['$event'])
 onRightClick(event: { preventDefault: () => void; }) {
   event.preventDefault();
 }
+idGrid : string | null | undefined;
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.idGrid = this.route.snapshot.paramMap.get('idgrid');
+    if( !Number.isNaN(Number(this.idGrid))){
+      console.log("idGrid "+this.idGrid );
+      this.gameService.setGridRefresh(Number(this.idGrid));
+      //TODO -> Charger la grille via le back, mais on charge pas le player      
+    }
+  }
   indexArray = new Array(81).fill(null).map((_, i) => i);
 
   /**
