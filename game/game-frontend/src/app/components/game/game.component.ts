@@ -22,8 +22,7 @@ export class GameComponent implements OnInit {
   indexArray = new Array(81).fill(null).map((_, i) => i);
   scoreintra : number = 0;
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
-  public dialog: MatDialog) {
-
+  public dialog: MatDialog,private undoHistory: TreeUndoHistory) {
     this.gameService.gameEndedValueChanges.subscribe(() => {
       
         this.endGame();
@@ -39,7 +38,7 @@ export class GameComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.undoHistory.clear();
 
   }
 
