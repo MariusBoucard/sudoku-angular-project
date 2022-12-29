@@ -26,6 +26,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { HeaderDialogComponent } from './components/header-dialog/header-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     ClassementComponent,
     GameComponent,
     MenuComponent,
+    HeaderDialogComponent,
   ],
   imports: [
     BrowserModule,
