@@ -2,9 +2,13 @@ export class Tile {
   value: number;
   suggestedValues: number[] = [];
   constraintRespected: boolean = false;
+  modifiable : boolean = false;
 
   constructor(nombre: number = -1) {
     this.value = nombre;
+    if(nombre===0){
+      this.modifiable = true;
+    }
   }
 
   /**
@@ -20,6 +24,10 @@ export class Tile {
 
   getValue(){
     return this.value;
+  }
+
+  isModifiable(){
+    return this.modifiable;
   }
 
 }

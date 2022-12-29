@@ -27,6 +27,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { HeaderDialogComponent } from './components/header-dialog/header-dialog.component';
+import { EndgameDialogComponent } from './components/endgame-dialog/endgame-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { HeaderDialogComponent } from './components/header-dialog/header-dialog.
     GameComponent,
     MenuComponent,
     HeaderDialogComponent,
+    EndgameDialogComponent,
   ],
   imports: [
     BrowserModule,

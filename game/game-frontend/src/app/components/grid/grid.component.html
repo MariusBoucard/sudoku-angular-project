@@ -13,15 +13,20 @@
     [ngStyle]="{'background-color': (!contraintRespected(n)) ? ((getSelected(n)===n) ? 'grey' :'red' ) :((getSelected(n)===n) ? 'grey' :'white' )}">
     <!-- <div class="grid-item" *ngFor="let n of fakeArray" > -->
 
-    <div>
+    <div *ngIf="gameService.currentGame.grid.getTile(n).isModifiable();else non_modifiable">
       <mat-select  [ioMatSelect] (matSelectBinder)="setValue($event, n)" [ioClick] (clickBinder)="directSet($event,n)"
         [value]="gameService.currentGame.grid.getTile(n).getValue()" style="height:50px;width:50px;">
-        <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" [value]="number">{{number}}</mat-option>
+        <mat-option *ngFor="let number of [1,2,3,4,5,6,7,8,9]" [value]="number">
+          {{number}}
+        </mat-option>
       </mat-select>
 
       <div class="suggested" *ngIf="this.gameService.help">{{getSuggestedValues(n)}}</div>
       <div class="suggested" *ngIf="!getSuggestedValues(n).length"> - </div>
     </div>
+    <ng-template #non_modifiable>
+      <p style="margin-top: 0px">{{gameService.currentGame.grid.getTile(n).getValue()}}</p>
+    </ng-template>
   </div>
 
 </div>

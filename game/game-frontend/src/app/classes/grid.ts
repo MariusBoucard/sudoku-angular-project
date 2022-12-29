@@ -18,14 +18,14 @@ export class Grid {
   selectedTabName = -1;
 
     constructor(){
-      
+
       for (let i = 0; i < 81; i++) {
 
         this.tileList.push(new Tile());
       }
-  
+
       for (let i = 0; i < 81; i++) {
-  
+
         this.setValue(i, Math.floor(Math.random() * 9) + 1);
       }
       for (let i = 0; i < 81; i++) {
@@ -34,12 +34,12 @@ export class Grid {
       for (let i = 0; i < 81; i++) {
         this.updateSuggestedValues(i);
       }
-  
+
     }
-  
+
     ngOnInit(): void {
 
-   
+
   }
   getClassement(){
     return this.classement;
@@ -180,7 +180,7 @@ export class Grid {
   }
 
   /**
-   * 
+   *
    * @param index index of the Tile we vant to know it's neighbours
    */
   indexSubGrid(index : number):number[]{
@@ -196,11 +196,11 @@ export class Grid {
         }
       }
     }
-    
+
     return res;
   }
     /**
-   * 
+   *
    * @param index index of the Tile we vant to know it's neighbours
    */
      indexLine(index : number):number[]{
@@ -214,7 +214,7 @@ export class Grid {
       return res;
     }
       /**
-   * 
+   *
    * @param index index of the Tile we vant to know it's neighbours
    */
   indexColumn(index : number):number[]{
@@ -293,7 +293,7 @@ export class Grid {
       //       break;
       //     }
       //   }
-        
+
       // }
       //Fin chie
     }

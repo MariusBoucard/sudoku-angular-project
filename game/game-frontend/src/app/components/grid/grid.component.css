@@ -27,3 +27,7 @@
     font-size:medium;
     color: grey;
   }
+
+:host::ng-deep .mat-select-value{
+  color: yellowgreen!important;
+}
