@@ -46,6 +46,7 @@ export class BackendServiceService {
       .pipe(map((res: GridDTO) => {
 
         if (isGridDTO(res)) {
+          console.log("yeah it s a grid");
           return res;
         } else {
           throw new Error("Response is not a valid GameDTO array. Received :  ");

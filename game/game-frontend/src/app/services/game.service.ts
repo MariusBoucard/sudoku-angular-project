@@ -24,7 +24,7 @@ export class GameService {
 
    fillGame(data : GridDTO){
       this.currentGame.grid.id = data.id;
-
+      this.currentGame.grid.classement.classement = [];
       data.classement.classement.forEach(player => {
         this.currentGame.grid.classement.addToClassement(player)
       });

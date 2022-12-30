@@ -158,9 +158,10 @@ public class SudokuController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addScore(@RequestBody final Player player,
                          @PathVariable("id") final String id) throws IOException {
-        System.out.println("on a voulu rajouter un joueur");
+
+        memoryService.addScore(id, player);
+        System.out.println("on a voulu rajouter un joueur a la grid "+id);
         System.out.println(player.getName());
         System.out.println(player.getScore());
-        memoryService.addScore(id, player);
     }
 }
