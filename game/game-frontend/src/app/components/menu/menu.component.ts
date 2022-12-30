@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-// import { Observable } from 'rxjs';
+//import { Observable } from 'rxjs';
 import { Grid } from 'src/app/classes/grid';
 import { Player } from 'src/app/classes/player';
 import { GridDTO } from 'src/app/DTO/grid-dto';
@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   IsChecked: boolean =  false;
 
 
+
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
     let that = this;
     this.backService.getAllGrids().subscribe({
@@ -39,8 +40,19 @@ export class MenuComponent implements OnInit {
   
   generateGrid(){
     this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
-        this.grille = gride;
-     });
+        this.grille = gride;this.updateList(this.choosedDifficulte);
+     })
+    
+  }
+  updateList(val : string){
+    console.log("on updateList");
+    let that = this;
+     this.backService.getLvlGrids(val).subscribe({
+      next(list) {that.Allgrids = list; that.failure = false;                 
+    },
+      error(err) {that.failure = true; console.error(err);that.Allgrids = []; }
+    } );;
+
   }
 
 

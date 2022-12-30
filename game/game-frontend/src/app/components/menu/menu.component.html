@@ -13,7 +13,7 @@
     <button mat-button (click)="generateGrid()"><p style='display:inline-block' width="60%">Generate Random board</p>
     </button>
     <mat-form-field style="padding-left: 5%;">
-      <mat-select [(value)]="choosedDifficulte" style="display: inline-block;text-align: center"
+      <mat-select [(value)]="choosedDifficulte"  #diffselect (selectionChange)="updateList(diffselect.value)" style="display: inline-block;text-align: center"
                   placeholder="Difficulté">
         <mat-option *ngFor="let difficult of difficultes" [value]="difficult">
           {{ difficult}}
