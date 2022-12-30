@@ -160,7 +160,7 @@ public class SudokuController {
                          @PathVariable("id") final String id) throws IOException {
 
         memoryService.addScore(id, player);
-        System.out.println("on a voulu rajouter un joueur a la grid "+id);
+        System.out.println("on a voulu rajouter un joueur a la grid " + id);
         System.out.println(player.getName());
         System.out.println(player.getScore());
     }
