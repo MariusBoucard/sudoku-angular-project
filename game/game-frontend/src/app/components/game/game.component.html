@@ -17,8 +17,14 @@
       {{this.scoreintra}}
     </div>
 
+    <form class="input-form">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Changer de nom</mat-label>
+        <input matInput #playerName (change)="this.gameService.currentGame.player.setName(playerName.value)" autocomplete="off" >
+      </mat-form-field>
 
-    <p>{{this.gameService.currentGame.player.getName()}}</p>
+    </form>
+    <p>Ton nom actuel : {{this.gameService.currentGame.player.getName()}}</p>
   </div>
 
 

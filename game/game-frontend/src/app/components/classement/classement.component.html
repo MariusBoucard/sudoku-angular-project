@@ -15,6 +15,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let playerRow; columns: displayedColumns"></tr>
   </table>
+  <p style="text-align: center">Your score : <br> {{this.gameService.currentGame.player.getName()}} : {{this.gameService.currentGame.player.getScore()}} </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>
