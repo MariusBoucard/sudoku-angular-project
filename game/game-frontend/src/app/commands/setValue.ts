@@ -14,13 +14,19 @@ export class setValue extends UndoableCommand {
 
     }
 
+    /**
+     * Genere la memoire qu'il faut pour pouvoir sauvegarder le coup
+     */
     protected override createMemento(): void {
         this.oldValue = this.gameService.getValue(this.tuileindex);
         this.index = this.tuileindex;
     }
 
+    /**
+     * Lorsqu'on joue le coup c'est elle qui est appelée,
+     * donc joue le coup quoiet update tout ce qui est remis en cause
+     */
     protected execution(): void {
-        //Issue new value is empty
         if(this.newValue !== undefined){
 
             this.gameService.setValue(this.index, this.newValue);
@@ -34,6 +40,10 @@ export class setValue extends UndoableCommand {
         }
     }
 
+    /**
+     * Lorsqu'on veut défaire la commande par appel de undo ou dans l'historique,
+     * permet de regénérer les valeurs du momento
+     */
     public undo(): void {
         this.gameService.setValue(this.index, this.oldValue);
         this.gameService.updateSuggestedValues();
@@ -41,6 +51,9 @@ export class setValue extends UndoableCommand {
             
     }
 
+    /**
+     * rappelle l execution
+     */
     public redo(): void {
         this.execution();
     }
@@ -55,9 +68,18 @@ public override canExecute(): boolean {
 
 
 
+    /**
+     * rendu originel
+     *  */ 
     public rootRenderer(): UndoableSnapshot {
         return setValue.getSnapshot(this.gameService.currentGame);
         }
+        /**
+         * From le cours de Mr Blouin
+         * @param game partie en cours
+         * @param indexChanged tile qui a ete changée
+         * @returns Une image qui sera dans interacto
+         */
     public static getSnapshot(game: Game, indexChanged?: number): HTMLImageElement {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d")!;
@@ -86,6 +108,10 @@ public override canExecute(): boolean {
             imgCache.src = canvas.toDataURL("image/png");
             return imgCache;
         }
+        /**
+         * 
+         * @returns La petite image
+         */
         public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | undefined {
             return setValue.getSnapshot(this.gameService.currentGame, this.index);
             }
