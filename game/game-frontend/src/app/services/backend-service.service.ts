@@ -17,6 +17,11 @@ export class BackendServiceService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * 
+   * @param level level of the grid we want to generate
+   * @returns un observable de grille pour pouvoir jouer avec, mais en screed, il sert a rien car on lance pas direct la partie
+   */
   generateGrid(level: String): Observable<Grid> {
 
     return this.http.get("/api/generategrid/" + level).
@@ -60,7 +65,7 @@ export class BackendServiceService {
   }
 
   /**
-   * 
+   * SERT A RIEN, ATTENTION MSERT A RIEN
    * @param n Potentiellement inutile donc j'ai pas encore fait dans le back
    * @returns 
    */
@@ -78,7 +83,10 @@ export class BackendServiceService {
     return resu;
   }
 
-
+/**
+ * Classic hello word to test backend
+ * @returns un string mais pas celui de Kim k
+ */
   hello(): Observable<String> {
     return this.http.get<String>("/api/").
       pipe(
@@ -88,7 +96,11 @@ export class BackendServiceService {
 
     ;
   }
-
+/**
+ * Attention quand meme cette fonction va chercher des DTO, y a pas le classement dedans
+ * @param difficulte une string correspondant à celles déja défini (dans l'enum for exemple) permettant de choisir la diff des grilles qu'on veut choper
+ * @returns l ensemble des grilles du niveau concerné (enfin un bon observable des familles)
+ */
   getLvlGrids(difficulte : string){
     const res = this.http
     .get<Array<GridDTO>>("/api/sudokulist/"+difficulte)
@@ -105,7 +117,10 @@ export class BackendServiceService {
 
   return res;
   }
-
+/**
+ * Cette fonction va chercher tous les DTO de grille dans le back
+ * @returns toutes les grilles déja générées dans le back -> C'est des DTO sazns classement pour le menu
+ */
   getAllGrids() {
 
     const res = this.http
@@ -124,7 +139,12 @@ export class BackendServiceService {
     return res;
 
   }
-
+/**
+ * Cette fonction est appelée pour envoyer un joueur dans le classement d une partie en fin de celle ci
+ * @param player joueur qu'on veut envoyer
+ * @param id id de la grille à laquelle il vient de jouer
+ * @returns c est un post donc en gros un oui c est passé quoi
+ */
   sendPlayer(player: Player, id: number) {
     // const body=JSON.stringify(player);
 
@@ -133,12 +153,7 @@ export class BackendServiceService {
     res.subscribe();
     return res;
   }
-  // getAllGrids(): Observable<Grid[]> {
-  //   return this.http.get<Grid[]>("/api/getallgrids").pipe(
-  //     map(response =>{
-  //       console.log("type get all grids "+typeof <Grid[]> response);
-  //       return <Grid[]> response})) ;
-  // }
+ 
 }
 
 
