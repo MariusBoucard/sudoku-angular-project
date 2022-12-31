@@ -74,6 +74,9 @@ export class GameComponent implements OnInit {
     this.gameService.player.setName(newName);
   }
 
+  /**
+   * permet d'ouvrir le dialog correspondant au classement
+   */
   openDialog() {
     // @ts-ignore
     const dialogRef = this.dialog.open(ClassementComponent);

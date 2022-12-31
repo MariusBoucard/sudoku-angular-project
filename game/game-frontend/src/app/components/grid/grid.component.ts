@@ -44,7 +44,11 @@ idGrid : string | null | undefined;
 
   }
 
-
+/**
+ * Quand on hover une case avec la souris on appelle  cette fonction pour que ca change
+ * l'affichage
+ * @param tab numero de la case survollée qu'il faut définir commme selected
+ */
   hovered(tab: number) {
     this.gameService.setSelected(tab);
   }
@@ -60,13 +64,29 @@ idGrid : string | null | undefined;
     }
 
   }
+  /**
+   * getter classique 
+   * @params index -> l'index ou on veut savoir la valeur
+   * @returns la valeur à l index
+   */
   getValue(index : number):number{
     return this.gameService.getValue(index);
   }
+  /**
+   * renvoi les valeurs suggérées à un certain endroit
+   * @param index index ou on veut récuperer les valeurs suggérees
+   * @returns un tableau de nombre suggéres
+   */
   getSuggestedValues(index : number):number[]{
     return this.gameService.getSuggestedValue(index);
   }
-  getSelected(n : number):number{
+  /**
+   * 
+   *getter standard pour savoir quelle case est survollée 
+   a cet instant précis du temps ou on demande
+   * @returns number de la case survollée
+   */
+  getSelected():number{
     return this.gameService.getSelected();
   }
 
@@ -89,7 +109,12 @@ idGrid : string | null | undefined;
     return retour + "";
 
   }
-
+/**
+ * 
+ * @param event C'est la key qui a été appuyée
+ * car on voulait vraiment pouvoir set la valeur de la case a partir du
+ * clavier num
+ */
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
       if(this.gameService.getSelected() !== -1){
@@ -99,17 +124,29 @@ idGrid : string | null | undefined;
 
 
   }
-
+/**
+ * Permet de générer des setValue et de les mettre dans l'historique 
+ * grâce à la librairie Interacto
+ * @param binder L'objet qui va faire l'appel, ici notre matselect
+ * @param index numero de la case ou on doit setlavalue
+ */
   public setValue(binder: PartialMatSelectBinder, index: number) {
     binder.toProduce(i => new setValue( index,i.change?.value ,this.gameService))
     .bind();
     }
-
+/**
+ * Met à jour les valeurs suggerees pour chacunes des cases
+ */
     updateSuggestedvalues(){
       this.gameService.updateSuggestedValues();
     }
 
-
+/**
+ * Permet a l aide d un clique droit,
+ * de mettre la premiere valeur suggéree dans la case
+ * @param binder 
+ * @param n le numero de case
+ */
     public directSet(binder: PartialPointBinder,n : number) {
       binder
       .toProduce(() =>
@@ -118,15 +155,13 @@ idGrid : string | null | undefined;
       .bind();
       }
       
-      // public binderClickEndGame(binder: PartialButtonBinder): void {
-      //   binder
-      //     .toProduceAnon(() => this.showEndGame())
-      //     .bind();
-      // }
-      // public showEndGame(){
-      // }
+
    
         //From the help manual in moodle
+        /**
+         * permet de génerer la premiere image dans interacto
+         * @returns 
+         */
     rootRenderer(): UndoableSnapshot {
     return setValue.getSnapshot(this.gameService.currentGame);
   }

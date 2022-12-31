@@ -26,7 +26,6 @@ export class ClassementComponent implements OnInit {
 
     });
 
-    //EN SCREED CA PEUT ETRE COOL LA TITE REQUETE HTTP TAVU
   }
 
 
@@ -44,6 +43,10 @@ export class ClassementComponent implements OnInit {
     }
   }
 
+  /**
+   * getter standard pour récupérer un classement
+   * @returns un tableau de player qui en soit esdt un classement
+   */
   getClassement(): Player[] {
     return this.classement;
   }

@@ -22,10 +22,18 @@ export class Tile {
     this.value = value;
   }
 
+  /**
+   * 
+   * @returns number de la val de la tile
+   */
   getValue(){
     return this.value;
   }
 
+  /**
+   * 
+   * @returns true if we can modify the tile
+   */
   isModifiable(){
     return this.modifiable;
   }

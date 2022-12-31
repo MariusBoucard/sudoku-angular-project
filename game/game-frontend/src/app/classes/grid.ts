@@ -286,16 +286,6 @@ export class Grid {
       }
     }
 
-      // for (let ligne = coord[1] / 3; ligne < 3; ligne++) {
-      //   for (let col = coord[0] / 3; col < 3; col++) {
-      //     if (this.tileList[this.coordinates_to_index(ligne, col)].value === i ) {
-      //       resultat = false;
-      //       break;
-      //     }
-      //   }
-
-      // }
-      //Fin chie
     }
       if (resultat) {
         retour.push(i);
