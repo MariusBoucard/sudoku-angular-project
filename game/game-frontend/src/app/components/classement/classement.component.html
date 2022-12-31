@@ -18,6 +18,12 @@
   <p style="text-align: center">Your score : <br> {{this.gameService.currentGame.player.getName()}} : {{this.gameService.currentGame.player.getScore()}} </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Close</button>
+  <div *ngIf="gameService.gameEnded;else not_ended">
+    <button mat-button mat-dialog-close routerLink="/menu" >Continue to Menu</button>
+  </div>
+  <ng-template #not_ended>
+    <button mat-button mat-dialog-close>Close</button>
+  </ng-template>
+
 </mat-dialog-actions>
 

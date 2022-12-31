@@ -6,15 +6,18 @@ import { Player } from '../classes/player';
 import { Tile } from '../classes/tile';
 import { GridDTO } from '../DTO/grid-dto';
 import { BackendServiceService } from './backend-service.service';
+import {ClassementComponent} from "../components/classement/classement.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  constructor(private grid : Grid,public player:Player,private backService : BackendServiceService) {
+  constructor(private grid : Grid,public player:Player,private backService : BackendServiceService, public dialog: MatDialog) {
 
    }
+
    help = false;
    gameEnded = false;
    currentGame : Game = new Game(this.grid,this.player);
@@ -23,7 +26,7 @@ export class GameService {
 
 
 /**
- * Permet d initialiser les différents attributs en début de partie 
+ * Permet d initialiser les différents attributs en début de partie
  * grâce a ce qui a été recu du back
  * @param data Griddto recu du back
  */
@@ -57,16 +60,16 @@ export class GameService {
       (error: any) => console.log(error),
       () => console.log("completed")
     );
-  
+
       this.currentGame.player = play;
-    
+
     this.gameEnded = false;
    }
 
    /**
     * Lorsqu'on refresh une page on perd tout ce qui etait enregistre dans angular
     * ainsi on doit re requeter la grille et donner un nom par défaut
-    * @param n 
+    * @param n
     */
    setGridRefresh(n:number){
     if(this.currentGame.player.name === "DeFauLtNaMe065345"){
@@ -76,9 +79,9 @@ export class GameService {
         (error: any) => console.log(error),
         () => console.log("completed")
       );
-  
+
         this.currentGame.player = play;
-      
+
       this.gameEnded = false;
     }
    }
@@ -109,7 +112,7 @@ export class GameService {
       this.gameEnded =true;
       console.log("gamefinished oueoue")
       this.endGame();
-      this.gameEndedValueChanges.emit(this.gameEndedValueChanges); 
+      this.gameEndedValueChanges.emit(this.gameEndedValueChanges);
     }
     return check;
    }
@@ -124,7 +127,7 @@ export class GameService {
     }
    }
    /**
-    * 
+    *
     * @returns le nom de la case selectionnée (hover)
     */
    getSelected():number{
@@ -189,12 +192,12 @@ export class GameService {
     */
    addScore(){
     this.currentGame.player.score++;
-    this.ScoreValueChanges.emit(this.ScoreValueChanges); 
+    this.ScoreValueChanges.emit(this.ScoreValueChanges);
 
    }
   /**
    * non ce n'est pas le nom du dernier avengers, mais breel et bien la fonction qui
-   * s'occupe de la fin de jeu ! 
+   * s'occupe de la fin de jeu !
    * ->elle demande un envoi du score du joueur actuel au backend si celui ci n'a pas été aidé
    */
    endGame(){
@@ -206,6 +209,7 @@ export class GameService {
       console.log("on envoi pas le score car tu as triché bah ouais tu t attendais à quoi ?");
       //this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
     }
+    this.dialog.open(ClassementComponent);
    }
 
    /**
