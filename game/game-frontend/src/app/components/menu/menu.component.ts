@@ -92,6 +92,6 @@ export class MenuComponent implements OnInit {
  * @param value difficulté qu'on veut attribuer au paramêtre choosedDifficulte
  */
   changeDifficulte(value : string) {
-    this.choosedDifficulte = value;
+    this.choosedDifficulte =  value;
   }
 }
