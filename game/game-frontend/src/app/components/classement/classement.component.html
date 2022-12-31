@@ -19,6 +19,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <div *ngIf="gameService.gameEnded;else not_ended">
+    <p>Felicitation !!</p>
     <button mat-button mat-dialog-close routerLink="/menu" >Continue to Menu</button>
   </div>
   <ng-template #not_ended>
