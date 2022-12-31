@@ -19,13 +19,21 @@ export class EndgameDialogComponent implements OnInit {
   classement: Player[] = [];
 
   constructor(public dialogRef: MatDialogRef<EndgameDialogComponent>,@Inject('gameServ')  public gameService : GameService) {
+    dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
+    this.addToClassement(this.gameService.currentGame.player);
+
     this.gameService.currentGame.grid.classement.classement.forEach(element => {
       this.addToClassement(element);
-
+    
     });
+    console.log(this.classement);
+      this.classement.sort((p1, p2) => (p1.score < p2.score ? -1 : 1)); //pas optimal mais c'est déjà ça
+      if (this.classement.length >= 5){
+        this.classement = this.classement.slice(0,5);
+      }
 
   }
 
@@ -38,10 +46,7 @@ export class EndgameDialogComponent implements OnInit {
    */
   addToClassement(joueur: Player) {
     this.classement.push(joueur);
-    this.classement.sort((p1, p2) => (p1.score < p2.score ? -1 : 1)); //pas optimal mais c'est déjà ça
-    if (this.classement.length >= 5){
-      this.classement = this.classement.slice(0,5);
-    }
+   
   }
 
   getClassement(): Player[] {

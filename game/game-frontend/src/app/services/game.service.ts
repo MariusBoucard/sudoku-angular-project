@@ -36,7 +36,8 @@ export class GameService {
       data.classement.classement.forEach(player => {
         this.currentGame.grid.classement.addToClassement(player)
       });
-
+      this.currentGame.grid.classement.classement.sort((a,b)=>a.score -b.score);
+      console.log(this.currentGame.grid.classement.classement);
       let listnum = new Array(81);
 
       data.values.forEach((tile: Tile) => listnum.push(tile.value));
@@ -209,7 +210,7 @@ export class GameService {
       console.log("on envoi pas le score car tu as triché bah ouais tu t attendais à quoi ?");
       //this.backService.sendPlayer(this.currentGame.player,this.currentGame.grid.id);
     }
-    this.dialog.open(ClassementComponent);
+    this.dialog.open(ClassementComponent, { disableClose: true });
    }
 
    /**

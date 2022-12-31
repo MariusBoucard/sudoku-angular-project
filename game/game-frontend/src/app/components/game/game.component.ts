@@ -23,11 +23,11 @@ export class GameComponent implements OnInit {
   scoreintra : number = 0;
   constructor(@Inject('gameServ')  public gameService : GameService, public bindings: Bindings<TreeUndoHistory>,
   public dialog: MatDialog,private undoHistory: TreeUndoHistory) {
-    this.gameService.gameEndedValueChanges.subscribe(() => {
+  //   this.gameService.gameEndedValueChanges.subscribe(() => {
       
-        this.endGame();
+  //       this.endGame();
       
-   })
+  //  })
 
    //each time score is changed, it sends a lil event that updates this, but there is an
    //error in the front
@@ -58,11 +58,11 @@ export class GameComponent implements OnInit {
  * say that it's finished
  * L envoi du score au back se fait dans le service
  */
-  endGame(){
-    //TODO : METTRE UN BEAU DIALOG AVZC LE CLASSEMENT ET TT
+  // endGame(){
+  //   //TODO : METTRE UN BEAU DIALOG AVZC LE CLASSEMENT ET TT
    
 
-  }
+  // }
 
   //Est ce qu'on change pas l'UML Par hasard
   /**
