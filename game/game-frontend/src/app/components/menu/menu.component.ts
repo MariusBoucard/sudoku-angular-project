@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
   constructor(private backService : BackendServiceService,@Inject("gameServ") private gameService : GameService) {
     let that = this;
     this.backService.getAllGrids().subscribe({
-      next(list) {that.Allgrids = list; that.failure = false;                 
+      next(list) {that.Allgrids = list;that.Allgrids.sort((a,b)=> a.id-b.id); that.failure = false;                 
     },
       error(err) {that.failure = true; console.error(err)}
     } );
@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
   updateList(val : string){
     let that = this;
      this.backService.getLvlGrids(val).subscribe({
-      next(list) {that.Allgrids = list; that.failure = false;                 
+      next(list) {that.Allgrids = list; that.failure = false;   that.Allgrids.sort((a,b)=> a.id-b.id);              
     },
       error(err) {that.failure = true; console.error(err);that.Allgrids = []; }
     } );;
