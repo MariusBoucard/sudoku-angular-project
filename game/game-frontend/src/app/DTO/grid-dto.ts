@@ -38,6 +38,11 @@ export function isGridDTO1(object : any) : object is GridDTO {
        // && isDifficulteDTO(object.difficulte)
         && Array.isArray(object.values) && object.values.every((el : any) => isTileDTO(el));
 }
+/**
+ * 
+ * @param object un Json qu'on veut tester
+ * @returns true si c'est bien un array de GridDTO1
+ */
 export function isGridDTO1Array(object : any) : object is Array<GridDTO> {
     return Array.isArray(object) && object.every(isGridDTO1);
 }

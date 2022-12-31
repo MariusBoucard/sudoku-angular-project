@@ -37,15 +37,21 @@ export class MenuComponent implements OnInit {
 
 
   }
-  
+  /**
+   * demande la génération d'une grille d'un niveau choisis par l'utilisateur, puis update
+   * son affichage avec cette nouvelle grille quand elle est générée
+   */
   generateGrid(){
     this.backService.generateGrid(this.choosedDifficulte).subscribe(gride =>{
         this.grille = gride;this.updateList(this.choosedDifficulte);
      })
     
   }
+  /**
+   * Genere un appel au back pour récupérer la liste de grille d un niveau choisis
+   * @param val la difficulté qu'on a choisis et qui permettra d aller chercher dans le back la bonne liste de grilles
+   */
   updateList(val : string){
-    console.log("on updateList");
     let that = this;
      this.backService.getLvlGrids(val).subscribe({
       next(list) {that.Allgrids = list; that.failure = false;                 
@@ -63,22 +69,28 @@ export class MenuComponent implements OnInit {
 
   }
 
-
+/**
+ * Permet de lancer une partie suite à un clique du joueur 
+ * @param n id de la grille
+ */
   launchGame(n : number){
     this.gameService.player = this.joueur;
     this.gameService.help=this.IsChecked;
     this.gameService.setGrid(n,this.joueur.getName());
-    //TODO
-    /**
-     * Has to keep name in memory -> Saved in gameservice
-     * inject gameservice des le debut ? Single instance ?
-     */
+
   }
+  /**
+   * Permet de changer la valeur interne a la classe du nom de joueur
+   * @param name nom du joueur à définir
+   */
   setPlayer(name : String){
     this.joueur = new Player(name);
   }
 
-
+/**
+ * C'est un setter de parametre
+ * @param value difficulté qu'on veut attribuer au paramêtre choosedDifficulte
+ */
   changeDifficulte(value : string) {
     this.choosedDifficulte = value;
   }
