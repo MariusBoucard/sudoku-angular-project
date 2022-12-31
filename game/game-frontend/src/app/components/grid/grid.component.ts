@@ -86,7 +86,7 @@ idGrid : string | null | undefined;
    a cet instant précis du temps ou on demande
    * @returns number de la case survollée
    */
-  getSelected():number{
+  getSelected(n:number):number{
     return this.gameService.getSelected();
   }
 
