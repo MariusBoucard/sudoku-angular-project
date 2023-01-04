@@ -56,8 +56,8 @@ public class Grid implements Serializable {
      */
     public void addScore(final Player player) {
             final List<Player> classm = classement.getClassement();
-                if(classement.getClassement().stream().filter(a -> a.name == player.name && a.score >= player.score).count() == 0) {
-                    final List<Player> list  = classement.getClassement().stream().filter(a -> a.name == player.name).collect(Collectors.toList());
+                if(classement.getClassement().stream().filter(a -> a.name.equals(player.name) && a.score >= player.score).count() == 0) {
+                    final List<Player> list  = classement.getClassement().stream().filter(a -> a.name.equals(player.name)).collect(Collectors.toList());
                     list.forEach(elem ->  classm.remove(elem));
                     classement.setClassement((ArrayList<Player>) classm);
                     classement.add(player);
