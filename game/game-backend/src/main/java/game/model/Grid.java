@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Just the grid, this object carry (almost?) all he needs as dependency
@@ -54,7 +55,13 @@ public class Grid implements Serializable {
      * @param player
      */
     public void addScore(final Player player) {
-        classement.add(player);
+            final List<Player> classm = classement.getClassement();
+                if(classement.getClassement().stream().filter(a -> a.name == player.name && a.score >= player.score).count() == 0) {
+                    final List<Player> list  = classement.getClassement().stream().filter(a -> a.name == player.name).collect(Collectors.toList());
+                    list.forEach(elem ->  classm.remove(elem));
+                    classement.setClassement((ArrayList<Player>) classm);
+                    classement.add(player);
+                }
     }
 
 
