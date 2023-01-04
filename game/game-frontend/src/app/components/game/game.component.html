@@ -13,7 +13,7 @@
     </button>
 
     <div>
-      <p [(ngModel)]='this.gameService.player.score'>score : </p>
+      <p [(ngModel)]='this.gameService.player.score' name="scoreintra" ngDefaultControl >score : </p>
       {{this.scoreintra}}
     </div>
 
@@ -26,6 +26,7 @@
     </form>
     <p>Ton nom actuel : {{this.gameService.currentGame.player.getName()}}</p>
   </div>
+  <button (click)="this.gameService.endGame()"></button>
 
 
 
