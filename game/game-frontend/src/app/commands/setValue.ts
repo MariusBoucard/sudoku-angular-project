@@ -4,13 +4,13 @@ import { Game } from "../classes/game";
 import { GameService } from "../services/game.service";
 
 export class setValue extends UndoableCommand {
-    
+
     private oldValue!: number;
     private index!: number;
     public constructor(private tuileindex: number, private newValue: number,@Inject("gameServ") private gameService: GameService) {
         super();
         gameService.addScore();
-      
+
 
     }
 
@@ -48,7 +48,7 @@ export class setValue extends UndoableCommand {
         this.gameService.setValue(this.index, this.oldValue);
         this.gameService.updateSuggestedValues();
             this.gameService.updateConstraintRespected();
-            
+
     }
 
     /**
@@ -70,7 +70,7 @@ public override canExecute(): boolean {
 
     /**
      * rendu originel
-     *  */ 
+     *  */
     public rootRenderer(): UndoableSnapshot {
         return setValue.getSnapshot(this.gameService.currentGame);
         }
@@ -88,13 +88,20 @@ public override canExecute(): boolean {
         canvas.width = 1000;
         canvas.height = 1000;
         ctx.font = '100px Bodo';
-        ctx.fillStyle = "red";
+        ctx.fillStyle = game.grid.checkTiles()? (indexChanged !== undefined && game.grid.getSuggestedValue(indexChanged).length !== 1? "white" : "purple") : "red";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "black";
         for (let i = 0; i < game.grid.tileList.length; i++){
             if(game.grid.tileList[i]?.getValue()===0){
                 ctx.fillText("", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
             } else {
-
-                ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+                if (indexChanged !== undefined && i === indexChanged ){
+                  ctx.fillStyle = "green";
+                  ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+                  ctx.fillStyle = "black";
+                } else {
+                  ctx.fillText(game.grid.tileList[i]?.getValue().toString() ?? "", (i % 9) * tailleTuile + 30, Math.floor(i / 9) * tailleTuile + 85);
+                }
             }
             }
             for(let i = 1; i < 9; i++) {
@@ -109,11 +116,11 @@ public override canExecute(): boolean {
             return imgCache;
         }
         /**
-         * 
+         *
          * @returns La petite image
          */
         public override getVisualSnapshot(): Promise<HTMLElement> | HTMLElement | undefined {
             return setValue.getSnapshot(this.gameService.currentGame, this.index);
             }
-        
+
 }

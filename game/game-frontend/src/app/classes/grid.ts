@@ -107,9 +107,14 @@ export class Grid {
    * @returns boolean : true if everything's OK and False if something is wront
    */
     checkTiles() {
-     for(let i=0;i<81;i++){
-      this.tileList[i].constraintRespected = this.checkTile(i);
-     }
+      for (let i = 0; i < 81; i++) {
+        const tileCheckedOK = this.checkTile(i);
+        this.tileList[i].constraintRespected = tileCheckedOK;
+        if(!tileCheckedOK){
+          return false;
+        }
+      }
+      return true
     }
   /**
    *
